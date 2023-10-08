@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';
 import { appWithTranslation } from 'next-i18next';
+import '../styles/globals.css';
 
 import store from '../store';
 
@@ -14,13 +15,13 @@ interface MyAppProps extends AppProps {
   Component: NextPageWithLayout;
 }
 
-function MyApp({ Component, pageProps }: MyAppProps) {
+const MyApp = ({ Component, pageProps }: MyAppProps): JSX.Element => {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
 
   return (
     <Provider store={store}>{getLayout(<Component {...pageProps} />)}</Provider>
   );
-}
+};
 
 export default appWithTranslation(MyApp);

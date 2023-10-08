@@ -1,0 +1,13 @@
+@import '../../styles/variables';
+
+.errorMessage {
+  color: $color-red;
+}
+
+.errorInput {
+  border-color: $color-red !important;
+}
+
+.errorInput::placeholder {
+  color: $color-red !important;
+}

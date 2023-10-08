@@ -1,6 +1,9 @@
 import { memo } from 'react';
 import { useController, UseControllerProps } from 'react-hook-form';
 import { UseFormRegister } from 'react-hook-form/dist/types/form';
+import cn from 'classnames';
+
+import styles from './styles.module.scss';
 
 interface InputProps extends UseControllerProps<any> {
   type: string;
@@ -19,7 +22,9 @@ const Input = (props: InputProps): JSX.Element => {
     <div>
       <input
         {...field}
-        className="form-control"
+        className={cn('form-control', {
+          [styles.errorInput]: Object.keys(fieldState.error || {}).length,
+        })}
         placeholder={props.placeholder}
         type={props.type}
         disabled={props.disabled}
@@ -31,7 +36,13 @@ const Input = (props: InputProps): JSX.Element => {
         })}
         {...(props.type === 'number' && { min: 0 })}
       />
-      {props.withError && <p>{fieldState.error && 'invalid'}</p>}
+      {props.withError &&
+        fieldState?.error &&
+        Object.keys(fieldState?.error as object).length && (
+          <p className={styles.errorMessage}>
+            {fieldState.error?.message || 'Required Field'}
+          </p>
+        )}
     </div>
   );
 };
