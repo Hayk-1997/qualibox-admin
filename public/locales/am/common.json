@@ -1,0 +1,37 @@
+{
+  "AUTH": {
+    "REGISTER": "Գրանցվել",
+    "LOGIN": "Մուտք գործել",
+    "FORGOT_PASSWORD": "Մոռացել եք գաղտնաբառը"
+  },
+  "FIELDS": {
+    "EMAIL": "էլ. փոստ",
+    "PASSWORD": "Գաղտնաբառ",
+    "FIRST_NAME": "Անուն",
+    "LAST_NAME": "Ազգանուն",
+    "MOBILE_PHONE": "Բջջային հեռախոս",
+    "PHONE": "Հեռախոսահամար",
+    "COLOR": "Գույն",
+    "QUANTITY": "Քանակ",
+    "ADD_TO_CART": "Ավելացնել զամբյուղում",
+    "FROM": "Սկսած",
+    "TO": "Մինչև",
+    "SORT_BY": "Դասավորել ըստ",
+    "SHOW": "Ցուցադրում",
+    "PRICE_SELECT_OPTION": {
+      "DEFAULT": "Ստանդարտ",
+      "LOW": "Գին (ցածր > բարձր)",
+      "HIGH": "Գին (բարձր > բարձր)"
+    },
+    "SEARCH": "Որոնում"
+  },
+  "PAGES": {
+    "MAIN": "Գլխավոր էջ",
+    "PRODUCT_DETAILS": "Ապրանքի մանրամասերը",
+    "SHOPPING_CART": "Գնումների զամբյուղ"
+  },
+  "TITLES": {
+    "PRICE_SEARCH": "Գների որոնում",
+    "TOP_CATEGORY": "Թոփ կատեգորիաներ"
+  }
+}
