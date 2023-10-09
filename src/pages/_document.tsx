@@ -1,7 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document {
-  render() {
+  render(): JSX.Element {
     return (
       <Html>
         <Head>
@@ -12,6 +12,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
+        <script src="/assets/scripts/fontawesome.js" crossOrigin="anonymous" />
       </Html>
     );
   }
