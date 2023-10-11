@@ -2,36 +2,32 @@ import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import ApiInstance from '../../services/axios';
 import { clearToken, getUserToken } from '../../helpers/auth';
-import { ADMIN } from '../../enum/user';
+import { TUser } from '../../types/auth/admin';
+// import { ADMIN } from '../../enum/user';
 
-// interface IUseAuth {
-//   middleware: string;
-//   redirectIfAuthenticated?: string;
-// }
-export const useAdminAuth = (): any => {
+export const useAdminAuth = (): TUser | null => {
   const router = useRouter();
 
-  const {
-    data: user,
-    // error,
-    // mutate,
-  } = useSWR('/auth/check-auth', () =>
-    ApiInstance.get('/auth/check-auth', {
+  const { data: user } = useSWR('/check-auth', () =>
+    ApiInstance.get('/check-auth', {
       headers: { Authorization: 'Bearer ' + getUserToken() },
     })
-      .then((res) => {
-        if (res.data.data.role !== ADMIN.ADMIN) {
-          router.push('/admin/login');
-        }
-        return res.data;
+      .then((res: { data: { data: TUser } }) => {
+        //@TODO need to refactor later
+        // if (res.data.data.role !== ADMIN.ADMIN) {
+        //   router.push('/login');
+        // }
+        return res.data.data;
       })
       .catch(() => {
         clearToken();
-        router.push('/admin/login');
+        router.push('/login');
       })
   );
 
-  return {
-    user,
-  };
+  if (user) {
+    return user;
+  }
+
+  return null;
 };

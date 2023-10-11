@@ -1,18 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AppDispatch, AppState } from '../store';
 import ApiInstance from '../services/axios';
-import { TAdminLoginForm, TAdmin } from '../types/auth/admin';
+import { TAdminLoginForm, TUser } from '../types/auth/admin';
 import { setUserToken } from '../helpers/auth';
 
 type TInitialState = {
-  admin: TAdmin;
+  admin: TUser;
   loginSuccess: boolean;
   loginError: boolean;
   loading: boolean;
 };
 
 const initialState: TInitialState = {
-  admin: {} as TAdmin,
+  admin: {} as TUser,
   loginSuccess: false,
   loginError: false,
   loading: false,
@@ -28,11 +28,10 @@ export const authSlice = createSlice({
     },
     setAdminLoginRequestSuccess: (
       state,
-      action: { payload: { token: string; admin: TAdmin } }
+      action: { payload: { token: string } }
     ) => {
-      const { token, admin } = action.payload;
+      const { token } = action.payload;
       setUserToken(token);
-      state.admin = admin;
       state.loginSuccess = true;
       state.loginError = false;
     },
@@ -57,16 +56,16 @@ export const {
 export default authSlice.reducer;
 
 export const useSelectLoginSuccess = (state: AppState): boolean =>
-  state.adminAuth.loginSuccess;
+  state.auth.loginSuccess;
 
 export const useSelectLoginError = (state: AppState): boolean =>
-  state.adminAuth.loginError;
+  state.auth.loginError;
 
 export const adminLoginRequest = (data: TAdminLoginForm) => {
   return async (dispatch: AppDispatch) => {
     try {
       dispatch(setAdminLoginRequest());
-      const response = await ApiInstance.post('auth/admin-login', {
+      const response = await ApiInstance.post('login', {
         ...data,
       });
       dispatch(setAdminLoginRequestSuccess(response.data));

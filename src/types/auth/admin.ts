@@ -12,10 +12,8 @@ export type TUserRegistration = {
   password: string;
 };
 
-export type TAdmin = {
-  firstName: string;
-  lastName: string;
-  phone: string;
+export type TUser = {
+  name: string;
   email: string;
   role: string;
 };
