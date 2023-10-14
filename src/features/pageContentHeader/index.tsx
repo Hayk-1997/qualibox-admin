@@ -15,9 +15,10 @@ const PageContentHeader: React.FC<IPageContentHeader> = ({ pageContentHeader }):
           <div className="col-sm-6">
             <ol className="breadcrumb float-sm-right">
               <li className="breadcrumb-item">
-                <a href="#">Home</a>
+                <button type="button" className="btn btn-block btn-primary">
+                  Create
+                </button>
               </li>
-              <li className="breadcrumb-item active">DataTables</li>
             </ol>
           </div>
         </div>
