@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAdminAuth } from '../../hooks/admin/useAdminAuth';
+import { useAdminAuth } from '../../hooks/useAdminAuth';
 import { ToastContainer } from 'react-toastify';
 import Navbar from '../../features/navbar';
 import Sidebar from '../../features/sidebar';
