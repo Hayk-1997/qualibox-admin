@@ -15,7 +15,7 @@ const AuthorizedAdminLayout = ({
   children,
   pageContentHeader,
 }: ILayout): JSX.Element => {
-  const user = 1; //useAdminAuth();
+  const user = useAdminAuth();
 
   return (
     <main>
