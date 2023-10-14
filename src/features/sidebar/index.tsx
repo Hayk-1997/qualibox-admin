@@ -1,4 +1,3 @@
-
 const Sidebar = (): JSX.Element => {
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -11,9 +10,7 @@ const Sidebar = (): JSX.Element => {
       <div className="sidebar">
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="info">
-            <div className="d-block text-white">
-              Alexander Pierce
-            </div>
+            <div className="d-block text-white">Alexander Pierce</div>
           </div>
         </div>
         <div className="form-inline">

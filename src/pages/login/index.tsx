@@ -1,10 +1,15 @@
-import { ReactElement, useCallback } from 'react';
+import { ReactElement, useCallback, useEffect } from 'react';
 import AuthPageLayout from '../../layout/admin/authPageLayout';
 import Input from '../../formElements/input';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TAdminLoginForm } from '../../types/auth/admin';
-import { adminLoginRequest } from '../../slices/authSlice';
+import {
+  adminLoginRequest,
+  useSelectLoginError,
+  useSelectLoginSuccess,
+} from '../../slices/authSlice';
+import { useRouter } from 'next/router';
 
 type FormValues = {
   email: string;
@@ -13,6 +18,10 @@ type FormValues = {
 
 const Login = (): JSX.Element => {
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  const loginSuccess = useSelector(useSelectLoginSuccess);
+  const loginError = useSelector(useSelectLoginError);
 
   const { handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
@@ -21,6 +30,12 @@ const Login = (): JSX.Element => {
     },
     mode: 'onChange',
   });
+
+  useEffect(() => {
+    if (loginSuccess && !loginError) {
+      router.push('/dashboard');
+    }
+  }, [loginSuccess, loginError, router]);
 
   const onSubmit = useCallback(
     (data: FormValues): void => {
