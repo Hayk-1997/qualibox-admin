@@ -1,8 +1,8 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
-import ApiInstance from '../../services/axios';
-import { clearToken, getUserToken } from '../../helpers/auth';
-import { TUser } from '../../types/auth/admin';
+import ApiInstance from '../services/axios';
+import { clearToken, getUserToken } from '../helpers/auth';
+import { TUser } from '../types/auth/admin';
 // import { ADMIN } from '../../enum/user';
 
 export const useAdminAuth = (): TUser | null => {

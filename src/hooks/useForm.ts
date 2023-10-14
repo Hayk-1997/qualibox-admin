@@ -1,7 +1,4 @@
-import type { ChangeEvent } from 'react';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-
-import type { AppDispatch, AppState } from './store';
+import { ChangeEvent } from 'react';
 
 export const useForm =
   <TContent>(defaultValues: TContent) =>
@@ -24,8 +21,3 @@ export const useForm =
     await handler(data);
     form.reset();
   };
-
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
-export const useAppDispatch = (): AppDispatch => useDispatch<AppDispatch>();
-
-export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
