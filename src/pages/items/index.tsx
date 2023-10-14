@@ -7,7 +7,11 @@ const Items = (): JSX.Element => {
 };
 
 Items.getLayout = function getLayout(page: ReactElement) {
-  return <AuthorizedAdminLayout>{page}</AuthorizedAdminLayout>;
+  return (
+    <AuthorizedAdminLayout pageContentHeader="Items">
+      {page}
+    </AuthorizedAdminLayout>
+  );
 };
 
 export default Items;
