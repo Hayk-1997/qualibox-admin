@@ -6,7 +6,11 @@ const Dashboard = (): JSX.Element => {
 };
 
 Dashboard.getLayout = function getLayout(page: ReactElement) {
-  return <AuthorizedAdminLayout>{page}</AuthorizedAdminLayout>;
+  return (
+    <AuthorizedAdminLayout pageContentHeader="Dashboard">
+      {page}
+    </AuthorizedAdminLayout>
+  );
 };
 
 export default Dashboard;
