@@ -3,9 +3,9 @@ import { useAdminAuth } from '../../hooks/useAdminAuth';
 import { ToastContainer } from 'react-toastify';
 import Navbar from '../../features/navbar';
 import Sidebar from '../../features/sidebar';
+import PageContentHeader from '../../features/pageContentHeader';
 
 import 'react-toastify/dist/ReactToastify.css';
-import PageContentHeader from '../../features/pageContentHeader';
 
 interface ILayout {
   children: React.ReactElement;
