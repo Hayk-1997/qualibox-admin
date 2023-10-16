@@ -1,117 +1,79 @@
-import { ReactElement, useCallback, useEffect } from 'react';
-import AuthPageLayout from '../../layout/admin/authPageLayout';
-import Input from '../../formElements/input';
+import { Fragment, useCallback, useEffect } from 'react';
+// import Input from '@formElements/input';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { TAdminLoginForm } from '../../types/auth/admin';
-import {
-  adminLoginRequest,
-  useSelectLoginError,
-  useSelectLoginSuccess,
-} from '../../slices/authSlice';
+import { TLoginForm } from '@types/auth';
+import { getIsLoading, getUser, login } from '@store/slices/authSlice';
 import { useRouter } from 'next/router';
+import Layout from './layout';
+import LoginForm from '@components/forms/loginForm';
+
+import { Col, Button, Form, Input, InputNumber } from 'antd';
+
+const layout = {
+	labelCol: { span: 8 },
+	wrapperCol: { span: 16 },
+};
+
+
 
 type FormValues = {
-  email: string;
-  password: string;
+	email: string;
+	password: string;
 };
 
 const Login = (): JSX.Element => {
-  const dispatch = useDispatch();
-  const router = useRouter();
+	const dispatch = useDispatch();
+	const router = useRouter();
+	const isLoading = useSelector(getIsLoading);
+	const user = useSelector(getUser);
+	const onFinish = (formValues: TLoginForm) => {
+		dispatch(login(formValues));
+	};
+	console.log();
 
-  const loginSuccess = useSelector(useSelectLoginSuccess);
-  const loginError = useSelector(useSelectLoginError);
+	useEffect(() => {
+		if (!user) { return; }
+		router.push('/dashboard');
+	}, [user, router]);
 
-  const { handleSubmit, control } = useForm<FormValues>({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-    mode: 'onChange',
-  });
-
-  useEffect(() => {
-    if (loginSuccess && !loginError) {
-      router.push('/dashboard');
-    }
-  }, [loginSuccess, loginError, router]);
-
-  const onSubmit = useCallback(
-    (data: FormValues): void => {
-      dispatch(adminLoginRequest(data as TAdminLoginForm));
-    },
-    [dispatch]
-  );
-
-  return (
-    <div className="row h-100 align-content-sm-center">
-      <div className="col-md-6 m-0-auto">
-        <form className="form-horizontal" onSubmit={handleSubmit(onSubmit)}>
-          <div className="card-body">
-            <div className="form-group row">
-              <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">
-                Email
-              </label>
-              <div className="col-sm-10">
-                <Input
-                  control={control}
-                  rules={{ required: true }}
-                  withError={true}
-                  type="email"
-                  id="email"
-                  placeholder="Email"
-                  name="email"
-                />
-              </div>
-            </div>
-            <div className="form-group row">
-              <label
-                htmlFor="inputPassword3"
-                className="col-sm-2 col-form-label"
-              >
-                Password
-              </label>
-              <div className="col-sm-10">
-                <Input
-                  control={control}
-                  rules={{ required: true }}
-                  withError={true}
-                  type="password"
-                  id="password"
-                  placeholder="Password"
-                  name="password"
-                />
-              </div>
-            </div>
-            <div className="form-group row">
-              <div className="offset-sm-2 col-sm-10">
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="rememberMe"
-                  />
-                  <label className="form-check-label" htmlFor="rememberMe">
-                    Remember me
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="card-footer">
-            <button type="submit" className="btn btn-info">
-              Sign in
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+	return (
+		<Fragment>
+			<Col>
+				<Form
+					{...layout}
+					name="nest-messages"
+					onFinish={onFinish}
+					style={{ maxWidth: 600 }}
+				>
+					<Form.Item
+						name='email'
+						label="Email"
+						rules={[
+							{ required: true, message: 'Please input your email!' },
+							{ type: 'email', message: 'Invalid email!' }
+						]}
+					>
+						<Input />
+					</Form.Item>
+					<Form.Item
+						name='password'
+						label="Password"
+						rules={[{ required: true, message: 'Please input your password!' }]}
+					>
+						<Input.Password />
+					</Form.Item>
+					<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+						<Button type="primary" htmlType="submit">
+							Submit
+						</Button>
+					</Form.Item>
+				</Form>
+			</Col>
+		</Fragment>
+	);
 };
 
-Login.getLayout = function getLayout(page: ReactElement) {
-  return <AuthPageLayout>{page}</AuthPageLayout>;
-};
+Login.getLayout = Layout;
 
 export default Login;

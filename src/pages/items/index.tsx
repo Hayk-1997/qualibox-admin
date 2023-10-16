@@ -1,17 +1,17 @@
 import { ReactElement } from 'react';
 import React from 'react';
-import AuthorizedAdminLayout from '../../layout/admin/authorizedAdminLayout';
+import AuthorizedLayout from '@layout/authorizedLayout';
 
 const Items = (): JSX.Element => {
-  return <div></div>;
+	return <div></div>;
 };
 
 Items.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <AuthorizedAdminLayout pageContentHeader="Items">
-      {page}
-    </AuthorizedAdminLayout>
-  );
+	return (
+		<AuthorizedLayout pageContentHeader="Items">
+			{page}
+		</AuthorizedLayout>
+	);
 };
 
 export default Items;
