@@ -7,8 +7,7 @@ const ApiInstance: AxiosInstance = axios.create({
 });
 
 // Add a request interceptor
-ApiInstance.interceptors.request.use(
-	function (config) {
+ApiInstance.interceptors.request.use((config) => {
 		if (typeof window !== 'undefined') {
 			const token = getUserToken();
 			if (token) {
@@ -17,19 +16,19 @@ ApiInstance.interceptors.request.use(
 		}
 		return config;
 	},
-	function (error) {
+	(error) => {
 		// Do something with request error
 		return Promise.reject(error);
 	}
 );
 
+
 // Add a response interceptor
-ApiInstance.interceptors.response.use(
-	function (response) {
+ApiInstance.interceptors.response.use((response) => {
 		// Do something with response data
 		return response;
 	},
-	function (error) {
+	(error) => {
 		// Do something with response error
 		return Promise.reject(error);
 	}

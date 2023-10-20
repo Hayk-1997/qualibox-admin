@@ -46,16 +46,16 @@ export const getUser = (state: AppState): boolean => state.auth.user;
 export const login = (data: TLoginForm) => {
 	return async (dispatch: AppDispatch) => {
 		try {
-			dispatch(setLoading(true));
+			dispatch(setLoading({ value: true }));
 			const requestBody = { ...data };
 			const response = await ApiInstance.post('/login', requestBody);
 			dispatch(saveUserToken(response.data));
 			delete requestBody.password;
 			dispatch(setUser(requestBody));
 		} catch (e) {
-			message.error("Error: ", e.message)
+			message.error("Error: " + e.message)
 		} finally {
-			dispatch(setLoading(false));
+			dispatch(setLoading({ value: false }));
 		}
 	};
 };

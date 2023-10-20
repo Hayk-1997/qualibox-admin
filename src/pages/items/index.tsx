@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import React from 'react';
-import AuthorizedLayout from '@layout/authorizedLayout';
+import AuthorizedLayout from '@layout/authorizedMainClientSideLayout';
 
 const Items = (): JSX.Element => {
 	return <div></div>;

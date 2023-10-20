@@ -5,20 +5,22 @@ export default class MyDocument extends Document {
 		return (
 			<Html>
 				<Head>
-					<link rel="stylesheet" href="/assets/styles/all.min.css" />
-					<link rel="stylesheet" href="/assets/styles/adminlte.min.css" />
+					{/* <link rel="stylesheet" href="/assets/styles/all.min.css" /> */}
+					{/* <link rel="stylesheet" href="/assets/styles/adminlte.min.css" /> */}
 				</Head>
-				<body className="sidebar-mini">
+				{/* className="sidebar-mini" */}
+				<body>
+					<div className='bg' />
 					<Main />
 					<NextScript />
 				</body>
-				<script src="/assets/scripts/fontawesome.js" crossOrigin="anonymous" />
-				<script src="/assets/scripts/jquery.min.js" lang="JavaScript" />
-				<script
+				{/* <script src="/assets/scripts/fontawesome.js" crossOrigin="anonymous" /> */}
+				{/* <script src="/assets/scripts/jquery.min.js" lang="JavaScript" /> */}
+				{/* <script
 					src="/assets/scripts/bootstrap.bundle.min.js"
 					lang="JavaScript"
-				/>
-				<script src="/assets/scripts/adminlte.js" lang="JavaScript" />
+				/> */}
+				{/* <script src="/assets/scripts/adminlte.js" lang="JavaScript" /> */}
 				{/*<script src="/assets/scripts/demo.js" lang="JavaScript" />*/}
 			</Html>
 		);

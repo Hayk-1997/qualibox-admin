@@ -1,4 +1,6 @@
 
+const path = require('path');
+
 const nextConfig = {
 	reactStrictMode: false,
 	swcMinify: true,
@@ -14,6 +16,9 @@ const nextConfig = {
 		// your project has type errors.
 		// !! WARN !!
 		ignoreBuildErrors: true
+	},
+	sassOptions: {
+		includePaths: [path.join(__dirname, 'styles')],
 	},
 	async redirects() {
 		return [

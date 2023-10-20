@@ -1,16 +1,16 @@
 import { ReactElement } from 'react';
-import AuthorizedLayout from '@layout/authorizedLayout';
+import ProtectedServerSideLayout from '@layout/protectedServerSideLayout';
+import AuthorizedLayout from '@layout/authorizedMainClientSideLayout';
+import AuthorizedMainClientSideLayout from '@layout/authorizedMainClientSideLayout';
 
 const Dashboard = (): JSX.Element => {
-	return <div>Dashboard</div>;
-};
-
-Dashboard.getLayout = function getLayout(page: ReactElement) {
 	return (
-		<AuthorizedLayout pageContentHeader="Dashboard">
-			{page}
-		</AuthorizedLayout>
+		<AuthorizedMainClientSideLayout>
+			<div>Dashboard</div>
+		</AuthorizedMainClientSideLayout>
 	);
 };
+
+Dashboard.getLayout = ProtectedServerSideLayout;
 
 export default Dashboard;
