@@ -5,9 +5,9 @@ import { clearToken, getUserToken } from '@helpers/auth';
 import { TUser } from '@types/auth';
 
 export const useAuth = (): TUser | null => {
-	const router = useRouter();
 
-	const { data: user } = useSWR('/check-auth', () =>
+	const router = useRouter();
+	const swrResponse = useSWR('/check-auth', () =>
 		ApiInstance.get('/check-auth', {
 			headers: { Authorization: 'Bearer ' + getUserToken() },
 		})
@@ -23,6 +23,11 @@ export const useAuth = (): TUser | null => {
 				router.push('/login');
 			})
 	);
+
+	const { data: user } = swrResponse
+
+	console.log("swrResponse: ", swrResponse);
+	
 
 	if (user) {
 		return user;

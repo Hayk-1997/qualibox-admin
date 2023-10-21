@@ -5,20 +5,12 @@ const ProtectedServerSideLayout = (page: ReactElement): JSX.Element => {
 	const user = useAuth();
 	return (
 		<Fragment>
-			{page}
+			{
+				user
+					? page
+					: null
+			}
 		</Fragment>
-
-		// <main>
-		// 	<Navbar />
-		// 	<Sidebar />
-		// 	<ToastContainer newestOnTop />
-		// 	{user && (
-		// 		<div className="content-wrapper">
-		// 			<PageContentHeader pageContentHeader={pageContentHeader} />
-		//				{children}
-		// 		</div>
-		// 	)}
-		// </main>
 	);
 };
 

@@ -10,7 +10,6 @@ export default class MyDocument extends Document {
 				</Head>
 				{/* className="sidebar-mini" */}
 				<body>
-					<div className='bg' />
 					<Main />
 					<NextScript />
 				</body>

@@ -1,0 +1,1 @@
+export const stopPropagation = (e: Event): void => e.stopPropagation();
