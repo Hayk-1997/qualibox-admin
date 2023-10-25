@@ -10,7 +10,6 @@ export const PATHS: Paths = {
 	//#region Auth Section
 	LOGIN: "/login",
 	ACTIVATE: "/activate",
-	RESET_PASSWORD: "/reset-password",
 	FORGOT_PASSWORD: "/forgot-password",
 	//#endregion
 	//#region Dashboard
@@ -45,15 +44,11 @@ export const PATHS: Paths = {
 	CMS_NOTIFICATIONS_EMAIL: "/cms/notifications/email",
 	CMS_FOLLOW_US: "/cms/follow-us",
 	CMS_TERMS: "/cms/terms",
-	CMS_PRIVACY_AND_POLICY: "/cms/privacy-&-policy",
+	CMS_PRIVACY_AND_POLICY: "/cms/privacy-and-policy",
 	CMS_FAQ: "/cms/faq",
 	CMS_ABOUT_US: "/cms/about-us"
 	//#endregion
 };
-
-const PROTECTED_NAVIGATION_MENU_ITEM_KEYS = {
-
-}
 
 export const PROTECTED_NAVIGATION_MENU_ITEMS: MenuItem[] = [
 	{

@@ -3,14 +3,14 @@ import ProtectedServerSideLayout from '@layout/protectedServerSideLayout';
 import AuthorizedLayout from '@layout/authorizedMainClientSideLayout';
 import AuthorizedMainClientSideLayout from '@layout/authorizedMainClientSideLayout';
 
-const Dashboard = (): JSX.Element => {
+const Users = (): JSX.Element => {
 	return (
 		<AuthorizedMainClientSideLayout>
-			<div>Dashboard</div>
+			<div>Users</div>
 		</AuthorizedMainClientSideLayout>
 	);
 };
 
-Dashboard.getLayout = ProtectedServerSideLayout;
+Users.getLayout = ProtectedServerSideLayout;
 
-export default Dashboard;
+export default Users;

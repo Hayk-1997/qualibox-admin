@@ -25,8 +25,6 @@ export const useAuth = (): TUser | null => {
 	);
 
 	const { data: user } = swrResponse
-
-	console.log("swrResponse: ", swrResponse);
 	
 
 	if (user) {
