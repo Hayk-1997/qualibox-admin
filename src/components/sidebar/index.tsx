@@ -1,8 +1,9 @@
 import { Layout, Menu } from "antd"
-import { useState } from "react"
+import { useLayoutEffect, useState } from "react"
 import { PROTECTED_NAVIGATION_MENU_ITEMS } from "@constants/navigations.constants";
 import type { MenuItem } from "@constants/navigations.constants";
 import { usePathname, useRouter } from 'next/navigation'
+import useUpdateEffect from "@hooks/useUpdateEffect";
 // import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 // import type { MenuProps } from 'antd';
 // type MenuItem = Required<MenuProps>['items'][number];
@@ -49,32 +50,36 @@ const Sidebar = () => {
 	
 	const router = useRouter()
 	const pathname = usePathname();
-	
-	const [triggerState, setTriggerState] = useState(false)
+	const [selectedItem, setSelectedItem] = useState<string>(pathname);
 	const [openKeys, setOpenKeys] = useState<MenuItem["key"][]>([ PROTECTED_NAVIGATION_MENU_ITEMS[0]?.key ]);
 	const onOpenChange: MenuProps['onOpenChange'] = (keys) => { setOpenKeys(keys); };
+
+	useUpdateEffect(() => {
+		router.push(selectedItem)
+	}, [selectedItem])
 	
 	return (
 		<Layout.Sider
 			collapsible
-			trigger={null}
-			collapsed={triggerState}
 			width={280}
 		>
-			<div style={{ height: 64, color: "red" }} className="logo" onClick={() => setTriggerState(prev => !prev)}>
-				Trigger
+			<div
+				style={{ height: 64, color: "red" }}
+				className="logo"
+			>
+				Logo
 			</div>
 			<Menu
-				defaultSelectedKeys={[pathname]}
+				selectable={true}
+				selectedKeys={[selectedItem]}
+				onSelect={(selectEvent) => {
+					const { key: navigationUrl } = selectEvent
+					setSelectedItem(navigationUrl as string)
+				}}
 				mode="inline"
 				openKeys={openKeys}
 				onOpenChange={onOpenChange}
 				items={PROTECTED_NAVIGATION_MENU_ITEMS}
-
-				onClick={(clickEvent) => {
-					const { key: navigationUrl } = clickEvent
-					router.push(navigationUrl)
-				}}
 			/>
 		</Layout.Sider>
 	)

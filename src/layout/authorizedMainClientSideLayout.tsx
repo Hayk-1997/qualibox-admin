@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Layout, Menu } from "antd";
 import Sidebar from "@components/sidebar";
+import Breadcrumb from "@components/breadcrumb";
 
 type Props = {
 	children: string | JSX.Element | JSX.Element[] | (() => JSX.Element)
@@ -14,7 +15,10 @@ const AuthorizedMainClientSideLayout = ({ children }: Props): JSX.Element => {
 			<main className="flex-grow">
 				<Layout.Header></Layout.Header>
 				<section>
-					{children}
+					<Breadcrumb />
+					<div>
+						{children}
+					</div>
 				</section>
 			</main>
 		</Layout>
