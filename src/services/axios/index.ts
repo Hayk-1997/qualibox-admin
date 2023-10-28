@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { getUserToken } from '@helpers/auth';
+import tokenStorageUtils from '@utils/tokenStorage.utils';
 
 const ApiInstance: AxiosInstance = axios.create({
 	baseURL: (process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:82/api"),
@@ -9,9 +9,10 @@ const ApiInstance: AxiosInstance = axios.create({
 // Add a request interceptor
 ApiInstance.interceptors.request.use((config) => {
 		if (typeof window !== 'undefined') {
-			const token = getUserToken();
+			const tokenData = tokenStorageUtils.get()
+			const token = tokenData?.token || null;
 			if (token) {
-				config.headers['Authorization'] = `Bearer ${token}`;
+				config.headers['Authorization'] = 'Bearer ' + token;
 			}
 		}
 		return config;

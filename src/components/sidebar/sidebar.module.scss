@@ -1,0 +1,11 @@
+
+@import '@/styles/variables';
+
+.sidebar {
+	color: $default-txt-color;
+	background: $default-bg-color !important;
+	& > .ant-layout-sider-trigger {
+		background: inherit !important;
+		color: inherit !important;
+	}
+}

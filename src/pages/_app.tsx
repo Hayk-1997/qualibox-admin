@@ -5,6 +5,7 @@ import { Fragment, ReactElement, ReactNode } from 'react';
 import { appWithTranslation } from 'next-i18next';
 import '@styles/globals.css';
 import '@styles/globals.scss';
+import '@styles/variables.scss';
 import store from '@store';
 
 type NextPageWithLayout = NextPage & {

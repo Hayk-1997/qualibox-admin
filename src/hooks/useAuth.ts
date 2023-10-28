@@ -1,35 +1,31 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import ApiInstance from '@services/axios';
-import { clearToken, getUserToken } from '@helpers/auth';
 import { TUser } from '@types/auth';
+import tokenStorageUtils from '@utils/tokenStorage.utils';
 
 export const useAuth = (): TUser | null => {
 
 	const router = useRouter();
-	const swrResponse = useSWR('/check-auth', () =>
-		ApiInstance.get('/check-auth', {
-			headers: { Authorization: 'Bearer ' + getUserToken() },
-		})
-			.then((res: { data: { data: TUser } }) => {
-				//@TODO need to refactor later
-				// if (res.data.data.role !== ADMIN.ADMIN) {
-				//   router.push('/login');
-				// }
+	const swrResponse = useSWR('/check-auth', () => {
+		const tokenData = tokenStorageUtils.get();
+		const token = tokenData?.token || null;
+		const headers = (
+			token
+				? ({ Authorization: 'Bearer ' + token })
+				: null
+		)
+		return ApiInstance.get('/check-auth', { headers }).then((res: { data: { data: TUser } }) => {
 				return res.data.data;
 			})
 			.catch(() => {
-				clearToken();
+				tokenStorageUtils.remove();
 				router.push('/login');
 			})
+	}
 	);
 
 	const { data: user } = swrResponse
-	
 
-	if (user) {
-		return user;
-	}
-
-	return null;
+	return user || null;
 };

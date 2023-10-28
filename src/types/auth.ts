@@ -6,5 +6,9 @@ export type TLoginForm = {
 export type TUser = {
 	name: string;
 	email: string;
-	role: string;
 };
+
+export type TTokens = {
+	refreshToken?: string | null
+	token?: string | null
+}

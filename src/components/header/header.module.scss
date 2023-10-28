@@ -1,0 +1,10 @@
+
+@import '@/styles/variables';
+
+.header {
+	color: $default-txt-color;
+	background: $default-bg-color;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}

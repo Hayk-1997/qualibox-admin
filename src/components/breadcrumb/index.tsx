@@ -12,7 +12,6 @@ const Breadcrumb = () => {
 		const links = [];
 		const pathValues = Object.values(PATHS)
 		pathValues.forEach(path => {
-			console.log(path);
 			const matchObj = _pathname.match(new RegExp("^" + path));
 			if (!matchObj) {
 				return

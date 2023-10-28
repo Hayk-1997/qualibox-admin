@@ -8,12 +8,14 @@ import PublicServerSideLayout from '@layout/publicServerSideLayout';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Col, Row, Button, Form, Input, InputNumber, Space, Spin, Checkbox } from 'antd';
 import styles from "./style.module.scss"
+import { useAppSelector } from '@hooks/useAppSelector';
 
 const LoginForm = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
-	const isLoading = useSelector(getIsLoading);
-	const user = useSelector(getUser);
+	const isLoading = useAppSelector(getIsLoading);
+	const user = useAppSelector(getUser);
+	
 
 	const onFinish = (formValues: TLoginForm) => {
 		dispatch(login(formValues));
