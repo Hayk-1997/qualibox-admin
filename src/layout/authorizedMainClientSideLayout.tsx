@@ -21,9 +21,9 @@ const AuthorizedMainClientSideLayout = ({ children }: Props): JSX.Element => {
 		router.replace(PATHS.LOGIN)
 	}, [user])
 	return (
-		<Layout hasSider={true} className="bg-transparent min-height-full">
+		<Layout hasSider={true} className="bg-transparent h-full">
 			<Sidebar />
-			<div className="flex-grow">
+			<div className="flex flex-col flex-grow">
 				<Header />
 				<Content>
 					{children}

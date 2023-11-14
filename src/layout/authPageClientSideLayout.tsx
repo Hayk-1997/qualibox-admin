@@ -3,7 +3,7 @@ type Props = {
 }
 const AuthPageClientSideLayout = ({ children }: Props): JSX.Element => {
 	return (
-		<main className='height-full flex flex-col justify-center align-center'>
+		<main className='h-full flex flex-col justify-center align-center'>
 			{children}
 		</main>
 	);

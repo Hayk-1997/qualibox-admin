@@ -6,7 +6,7 @@ import AuthPageClientSideLayout from '@layout/authPageClientSideLayout';
 const Login = (): JSX.Element => {
 	return (
 		<AuthPageClientSideLayout>
-			<Row className='width-full'>
+			<Row className='w-full'>
 				<Col xs={22} sm={20} md={12} lg={8} xl={8} xxl={6} className='mx-auto'>
 					<LoginForm />
 				</Col>

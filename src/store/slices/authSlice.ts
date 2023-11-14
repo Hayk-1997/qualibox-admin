@@ -4,20 +4,13 @@ import ApiInstance from '@services/axios';
 import { TLoginForm, TUser } from '@types/auth';
 import { message } from 'antd';
 import tokenStorageUtils from '@utils/tokenStorage.utils';
-
-type TInitialState = {
-	user?: TUser;
-	isLoading: boolean
-};
-
-const initialState: TInitialState = {
-	user: null,
-	isLoading: false
-};
+import { authSliceInitialState } from '@store/initialStates/authSliceInitialState';
+import { API_URLS } from '@constants/api.constants';
+import Methods from '@enums/api.enums';
 
 export const authSlice = createSlice({
 	name: 'auth',
-	initialState,
+	initialState: authSliceInitialState,
 	reducers: {
 		setLoading: (state, action: PayloadAction<{ value: boolean }>) => {
 			const { value } = action.payload;
@@ -41,7 +34,11 @@ export const login = (data: TLoginForm) => {
 		try {
 			dispatch(setLoading({ value: true }));
 			const requestBody = { ...data };
-			const response = await ApiInstance.post('/login', requestBody);
+			const response = await ApiInstance({
+				url: API_URLS.AUTH.LOGIN,
+				method: Methods.Post,
+				data: requestBody
+			});
 			const { token, refreshToken } = response.data;
 			tokenStorageUtils.set({ token, refreshToken })
 			delete requestBody.password;
@@ -58,7 +55,10 @@ export const logout = () => {
 	return async (dispatch: AppDispatch) => {
 		try {
 			dispatch(setLoading({ value: true }));
-			await ApiInstance.post('/logout');
+			await ApiInstance({
+				url: API_URLS.AUTH.LOGOUT,
+				method: Methods.Post
+			});
 		} catch (e) {
 			message.error("Error: " + e.message)
 		} finally {

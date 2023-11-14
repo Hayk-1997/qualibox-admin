@@ -4,10 +4,15 @@ import { Breadcrumb as AntdBreadcrumb } from 'antd';
 import Link from 'next/link';
 import { PATHS } from "@constants/navigations.constants";
 
-const Breadcrumb = () => {
+type Prop = {
+	className: string | null
+}
+
+const Breadcrumb = ({ className = null }: Prop) => {
 	const pathname = usePathname()
 	const [items, setItems] = useState<any[]>([]);
 	useLayoutEffect(() => {
+		if (!pathname) { return; }
 		let _pathname = pathname;
 		const links = [];
 		const pathValues = Object.values(PATHS)
@@ -34,6 +39,7 @@ const Breadcrumb = () => {
 	return (
 		<AntdBreadcrumb
 			items={items}
+			className={className}
 		/>
 	)
 }
