@@ -13,7 +13,7 @@ const Content = ({ children }: Props): JSX.Element => {
 	return (
 		<Layout.Content className="flex flex-col">
 			<Breadcrumb className={classNames(style["menu-breadcrumb"], "m-[8px] p-[16px]")} />
-			<section className={classNames(style["menu-content"], "flex-grow mx-[8px] mb-[8px] p-[16px]")}>
+			<section className={classNames(style["menu-content"], "flex flex-col mx-[8px] mb-[8px]")}>
 				{children}
 			</section>
 		</Layout.Content>

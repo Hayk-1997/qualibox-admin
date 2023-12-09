@@ -3,6 +3,9 @@ import { Form, Input, InputNumber, Modal } from "antd"
 import { TMaterial } from "@types/material"
 import { useAppDispatch } from "@hooks/useAppDispatch"
 import { createMaterial, reciveMaterials } from "@store/slices/materialsSlice"
+import { useRouter } from "next/navigation"
+import { PATHS } from "@constants/navigations.constants"
+import { API_URL_ID_REGEX } from "@constants/common.constants"
 
 type Props = {
 	show: boolean,
@@ -12,6 +15,7 @@ type Props = {
 const CreateMaterial: React.FC = ({ show, closeFn }: Props): JSX.Element => {
 	const dispatch = useAppDispatch();
 	const [formInstance] = Form.useForm();
+	const router = useRouter()
 	const handleCreate = async () => {
 		try {
 			const values = await formInstance.validateFields()
@@ -19,7 +23,9 @@ const CreateMaterial: React.FC = ({ show, closeFn }: Props): JSX.Element => {
 			dispatch(
 				createMaterial(
 					values as TMaterial,
-					() => dispatch(reciveMaterials())
+					(material: TMaterial) => {
+						router.push(PATHS.PRODUCTS_MATERIALS_DEEP_VIEW.replace(API_URL_ID_REGEX, material.id))
+					}
 				)
 			)
 			closeFn()

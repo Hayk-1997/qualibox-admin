@@ -1,0 +1,169 @@
+/* ----------------------1----------------------------------- */
+
+// "use strict"
+// Trvac x popoxakan, ira mej aknkalvum e object,
+// stugelu hamar inch vat koxm uni typeof x === "object" stugel@
+// 1.patasxan:
+// Karox enq grel nayev pakagceri mej:
+// Bayc konkret objecti depqum karogh e harc arajanal ajd object@ 
+// null, zangvac, function te object e: aveli manramasn dasi jamanak
+
+// const isObject = (arg) => {
+// 	return (
+// 		arg !== null &&
+// 		typeof arg === "object"
+// 		// && !Array.isArray(arg)
+// 	)
+// }
+
+/* ----------------------------2----------------------------- */
+
+// Inch ktpi yev inchu
+// ;(function(){
+// 	var a = (b = 3);
+// 	// a = 3
+// 	// window.b = 3
+// })();
+
+// console.log("a defined? " + (typeof a !== 'undefined'));
+// console.log("b defined? " + (typeof b !== 'undefined'));
+// 2.patasxan: chem jogum xia senc bayc let u consti
+// jamanak el arajin@ es depqum a-n bani tegh chi dnum
+// a defined? false
+// b defined? true
+
+/* ----------------------------3----------------------------- */
+
+// Inch ktpi yev inchu
+// f1()
+// var f1 = function() { console.log("f1_", 1) }
+// f1()
+// function f1() { console.log("f1_", 2) }
+// 3.patasxan:
+// Skzbic ktpi ("f1_", 2), heto ("f1_", 1), qani vor declaration 
+// funkcian hoistinga linum verev, kanchvum e, heto poxvuma expression
+// funkciayi u noric kanchvum. varov haytararvac popoxakan@ 
+// poxume funkcian. function expression@ hasaneli e miayn
+// haytararumic heto. Let u consti 
+// depqum errora berum aselov vor funkcian arden haytararvaca
+
+/* --------------------------4------------------------------- */
+
+// Inch ktpi yev inchu
+// f2()
+// var f2;
+// function f2() { console.log("f2_", 2) }
+
+// 4.patasxan
+// declaretion@ hoistinga linum var@ hoistinga linum.
+// declaration@ kanchvuma
+// varn el vochinch chi anum qani vor popoakanin arjeq chka tvac
+
+/* ---------------------------5------------------------------ */
+
+// Inch ktpi yev inchu
+	// f3()
+	// var f3;
+	//f3() --- es depqum varn ira vra e vekalum funkcian, 
+	//qani vor ajl arjeq chka tvac (im avelacrac)
+	// function f3() { console.log("f3") }
+// 5.patasxan
+// declaretion@ hoistinga linum var@ hoistinga linum.
+// declaration@ kanchvuma
+// varn el vochinch chi anum qani vor iran hert chi hasnum
+// ete vari takic noric kanchenq noric ktpi f3
+
+// f3()
+// function f3() { console.log("f3") }
+// var f3;
+
+/* ---------------------------6------------------------------ */
+
+// Inch ktpi yev inchu
+// f4()
+// var f4 = 5;
+// f4() --- es depqum varn ira vra chi vekalum funkcian, 
+// qani vor ajl arjeqa tvac tvac (im avelacrac)
+// function f4() { console.log("f4") }
+// 6.patasxan
+// declaretion@ hoistinga linum var@ hoistinga linum.
+// declaration@ kanchvuma
+// varn el vochinch chi anum qani vor popoakanin arjeq chka tvac
+
+// f4()
+// var f4 = 5;
+// f4()
+// function f4() { console.log("f4") }
+
+/* ---------------------------7------------------------------ */
+
+// Inch ktpi yev inchu
+// f5()
+// function f5() { console.log("f5") }
+// var f5 = 5;
+// 7.patasxan
+// 6i patasxani nman
+
+/* ---------------------------8------------------------------ */
+
+// Inch ktpi yev inchu
+
+// f6()
+// if(true) {
+// 	function f6() { console.log("f6") }
+// }
+
+// 8.patasxan
+// Kberi is not@ function qani vor funkcian bloki mej e
+// blokic heto kberi f6 isk falsi depqum is not a function 
+
+/* ---------------------------9------------------------------ */
+
+// Inch ktpi yev inchu
+// f7()
+// function f7() { console.log("f7_", 1) }
+// var f7 = function () { console.log("f7_", 2) }
+// function f7() { console.log("f7_", 3) }
+// f7()
+// 9.patasxan
+// Arajnahertutyamb declarationner@ irar en poxum "f7_", 3@
+// kanchuma heto kanchuma var@(im logikayov)
+
+/* ---------------------------10------------------------------ */
+
+// Inch ktpi yev inchu
+// a = 5;
+// foo1()
+// function foo1() {
+// 	if (true) {
+// 		let a = 10
+// 	}
+// 	a = 20
+// 	var a = 30;
+// 	console.log(a)
+// }
+// 10.patasxan
+// ktpi 30.  ifi meji let@ chi erevum drsum.
+// var@ naxapes karanq kanchenq aranc haytararman heto haytatararenq.
+// var@ darnuma 30. var@ uni functional scope u chi kara dranic helni
+//  gumarac nersum a-i arkayutyan depqum kariqchka ayn pntrel drsum
+
+
+/* ---------------------------11------------------------------ */
+
+// Inch ktpi yev inchu
+// b = 5;
+// foo2()
+// function foo2() {
+// 	if (b > 0) {
+// 		let b = 10
+// 	}
+// 	let b = 30;
+// 	console.log(b)
+// }
+// 11.patasxan
+// Cannot access 'b' before initialization
+// functional scopum ka b popoxakan bloki paymanum kancheluc heto
+// ete let b - n dnenq blokic araj kashxati u ktpi 30
+// ete funkciayum b popoxakan chlini kashxati drsum haytararvac b - n
+

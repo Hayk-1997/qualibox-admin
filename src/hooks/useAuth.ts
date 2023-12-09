@@ -18,7 +18,7 @@ export const useAuth = (): TUser | null => {
 				: null
 		)
 		return ApiInstance.get(API_URLS.AUTH.CHECK_OUT, { headers }).then((res: { data: { data: TUser } }) => {
-				return res.data.data;
+				return res.data;
 			})
 			.catch(() => {
 				tokenStorageUtils.remove();

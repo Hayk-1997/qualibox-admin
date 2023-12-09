@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import { Modal, Form, Input } from 'antd';
 const { Item: FormItem } = Form;
-import { POPUP_SIZE } from 'constants/common.constants';
+import { POPUP_SIZE } from '@constants/common.constants';
 
 /** Question Component, the comfirmation modal, which appears before important action */
 const Question = ({
@@ -22,7 +20,6 @@ const Question = ({
 	...rest
 }) => {
 
-	const { t } = useTranslation();
 	const [formInstance] = Form.useForm();
 	const { validateFields, resetFields } = formInstance;
 
@@ -59,7 +56,7 @@ const Question = ({
 			isPromptRequired
 				? [
 					{
-						required: true, whitespace: true, message: t('validation.field_required')
+						required: true, whitespace: true
 					}
 				]
 				: []
@@ -70,7 +67,7 @@ const Question = ({
 				name="prompt"
 				rules={rules}
 			>
-				<Input.TextArea rows={3} maxLength={maxLength} placeholder={`${t('common.enter')} ${promptLabel}`} />
+				<Input.TextArea rows={3} maxLength={maxLength} placeholder={`Enter ${promptLabel}`} />
 			</FormItem>
 		)
 	}
@@ -95,8 +92,8 @@ const Question = ({
 			open={isVisible}
 			centered
 			closable={false}
-			cancelText={t('common.no')}
-			okText={t('common.yes')}
+			cancelText={"No"}
+			okText={"Yes"}
 			wrapClassName="table-confirmation-modal"
 			maskClosable={true}
 			onCancel={handleCancel}
@@ -113,39 +110,6 @@ const Question = ({
 			{renderChildren()}
 		</Modal>
 	)
-}
-
-/** Question propTypes
-	 * PropTypes
-*/
-Question.propTypes = {
-	/** Confirm or Prompt, confirm by default */
-	type: PropTypes.oneOf(["prompt", "confirm"]),
-	/** is Modal visible */
-	isVisible: PropTypes.bool,
-	/** Modal message */
-	message: PropTypes.string,
-	/** Modal title */
-	title: PropTypes.string,
-	/** Modal OK button click handler */
-	onOk: PropTypes.func,
-	/** Modal Cancel button click handler */
-	onCancel: PropTypes.func,
-	/** Prompt input field label */
-	promptLabel: PropTypes.string,
-	/** Should Prompt input field be required */
-	isPromptRequired: PropTypes.bool,
-	/** Modal additional JSX content */
-	popupContent: PropTypes.oneOfType([
-		PropTypes.arrayOf(PropTypes.node),
-		PropTypes.node
-	]),
-	/** If true, loader will be show on ok button */
-	isLoading: PropTypes.bool,
-	/** Should Prompt additional validation */
-	promptValidationRules : PropTypes.arrayOf(PropTypes.object),
-	/** Prompt text area text length */
-	maxLength : PropTypes.number
 }
 
 export default Question;

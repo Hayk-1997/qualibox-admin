@@ -1,6 +1,7 @@
 import { createElement, SyntheticEvent } from "react";
 import type { MenuProps } from 'antd';
 import { LineChartOutlined, InfoCircleOutlined, UnorderedListOutlined, UserOutlined, BuildOutlined, ReconciliationOutlined  } from "@ant-design/icons"
+import { API_URL_ID_STRING } from "./common.constants";
 
 
 export type MenuItem = Required<MenuProps>['items'][number];
@@ -26,6 +27,7 @@ export const PATHS: Paths = {
 	//#endregion
 	//#region Products
 	PRODUCTS_MATERIALS: "/products/materials",
+	PRODUCTS_MATERIALS_DEEP_VIEW: "/products/materials/" + API_URL_ID_STRING,
 	PRODUCTS_COVERING: "/products/covering",
 	PRODUCTS_ITEM_CATEGORY: "/products/item-category",
 	PRODUCTS_ITEM_TYPES: "/products/item-type",

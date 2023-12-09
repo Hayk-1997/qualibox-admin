@@ -1,9 +1,6 @@
 import React, { useRef, Fragment } from 'react';
-import PropTypes from 'prop-types';
-
-import { useTranslation } from 'react-i18next';
-
 import { Tooltip, Button } from 'antd';
+import { EyeOutlined, EditOutlined, DeleteOutlined, PrinterOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 /** Table Actions Component */
 const Actions = ({
@@ -11,8 +8,6 @@ const Actions = ({
 	record,
 	setDeletingItem
 }) => {
-
-	const { t } = useTranslation();
 
 	const ref = useRef(null);
 
@@ -68,7 +63,7 @@ const Actions = ({
 								key={ac}
 							>
 								<Tooltip
-									title={typeof actions[ac].title === "function" ? actions[ac].title(record) : actions[ac].title || (ac === "edit" ? t('common.edit') : ac === "delete" ? t('common.delete') : "")}
+									title={typeof actions[ac].title === "function" ? actions[ac].title(record) : actions[ac].title || (ac === "edit" ? "Edit" : ac === "delete" ? "Delete" : "")}
 									getPopupContainer={() => document.body}
 								>
 									{
@@ -76,17 +71,17 @@ const Actions = ({
 											? typeof actions[ac].icon === "function"
 												? actions[ac].icon(record)
 												: actions[ac].icon
-											: <i className={
+											: (
 												ac === "view"
-													? "icon-eye"
+													? <EyeOutlined />
 													: ac === "edit"
-														? "icon-edit"
+														? <EditOutlined />
 														: ac === "delete"
-															? "icon-remove"
+															? <DeleteOutlined />
 															: ac === "print"
-																? "icon-print"
-																: ""
-											}></i>
+																? <PrinterOutlined />
+																: null
+											)
 									}
 								</Tooltip>
 							</div>
@@ -120,24 +115,12 @@ const Actions = ({
 					<div
 						className="table-action table-action-more"
 					>
-						<i className="icon-more"></i>
+						<EllipsisOutlined />
 					</div>
 				)
 			}
 		</div>
 	)
-}
-
-/** Actions propTypes
-	 * PropTypes
-*/
-Actions.propTypes = {
-	/** Actions mapping object */
-	actions: PropTypes.object,
-	/** Current row record */
-	record: PropTypes.object,
-	/** Function to set deleting item */
-	setDeletingItem: PropTypes.func
 }
 
 export default Actions;

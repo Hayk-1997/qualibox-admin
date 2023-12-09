@@ -1,5 +1,5 @@
 export enum OrderDirection {
-	None = 0,
-	Asc =  1,
-	Desc = 2
+	None = null,
+	Asc =  "asc",
+	Desc = "desc"
 }

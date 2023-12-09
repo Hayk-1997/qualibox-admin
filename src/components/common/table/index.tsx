@@ -2,18 +2,17 @@ import React, { useEffect, useState, Fragment } from "react";
 import { ConfigProvider, Spin, Table as AntTable, Descriptions, Tooltip, Empty, Tag } from "antd";
 
 // import Switch from "./switch";
-// import Actions from "./actions";
+import Actions from "./actions";
 // import SortableRow from "./sortableRow";
 // import SortableWrapper from "./sortableWrapper";
-// import Question from "components/common/question";
+import Question from "@components/common/question";
 // import { OrderDirection } from "constants/common.constants";
 
 import { toUpperCaseFirstLetter, copyToClipboard } from "@utils/common.utils";
 
 import { closestCenter, DndContext, DragOverlay, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-import toDate from "date-fns/toDate";
-import format from "date-fns/format";
+import dayjs from "dayjs";
 import { DATE_FORMAT, TIME_FORMAT } from "@constants/common.constants"
 import { OrderDirection } from "@enums/common.enums";
 
@@ -313,14 +312,13 @@ const Table: TableType = ({
 	 * @memberOf Table
 	 */
 	const renderActions = (record, actionsArg) => {
-		return <Fragment></Fragment>
-		// return (
-		// 	<Actions
-		// 		record={record}
-		// 		actions={actionsArg}
-		// 		setDeletingItem={setDeletingItem}
-		// 	/>
-		// );
+		return (
+			<Actions
+				record={record}
+				actions={actionsArg}
+				setDeletingItem={setDeletingItem}
+			/>
+		);
 	};
 
 	/** Renders the action table cell
@@ -359,7 +357,7 @@ const Table: TableType = ({
 			obj.limit = pagination.pageSize;
 		}
 		if (sorter.field) {
-			obj.orderBy = toUpperCaseFirstLetter(sorter.field);
+			obj.orderBy = sorter.field //toUpperCaseFirstLetter(sorter.field);
 		}
 		if (sorter.order) {
 			obj.orderDirection = sorter.order === "ascend" ? OrderDirection.Asc : OrderDirection.Desc;
@@ -552,7 +550,7 @@ const Table: TableType = ({
 		if (setFiltersFn && filters && filters.to) {
 			setFiltersFn({
 				...filters,
-				to: toDate(format(new Date,`${DATE_FORMAT} ${TIME_FORMAT}`)) //moment(new Date(), `${config.DATE_FORMAT} ${config.TIME_FORMAT}`).toDate(),
+				to: dayjs(new Date).format(`${DATE_FORMAT} ${TIME_FORMAT}`).toDate() //moment(new Date(), `${config.DATE_FORMAT} ${config.TIME_FORMAT}`).toDate(),
 			});
 		}
 		loadFn && loadFn(true);
@@ -640,24 +638,24 @@ const Table: TableType = ({
 					</DndContext>
 				</Spin>
 				{
-					// deletingItem
-					// 	? (
-					// 		<Question
-					// 			type={deletingItem.actions[deletingItem.action].isPrompt ? "prompt" : "confirm"}
-					// 			onOk={(promptValue) => onDelete(promptValue)}
-					// 			onCancel={() => setDeletingItem(null)}
-					// 			isVisible={true}
-					// 			message={
-					// 				deletingItem.actions[deletingItem.action].message
-					// 					? deletingItem.actions[deletingItem.action].message(deletingItem.record)
-					// 					: deletingItem.actions[deletingItem.action].messageKey
-					// 			}
-					// 			promptLabel={deletingItem.actions[deletingItem.action].promptLabel}
-					// 			title={deletingItem.actions[deletingItem.action].title}
-					// 			isPromptRequired={deletingItem.actions[deletingItem.action].isPromptRequired}
-					// 		/>
-					// 	)
-					// 	: null
+					deletingItem
+						? (
+							<Question
+								type={deletingItem.actions[deletingItem.action].isPrompt ? "prompt" : "confirm"}
+								onOk={(promptValue) => onDelete(promptValue)}
+								onCancel={() => setDeletingItem(null)}
+								isVisible={true}
+								message={
+									deletingItem.actions[deletingItem.action].message
+										? deletingItem.actions[deletingItem.action].message(deletingItem.record)
+										: deletingItem.actions[deletingItem.action].messageKey
+								}
+								promptLabel={deletingItem.actions[deletingItem.action].promptLabel}
+								title={deletingItem.actions[deletingItem.action].title}
+								isPromptRequired={deletingItem.actions[deletingItem.action].isPromptRequired}
+							/>
+						)
+						: null
 				}
 			</ConfigProvider>
 		</div>

@@ -1,5 +1,8 @@
 import { API_URL_ID_STRING } from "./common.constants";
 
+export const BASE_URL = (process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:82/api")
+export const STORAGE_URL = (process.env.NEXT_PUBLIC_STORAGE_URL ?? "http://localhost:82/storage")
+
 export const API_URLS = {
 	AUTH: {
 		LOGIN: "/login",
@@ -9,8 +12,11 @@ export const API_URLS = {
 	},
 	MATERIALS: {
 		ALL: "/material/all",
-		CURRENT: "/material/" + API_URL_ID_STRING,
+		DEEP_VIEW: "/material/" + API_URL_ID_STRING,
+		UPDATE: "/material/update/" + API_URL_ID_STRING,
 		DELETE: "/material/" + API_URL_ID_STRING,
-		CREATE: "/material/create"
+		CREATE: "/material/create",
+		UPLOAD_IMG: "/material/" + API_URL_ID_STRING + "/upload-files",
+		REMOVE_IMG: "/material/upload-files/" + API_URL_ID_STRING
 	}
 }
