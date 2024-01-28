@@ -1,6 +1,6 @@
 import { createElement, SyntheticEvent } from "react";
 import type { MenuProps } from 'antd';
-import { LineChartOutlined, InfoCircleOutlined, UnorderedListOutlined, UserOutlined, BuildOutlined, ReconciliationOutlined  } from "@ant-design/icons"
+import { LineChartOutlined, InfoCircleOutlined, UnorderedListOutlined, UserOutlined, BuildOutlined, ReconciliationOutlined } from "@ant-design/icons"
 import { API_URL_ID_STRING } from "./common.constants";
 
 
@@ -26,11 +26,11 @@ export const PATHS: Paths = {
 	ORDER_MANAGMENT_SALES_HISTORY: "/order-managment/sales-history",
 	//#endregion
 	//#region Products
-	PRODUCTS_MATERIALS: "/products/materials",
-	PRODUCTS_MATERIALS_DEEP_VIEW: "/products/materials/" + API_URL_ID_STRING,
-	PRODUCTS_COVERING: "/products/covering",
-	PRODUCTS_ITEM_CATEGORY: "/products/item-category",
-	PRODUCTS_ITEM_TYPES: "/products/item-type",
+	PRODUCTS_MANAGMENT_MATERIALS: "/products-managment/materials",
+	PRODUCTS_MANAGMENT_MATERIALS_DEEP_VIEW: "/products-managment/materials/" + API_URL_ID_STRING,
+
+	PRODUCTS_MANAGMENT_ITEM_CATEGORY: "/products-managment/item-category",
+	PRODUCTS_MANAGMENT_ITEM_CATEGORY_DEEP_VIEW: "/products-managment/item-category/" + API_URL_ID_STRING,
 	//#endregion
 	//#region User Managment
 	USER_MANAGMENT_USER_TYPES: "/user-managment/user-types",
@@ -76,7 +76,7 @@ export const PROTECTED_NAVIGATION_MENU_ITEMS: MenuItem[] = [
 			{
 				key: PATHS.ORDER_MANAGMENT_SHIPPING_OPTIONS,
 				label: "Shipping Option",
-				icon: null, 
+				icon: null,
 				children: null,
 				type: null
 			},
@@ -110,29 +110,15 @@ export const PROTECTED_NAVIGATION_MENU_ITEMS: MenuItem[] = [
 		type: null,
 		children: [
 			{
-				key: PATHS.PRODUCTS_MATERIALS,
+				key: PATHS.PRODUCTS_MANAGMENT_MATERIALS,
 				label: "Materials",
-				icon: null, 
+				icon: null,
 				children: null,
 				type: null
 			},
 			{
-				key: PATHS.PRODUCTS_COVERING,
-				label: "Covering",
-				icon: null,
-				type: null,
-				children: null
-			},
-			{
-				key: PATHS.PRODUCTS_ITEM_CATEGORY,
+				key: PATHS.PRODUCTS_MANAGMENT_ITEM_CATEGORY,
 				label: "Item Category",
-				icon: null,
-				type: null,
-				children: null
-			},
-			{
-				key: PATHS.PRODUCTS_ITEM_TYPES,
-				label: "Item Type",
 				icon: null,
 				type: null,
 				children: null
@@ -193,7 +179,7 @@ export const PROTECTED_NAVIGATION_MENU_ITEMS: MenuItem[] = [
 	{
 		key: "CMS",
 		label: "CMS",
-		icon: createElement(ReconciliationOutlined ),
+		icon: createElement(ReconciliationOutlined),
 		type: null,
 		children: [
 			{

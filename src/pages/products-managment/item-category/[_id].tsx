@@ -2,15 +2,16 @@ import { ReactElement } from 'react';
 import ProtectedServerSideLayout from '@layout/protectedServerSideLayout';
 import AuthorizedLayout from '@layout/authorizedMainClientSideLayout';
 import AuthorizedMainClientSideLayout from '@layout/authorizedMainClientSideLayout';
+import DeepView from '@components/products-managment/item-category/deepView';
 
-const ItemType = (): JSX.Element => {
+const ItemCategories = (): JSX.Element => {
 	return (
 		<AuthorizedMainClientSideLayout>
-			<div>ItemType</div>
+			<DeepView />
 		</AuthorizedMainClientSideLayout>
 	);
 };
 
-ItemType.getLayout = ProtectedServerSideLayout;
+ItemCategories.getLayout = ProtectedServerSideLayout;
 
-export default ItemType;
+export default ItemCategories;

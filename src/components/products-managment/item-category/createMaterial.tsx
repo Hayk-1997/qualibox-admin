@@ -1,18 +1,18 @@
 import React from "react"
 import { Form, Input, InputNumber, Modal } from "antd"
-import { TMaterial } from "@types/material"
 import { useAppDispatch } from "@hooks/useAppDispatch"
-import { createMaterial, reciveMaterials } from "@store/slices/materialsSlice"
+import { createItemCategory } from "@store/slices/itemCategoriesSlice"
 import { useRouter } from "next/navigation"
 import { PATHS } from "@constants/navigations.constants"
 import { API_URL_ID_REGEX } from "@constants/common.constants"
+import { IItemCategory } from "@types/itemCategories"
 
 type Props = {
 	show: boolean,
 	closeFn: () => void
 }
 
-const CreateMaterial: React.FC = ({ show, closeFn }: Props): JSX.Element => {
+const CreateItemCategory: React.FC = ({ show, closeFn }: Props): JSX.Element => {
 	const dispatch = useAppDispatch();
 	const [formInstance] = Form.useForm();
 	const router = useRouter()
@@ -21,10 +21,10 @@ const CreateMaterial: React.FC = ({ show, closeFn }: Props): JSX.Element => {
 			const values = await formInstance.validateFields()
 			formInstance.resetFields()
 			dispatch(
-				createMaterial(
-					values as TMaterial,
-					(material: TMaterial) => {
-						router.push(PATHS.PRODUCTS_MATERIALS_DEEP_VIEW.replace(API_URL_ID_REGEX, material.id))
+				createItemCategory(
+					values as IItemCategory,
+					(material: IItemCategory) => {
+						router.push(PATHS.PRODUCTS_MANAGMENT_ITEM_CATEGORY_DEEP_VIEW.replace(API_URL_ID_REGEX, material.id))
 					}
 				)
 			)
@@ -54,26 +54,8 @@ const CreateMaterial: React.FC = ({ show, closeFn }: Props): JSX.Element => {
 				>
 					<Input />
 				</Form.Item>
-				<Form.Item
-					label="Cost"
-					name="cost"
-					rules={[
-						{ required: true }
-					]}
-				>
-					<InputNumber type="number" controls={false} />
-				</Form.Item>
-				<Form.Item
-					label="Price"
-					name="price"
-					rules={[
-						{ required: true }
-					]}
-				>
-					<InputNumber type="number" controls={false} />
-				</Form.Item>
 			</Form>
 		</Modal>
 	)
 }
-export default CreateMaterial
+export default CreateItemCategory

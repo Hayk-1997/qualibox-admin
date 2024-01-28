@@ -1,13 +1,15 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { ToolkitStore } from '@reduxjs/toolkit/src/configureStore';
-import authSlice from './slices/authSlice';
-import materialsSlice from './slices/materialsSlice';
+import { authSliceReducer, sliceName as authSliceName } from './slices/authSlice';
+import { materialsSliceReducer, sliceName as materialSliceName } from './slices/materialsSlice';
+import { itemCategoriesSliceReducer, sliceName as itemCategoriesSliceName } from './slices/itemCategoriesSlice';
 
 export const makeStore = () => {
 	return configureStore({
 		reducer: {
-			auth: authSlice,
-			materials: materialsSlice,
+			[authSliceName]: authSliceReducer,
+			[materialSliceName]: materialsSliceReducer,
+			[itemCategoriesSliceName]: itemCategoriesSliceReducer
 		},
 	});
 }

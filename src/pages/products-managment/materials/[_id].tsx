@@ -2,15 +2,16 @@ import { ReactElement } from 'react';
 import ProtectedServerSideLayout from '@layout/protectedServerSideLayout';
 import AuthorizedLayout from '@layout/authorizedMainClientSideLayout';
 import AuthorizedMainClientSideLayout from '@layout/authorizedMainClientSideLayout';
+import DeepView from '@components/products-managment/materials/deepView';
 
-const ItemCategory = (): JSX.Element => {
+const Materials = (): JSX.Element => {
 	return (
 		<AuthorizedMainClientSideLayout>
-			<div>ItemCategory</div>
+			<DeepView />
 		</AuthorizedMainClientSideLayout>
 	);
 };
 
-ItemCategory.getLayout = ProtectedServerSideLayout;
+Materials.getLayout = ProtectedServerSideLayout;
 
-export default ItemCategory;
+export default Materials;

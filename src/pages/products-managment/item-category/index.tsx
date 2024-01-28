@@ -2,16 +2,18 @@ import { ReactElement } from 'react';
 import ProtectedServerSideLayout from '@layout/protectedServerSideLayout';
 import AuthorizedLayout from '@layout/authorizedMainClientSideLayout';
 import AuthorizedMainClientSideLayout from '@layout/authorizedMainClientSideLayout';
-import AllMaterials from '@components/products/materials/allMaterials';
+import AllItemCategories from '@components/products-managment/item-category/allMaterials';
 
-const Materials = (): JSX.Element => {
+const ItemCategory = (): JSX.Element => {
+	console.log(1);
+	
 	return (
 		<AuthorizedMainClientSideLayout>
-			<AllMaterials />
+			<AllItemCategories />
 		</AuthorizedMainClientSideLayout>
 	);
 };
 
-Materials.getLayout = ProtectedServerSideLayout;
+ItemCategory.getLayout = ProtectedServerSideLayout;
 
-export default Materials;
+export default ItemCategory;

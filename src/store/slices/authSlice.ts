@@ -8,8 +8,9 @@ import { authSliceInitialState } from '@store/initialStates/authSliceInitialStat
 import { API_URLS } from '@constants/api.constants';
 import Methods from '@enums/api.enums';
 
+export const sliceName = "auth"
 export const authSlice = createSlice({
-	name: 'auth',
+	name: sliceName,
 	initialState: authSliceInitialState,
 	reducers: {
 		setLoading: (state, action: PayloadAction<{ value: boolean }>) => {
@@ -24,10 +25,10 @@ export const authSlice = createSlice({
 
 export const { setLoading, setUser } = authSlice.actions;
 
-export default authSlice.reducer;
+export const authSliceReducer = authSlice.reducer;
 
-export const getIsLoading = (state: AppState): boolean => state.auth.isLoading;
-export const getUser = (state: AppState): TUser => state.auth.user;
+export const getIsLoading = (state: AppState): boolean => state[sliceName].isLoading;
+export const getUser = (state: AppState): TUser => state[sliceName].user;
 
 export const login = (data: TLoginForm) => {
 	return async (dispatch: AppDispatch) => {

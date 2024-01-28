@@ -18,5 +18,12 @@ export const API_URLS = {
 		CREATE: "/material/create",
 		UPLOAD_IMG: "/material/" + API_URL_ID_STRING + "/upload-files",
 		REMOVE_IMG: "/material/upload-files/" + API_URL_ID_STRING
+	},
+	ITEM_CATEGORIES: {
+		ALL: "/category/all",
+		DEEP_VIEW: "/category/" + API_URL_ID_STRING,
+		UPDATE: "/category/update/" + API_URL_ID_STRING,
+		DELETE: "/category/" + API_URL_ID_STRING,
+		CREATE: "/category/create"
 	}
 }

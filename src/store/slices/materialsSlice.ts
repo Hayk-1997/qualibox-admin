@@ -27,7 +27,7 @@ export const materialsSlice = createSlice<TMaterialsInitialState>({
 			const { value } = action.payload;
 			state.isSaving = value;
 		},
-		setMaterials: (state: TMaterialsInitialState, action: PayloadAction<{ data: TMaterial[] }>) => {
+		setMaterials: (state: TMaterialsInitialState, action: PayloadAction<{ data: TMaterial[], total: number }>) => {
 			const { data, total } = action.payload;
 			state.data = data;
 			state.total = total;
@@ -47,7 +47,7 @@ export const materialsSlice = createSlice<TMaterialsInitialState>({
 
 export const { setLoading, setSaving, setMaterials, setMaterial, setSorting, setFilters } = materialsSlice.actions;
 
-export default materialsSlice.reducer;
+export const materialsSliceReducer = materialsSlice.reducer;
 
 export const getIsLoading = (state: AppState): boolean => state.materials.isLoading;
 export const getIsSaving = (state: AppState): boolean => state.materials.isSaving;

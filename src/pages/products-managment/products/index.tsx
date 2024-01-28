@@ -2,15 +2,16 @@ import { ReactElement } from 'react';
 import ProtectedServerSideLayout from '@layout/protectedServerSideLayout';
 import AuthorizedLayout from '@layout/authorizedMainClientSideLayout';
 import AuthorizedMainClientSideLayout from '@layout/authorizedMainClientSideLayout';
+// import AllProducts from '@components/products-managment/products/allProducts';
 
-const Transactions = (): JSX.Element => {
+const Products = (): JSX.Element => {
 	return (
 		<AuthorizedMainClientSideLayout>
-			<div>Transactions</div>
+			{/* <AllProducts /> */}
 		</AuthorizedMainClientSideLayout>
 	);
 };
 
-Transactions.getLayout = ProtectedServerSideLayout;
+Products.getLayout = ProtectedServerSideLayout;
 
-export default Transactions;
+export default Products;
