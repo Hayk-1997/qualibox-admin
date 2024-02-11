@@ -42,7 +42,7 @@ export const isObjectEquals = (x, y) => {
 	return Object.keys(y).every(i => p.indexOf(i) !== -1) && p.every(i => isObjectEquals(x[i], y[i]));
 }
 
-export const mapFilers = (filters: IStandartFilters): boolean => {
+export const mapFilters = (filters: IStandartFilters): boolean => {
 	if (!filters) {
 		throw new Error("Invalid Arguments type.!")
 	}

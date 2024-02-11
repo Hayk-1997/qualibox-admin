@@ -4,74 +4,74 @@ import ApiInstance from '@services/axios';
 import { TLoginForm, TUser } from '@types/auth';
 import { message } from 'antd';
 import tokenStorageUtils from '@utils/tokenStorage.utils';
-import { itemCategoriesSliceInitialState, IItemCategoriesInitialState } from '@store/initialStates/itemCategoriesSliceInitialState';
+import { productsSliceInitialState, IProductsSliceInitialState } from '@store/initialStates/productsSliceInitialState';
 import { API_URLS, STORAGE_URL } from '@constants/api.constants';
 import Methods from '@enums/api.enums';
-import { IItemCategory } from '@types/itemCategories';
+import { IProduct } from '@types/product';
 import IStandartFilters from '@interfaces/IStandartFilters';
 import IStandartSorting from '@interfaces/IStandartSorting';
 import { API_URL_ID_REGEX } from '@constants/common.constants';
 import dayjs from 'dayjs';
 import { mapFilters } from '@utils/common.utils';
 
-export const sliceName = "itemCategories";
-export const itemCategoriesSlice = createSlice<IItemCategoriesInitialState>({
+export const sliceName = "products";
+export const productsSlice = createSlice<IProductsSliceInitialState>({
 	name: sliceName,
-	initialState: itemCategoriesSliceInitialState,
+	initialState: productsSliceInitialState,
 	reducers: {
-		setLoading: (state: IItemCategoriesInitialState, action: PayloadAction<{ value: boolean }>) => {
+		setLoading: (state: IProductsSliceInitialState, action: PayloadAction<{ value: boolean }>) => {
 			const { value } = action.payload;
 			state.isLoading = value;
 		},
-		setSaving: (state: IItemCategoriesInitialState, action: PayloadAction<{ value: boolean }>) => {
+		setSaving: (state: IProductsSliceInitialState, action: PayloadAction<{ value: boolean }>) => {
 			const { value } = action.payload;
 			state.isSaving = value;
 		},
-		setItemCategories: (state: IItemCategoriesInitialState, action: PayloadAction<{ data: IItemCategory[], total: number }>) => {
+		setProducts: (state: IProductsSliceInitialState, action: PayloadAction<{ data: IProduct[], total: number }>) => {
 			const { data, total } = action.payload;
 			state.data = data;
 			state.total = total;
 		},
-		setItemCategory: (state: IItemCategoriesInitialState, action: PayloadAction<{ data: IItemCategory }>) => {
+		setProduct: (state: IProductsSliceInitialState, action: PayloadAction<{ data: IProduct }>) => {
 			const { data } = action.payload;
 			state.deepView.main = data;
 		},
-		setSorting: (state: IItemCategoriesInitialState, action: PayloadAction<IItemCategoriesInitialState["sorting"]>) => {
+		setSorting: (state: IProductsSliceInitialState, action: PayloadAction<IProductsSliceInitialState["sorting"]>) => {
 			state.sorting = action.payload;
 		},
-		setFilters: (state: IItemCategoriesInitialState, action: PayloadAction<IItemCategoriesInitialState["filters"]>) => {
+		setFilters: (state: IProductsSliceInitialState, action: PayloadAction<IProductsSliceInitialState["filters"]>) => {
 			state.filters = action.payload;
 		}
 	},
 });
 
-export const { setLoading, setSaving, setItemCategories, setItemCategory, setSorting, setFilters } = itemCategoriesSlice.actions;
+export const { setLoading, setSaving, setProducts, setProduct, setSorting, setFilters } = productsSlice.actions;
 
-export const itemCategoriesSliceReducer = itemCategoriesSlice.reducer;
+export const productsSliceReducer = productsSlice.reducer;
 
 export const getIsLoading = (state: AppState): boolean => state[sliceName].isLoading;
 export const getIsSaving = (state: AppState): boolean => state[sliceName].isSaving;
-export const getItemCategories = (state: AppState): IItemCategory[] => state[sliceName].data;
-export const getItemCategory = (state: AppState): IItemCategory => state[sliceName].deepView.main;
+export const getProducts = (state: AppState): IProduct[] => state[sliceName].data;
+export const getProduct = (state: AppState): IProduct => state[sliceName].deepView.main;
 export const getTotal = (state: AppState): number => state[sliceName].total;
 export const getFilters = (state: AppState): IStandartFilters => state[sliceName].filters;
 export const getSorting = (state: AppState): IStandartSorting => state[sliceName].sorting;
 
-export const reciveItemCategories = (...args) => {
+export const reciveProducts = (...args) => {
 	return async (dispatch: AppDispatch, getState: AppGetState) => {
 		const state = getState();
-		const sliceState = state[sliceName] as IItemCategoriesInitialState;
+		const sliceState = state[sliceName] as IProductsSliceInitialState;
 		try {
 			dispatch(setLoading({ value: true }));
 			const response = await ApiInstance({
-				url: API_URLS.ITEM_CATEGORIES.ALL,
+				url: API_URLS.PRODUCTS.ALL,
 				method: Methods.Get,
 				params: {
 					...sliceState.sorting,
 					...mapFilters(sliceState.filters)
 				}
 			});
-			dispatch(setItemCategories(response.data))
+			dispatch(setProducts(response.data))
 		} catch (e) {
 			message.error("Error: " + e.message)
 		} finally {
@@ -80,19 +80,19 @@ export const reciveItemCategories = (...args) => {
 	};
 };
 
-export const reciveItemCategory = (id: IItemCategory["id"]) => {
+export const reciveProduct = (id: IProduct["id"]) => {
 	return async (dispatch: AppDispatch, getState: AppGetState) => {
 		const state = getState();
-		const sliceState = state[sliceName] as IItemCategoriesInitialState;
+		const sliceState = state[sliceName] as IProductsSliceInitialState;
 		try {
 			dispatch(setLoading({ value: true }));
 			const response = await ApiInstance({
-				url: API_URLS.ITEM_CATEGORIES.DEEP_VIEW.replace(API_URL_ID_REGEX, id),
+				url: API_URLS.PRODUCTS.DEEP_VIEW.replace(API_URL_ID_REGEX, id),
 				method: Methods.Get
 			});
-			const { data } = response as { data: IItemCategory }
-			const mappedItemCategory = { ...data }
-			dispatch(setItemCategory({ data: mappedItemCategory }));
+			const { data } = response as { data: IProduct }
+			const mappedProducts = { ...data };
+			dispatch(setProduct({ data: mappedProducts }));
 		} catch (e) {
 			message.error("Error: " + e.message)
 		} finally {
@@ -101,14 +101,14 @@ export const reciveItemCategory = (id: IItemCategory["id"]) => {
 	};
 };
 
-export const createItemCategory = (newItemCategory: IItemCategory, onSuccess: null | ((itemCategory: IItemCategory) => void)) => {
+export const createProduct = (newProduct: IProduct, onSuccess: null | ((product: IProduct) => void)) => {
 	return async (dispatch: AppDispatch) => {
 		try {
 			dispatch(setLoading({ value: true }));
-			const response = await ApiInstance<{ data: IItemCategory }>({
-				url: API_URLS.ITEM_CATEGORIES.CREATE,
+			const response = await ApiInstance<{ data: IProduct }>({
+				url: API_URLS.PRODUCTS.CREATE,
 				method: Methods.Post,
-				data: newItemCategory
+				data: newProduct
 			});
 			if (typeof onSuccess === "function") {
 				onSuccess(response.data)
@@ -121,12 +121,12 @@ export const createItemCategory = (newItemCategory: IItemCategory, onSuccess: nu
 	};
 };
 
-export const deleteItemCategory = (id: IItemCategory["id"], onSuccess: null | (() => void)) => {
+export const deleteProduct = (id: IProduct["id"], onSuccess: null | (() => void)) => {
 	return async (dispatch: AppDispatch) => {
 		try {
 			dispatch(setLoading({ value: true }));
 			const response = await ApiInstance({
-				url: API_URLS.ITEM_CATEGORIES.DELETE.replace(API_URL_ID_REGEX, id),
+				url: API_URLS.PRODUCTS.DELETE.replace(API_URL_ID_REGEX, id),
 				method: Methods.Delete,
 				params: { id }
 			});
@@ -141,19 +141,19 @@ export const deleteItemCategory = (id: IItemCategory["id"], onSuccess: null | ((
 	};
 };
 
-export const saveItemCategory = (itemCategory: IItemCategory) => {
+export const saveProduct = (product: IProduct) => {
 	return async (dispatch: AppDispatch, getState: AppGetState) => {
 		const state = getState();
-		const sliceState = state[sliceName] as IItemCategoriesInitialState;
+		const sliceState = state[sliceName] as IProductsSliceInitialState;
 		try {
 			dispatch(setSaving({ value: true }));
 			const response = await ApiInstance({
-				url: API_URLS.ITEM_CATEGORIES.UPDATE.replace(API_URL_ID_REGEX, itemCategory.id),
+				url: API_URLS.PRODUCTS.UPDATE.replace(API_URL_ID_REGEX, product.id),
 				method: Methods.Post,
-				data: itemCategory
+				data: product
 			});
 			const { data } = response;
-			dispatch(setItemCategory({ data }))
+			dispatch(setProduct({ data }))
 		} catch (e) {
 			message.error("Error: " + e.message)
 		} finally {

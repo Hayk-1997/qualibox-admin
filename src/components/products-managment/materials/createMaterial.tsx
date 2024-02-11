@@ -1,6 +1,6 @@
 import React from "react"
 import { Form, Input, InputNumber, Modal } from "antd"
-import { TMaterial } from "@types/material"
+import { IMaterial } from "@types/material"
 import { useAppDispatch } from "@hooks/useAppDispatch"
 import { createMaterial, reciveMaterials } from "@store/slices/materialsSlice"
 import { useRouter } from "next/navigation"
@@ -22,8 +22,8 @@ const CreateMaterial: React.FC = ({ show, closeFn }: Props): JSX.Element => {
 			formInstance.resetFields()
 			dispatch(
 				createMaterial(
-					values as TMaterial,
-					(material: TMaterial) => {
+					values as IMaterial,
+					(material: IMaterial) => {
 						router.push(PATHS.PRODUCTS_MANAGMENT_MATERIALS_DEEP_VIEW.replace(API_URL_ID_REGEX, material.id))
 					}
 				)

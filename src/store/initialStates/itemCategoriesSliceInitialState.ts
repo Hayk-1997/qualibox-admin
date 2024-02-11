@@ -2,7 +2,7 @@ import { OrderDirection } from "@enums/common.enums";
 import IStandartFilters from "@interfaces/IStandartFilters";
 import IStandartSorting from "@interfaces/IStandartSorting";
 import { IItemCategory } from "@types/itemCategories";
-import { MATERIAL_DEFAULT_VALUE } from "@constants/materials.constants"
+import { ITEM_CATEGORY_DEFAULT_VALUE } from "@constants/products-managment.constants"
 
 export interface IItemCategoriesInitialState {
 	isLoading: boolean,
@@ -35,7 +35,7 @@ export const itemCategoriesSliceInitialState: IItemCategoriesInitialState = {
 		orderDirection: OrderDirection.Desc,
 	},
 	deepView: {
-		main: MATERIAL_DEFAULT_VALUE,
+		main: ITEM_CATEGORY_DEFAULT_VALUE,
 		generalInfo: null
 	}
 };

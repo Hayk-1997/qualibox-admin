@@ -1,4 +1,4 @@
-export interface IItemCategory {
+export interface IProduct {
 	id: number,
 	name: string,
 	createdAt: string | Date,

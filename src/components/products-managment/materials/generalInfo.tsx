@@ -5,7 +5,7 @@ import { useAppSelector } from "@hooks/useAppSelector";
 import { getIsSaving, getMaterial, removeMaterialImage, saveMaterial, uploadMaterialImage } from "@store/slices/materialsSlice";
 import { isFormChanged } from "@utils/form.utils";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { TMaterial } from "@types/material";
+import { IMaterial } from "@types/material";
 import type { RcFile, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
 import { API_URLS, BASE_URL } from "@constants/api.constants";
@@ -53,7 +53,7 @@ const GeneralInfo = ({ onTabChange }: Props) => {
 		setIsFormTouched(isFormChanged({ ...formValues }, { ...material }));
 	};
 
-	const onFinish = (formValues: TMaterial) => {
+	const onFinish = (formValues: IMaterial) => {
 		dispatch(
 			saveMaterial(
 				{ ...material, ...formValues }

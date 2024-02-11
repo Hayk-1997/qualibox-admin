@@ -7,12 +7,12 @@ import tokenStorageUtils from '@utils/tokenStorage.utils';
 import { materialsSliceInitialState, TMaterialsInitialState } from '@store/initialStates/materialsSliceInitialState';
 import { API_URLS, STORAGE_URL } from '@constants/api.constants';
 import Methods from '@enums/api.enums';
-import { TMaterial } from '@types/material';
+import { IMaterial } from '@types/material';
 import IStandartFilters from '@interfaces/IStandartFilters';
 import IStandartSorting from '@interfaces/IStandartSorting';
 import { API_URL_ID_REGEX } from '@constants/common.constants';
 import dayjs from 'dayjs';
-import { mapFilers } from '@utils/common.utils';
+import { mapFilters } from '@utils/common.utils';
 
 export const sliceName = "materials";
 export const materialsSlice = createSlice<TMaterialsInitialState>({
@@ -27,12 +27,12 @@ export const materialsSlice = createSlice<TMaterialsInitialState>({
 			const { value } = action.payload;
 			state.isSaving = value;
 		},
-		setMaterials: (state: TMaterialsInitialState, action: PayloadAction<{ data: TMaterial[], total: number }>) => {
+		setMaterials: (state: TMaterialsInitialState, action: PayloadAction<{ data: IMaterial[], total: number }>) => {
 			const { data, total } = action.payload;
 			state.data = data;
 			state.total = total;
 		},
-		setMaterial: (state: TMaterialsInitialState, action: PayloadAction<{ data: TMaterial }>) => {
+		setMaterial: (state: TMaterialsInitialState, action: PayloadAction<{ data: IMaterial }>) => {
 			const { data } = action.payload;
 			state.deepView.main = data;
 		},
@@ -51,8 +51,8 @@ export const materialsSliceReducer = materialsSlice.reducer;
 
 export const getIsLoading = (state: AppState): boolean => state.materials.isLoading;
 export const getIsSaving = (state: AppState): boolean => state.materials.isSaving;
-export const getMaterials = (state: AppState): TMaterial[] => state.materials.data;
-export const getMaterial = (state: AppState): TMaterial => state.materials.deepView.main;
+export const getMaterials = (state: AppState): IMaterial[] => state.materials.data;
+export const getMaterial = (state: AppState): IMaterial => state.materials.deepView.main;
 export const getTotal = (state: AppState): number => state.materials.total;
 export const getFilters = (state: AppState): IStandartFilters => state.materials.filters;
 export const getSorting = (state: AppState): IStandartSorting => state.materials.sorting;
@@ -68,7 +68,7 @@ export const reciveMaterials = (...args) => {
 				method: Methods.Get,
 				params: {
 					...sliceState.sorting,
-					...mapFilers(sliceState.filters)
+					...mapFilters(sliceState.filters)
 				}
 			});
 			dispatch(setMaterials(response.data))
@@ -80,7 +80,7 @@ export const reciveMaterials = (...args) => {
 	};
 };
 
-export const reciveMaterial = (id: TMaterial["id"]) => {
+export const reciveMaterial = (id: IMaterial["id"]) => {
 	return async (dispatch: AppDispatch, getState: AppGetState) => {
 		const state = getState();
 		const sliceState = state[sliceName] as TMaterialsInitialState;
@@ -90,7 +90,7 @@ export const reciveMaterial = (id: TMaterial["id"]) => {
 				url: API_URLS.MATERIALS.DEEP_VIEW.replace(API_URL_ID_REGEX, id),
 				method: Methods.Get
 			});
-			const { data } = response as { data: TMaterial }
+			const { data } = response as { data: IMaterial }
 			const mappedMaterial = {
 				...data,
 				uploads: (
@@ -119,11 +119,11 @@ export const reciveMaterial = (id: TMaterial["id"]) => {
 	};
 };
 
-export const createMaterial = (newMaterial: TMaterial, onSuccess: null | ((material: TMaterial) => void)) => {
+export const createMaterial = (newMaterial: IMaterial, onSuccess: null | ((material: IMaterial) => void)) => {
 	return async (dispatch: AppDispatch) => {
 		try {
 			dispatch(setLoading({ value: true }));
-			const response = await ApiInstance<{ data: TMaterial }>({
+			const response = await ApiInstance<{ data: IMaterial }>({
 				url: API_URLS.MATERIALS.CREATE,
 				method: Methods.Post,
 				data: newMaterial
@@ -139,7 +139,7 @@ export const createMaterial = (newMaterial: TMaterial, onSuccess: null | ((mater
 	};
 };
 
-export const deleteMaterial = (id: TMaterial["id"], onSuccess: null | (() => void)) => {
+export const deleteMaterial = (id: IMaterial["id"], onSuccess: null | (() => void)) => {
 	return async (dispatch: AppDispatch) => {
 		try {
 			dispatch(setLoading({ value: true }));
@@ -159,7 +159,7 @@ export const deleteMaterial = (id: TMaterial["id"], onSuccess: null | (() => voi
 	};
 };
 
-export const saveMaterial = (material: TMaterial) => {
+export const saveMaterial = (material: IMaterial) => {
 	return async (dispatch: AppDispatch, getState: AppGetState) => {
 		const state = getState();
 		const sliceState = state[sliceName] as TMaterialsInitialState;

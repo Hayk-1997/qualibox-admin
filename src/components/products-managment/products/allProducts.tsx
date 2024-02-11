@@ -1,23 +1,23 @@
 import Table from "@components/common/table"
 import { useAppDispatch } from "@hooks/useAppDispatch"
 import { useAppSelector } from "@hooks/useAppSelector"
-import { reciveMaterials, createMaterial, deleteMaterial, getMaterials, getIsLoading, getFilters, getSorting, getTotal, setFilters, setSorting } from "@store/slices/materialsSlice"
+import { reciveProducts, deleteProduct, getProducts, getIsLoading, getFilters, getSorting, getTotal, setFilters, setSorting } from "@store/slices/productsSlice"
 import { Row, Col, Button } from "antd"
 import { useEffect, useState } from "react"
-import CreateMaterial from "./createMaterial"
+import CreateProduct from "./createProduct"
 import Filters from "./filters"
-import { IMaterial } from "@types/material"
+import { IProduct } from "@types/product"
 import { useRouter } from "next/navigation"
 import { PATHS } from "@constants/navigations.constants"
 import { API_URL_ID_REGEX, DATE_TIME_FORMAT } from "@constants/common.constants"
 import dayjs from "dayjs"
 
-const AllMaterials = () => {
+const AllProducts = () => {
 
 	const [showCreateModal, setShowCreateModal] = useState(false)
 	const isLoading = useAppSelector(getIsLoading)
 	const total = useAppSelector(getTotal)
-	const materials = useAppSelector(getMaterials)
+	const products = useAppSelector(getProducts)
 	const filters = useAppSelector(getFilters)
 	const sorting = useAppSelector(getSorting)
 	const dispatch = useAppDispatch()
@@ -30,14 +30,6 @@ const AllMaterials = () => {
 			title: "Name",
 			dataIndex: "name",
 			sorting: true
-		},
-		{
-			title: "Cost",
-			dataIndex: "cost"
-		},
-		{
-			title: "Price",
-			dataIndex: "price"
 		},
 		{
 			title: "Created At",
@@ -70,9 +62,9 @@ const AllMaterials = () => {
 					</div>
 					<div className="section-content">
 						<Table
-							uniqueKey="name"
-							loadFn={(...args) => dispatch(reciveMaterials(...args))}
-							data={materials}
+							uniqueKey="id"
+							loadFn={(...args) => dispatch(reciveProducts(...args))}
+							data={products}
 							loading={isLoading}
 							total={total}
 							columns={columns}
@@ -82,23 +74,23 @@ const AllMaterials = () => {
 							setSortingFn={(newSorting) => dispatch(setSorting(newSorting))}
 							actions={{
 								edit: {
-									handler: (record: IMaterial) => {
-										router.push(PATHS.PRODUCTS_MANAGMENT_MATERIALS_DEEP_VIEW.replace(API_URL_ID_REGEX, record.id))
+									handler: (record: IProduct) => {
+										router.push(PATHS.PRODUCTS_MANAGMENT_PRODUCTS_DEEP_VIEW.replace(API_URL_ID_REGEX, record.id))
 									},
 								},
 								delete: {
-									handler: (record: IMaterial) => {
-										dispatch(deleteMaterial(record.id, () => {
-											dispatch(reciveMaterials())
+									handler: (record: IProduct) => {
+										dispatch(deleteProduct(record.id, () => {
+											dispatch(reciveProducts())
 										}))
 									},
-									message: (record: IMaterial) => `Do you want delete material ${record.name}?`
+									message: (record: IProduct) => `Do you want delete product ${record.name}?`
 								}
 							}}
 						/>
 					</div>
 				</div>
-				<CreateMaterial
+				<CreateProduct
 					show={showCreateModal}
 					closeFn={() => setShowCreateModal(false)}
 				/>
@@ -106,4 +98,4 @@ const AllMaterials = () => {
 		</Row>
 	)
 }
-export default AllMaterials
+export default AllProducts

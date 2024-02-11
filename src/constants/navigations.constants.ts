@@ -26,9 +26,10 @@ export const PATHS: Paths = {
 	ORDER_MANAGMENT_SALES_HISTORY: "/order-managment/sales-history",
 	//#endregion
 	//#region Products
+	PRODUCTS_MANAGMENT_PRODUCTS: "/products-managment/products",
+	PRODUCTS_MANAGMENT_PRODUCTS_DEEP_VIEW: "/products-managment/products/" + API_URL_ID_STRING,
 	PRODUCTS_MANAGMENT_MATERIALS: "/products-managment/materials",
 	PRODUCTS_MANAGMENT_MATERIALS_DEEP_VIEW: "/products-managment/materials/" + API_URL_ID_STRING,
-
 	PRODUCTS_MANAGMENT_ITEM_CATEGORY: "/products-managment/item-category",
 	PRODUCTS_MANAGMENT_ITEM_CATEGORY_DEEP_VIEW: "/products-managment/item-category/" + API_URL_ID_STRING,
 	//#endregion
@@ -109,6 +110,13 @@ export const PROTECTED_NAVIGATION_MENU_ITEMS: MenuItem[] = [
 		icon: createElement(BuildOutlined),
 		type: null,
 		children: [
+			{
+				key: PATHS.PRODUCTS_MANAGMENT_PRODUCTS,
+				label: "Products",
+				icon: null,
+				children: null,
+				type: null
+			},
 			{
 				key: PATHS.PRODUCTS_MANAGMENT_MATERIALS,
 				label: "Materials",

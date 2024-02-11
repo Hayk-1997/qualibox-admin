@@ -22,8 +22,14 @@ export const API_URLS = {
 	ITEM_CATEGORIES: {
 		ALL: "/category/all",
 		DEEP_VIEW: "/category/" + API_URL_ID_STRING,
-		UPDATE: "/category/update/" + API_URL_ID_STRING,
 		DELETE: "/category/" + API_URL_ID_STRING,
 		CREATE: "/category/create"
+	},
+	PRODUCTS: {
+		ALL: "/product/all",
+		DEEP_VIEW: "/product/" + API_URL_ID_STRING,
+		UPDATE: "/product/update/" + API_URL_ID_STRING,
+		DELETE: "/product/" + API_URL_ID_STRING,
+		CREATE: "/product/create"
 	}
 }

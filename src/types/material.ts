@@ -1,4 +1,4 @@
-export type TMaterial = {
+export interface IMaterial {
 	id: number,
 	name: string,
 	cost: number,

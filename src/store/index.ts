@@ -3,13 +3,15 @@ import { ToolkitStore } from '@reduxjs/toolkit/src/configureStore';
 import { authSliceReducer, sliceName as authSliceName } from './slices/authSlice';
 import { materialsSliceReducer, sliceName as materialSliceName } from './slices/materialsSlice';
 import { itemCategoriesSliceReducer, sliceName as itemCategoriesSliceName } from './slices/itemCategoriesSlice';
+import { productsSliceReducer, sliceName as productsSliceName } from './slices/productsSlice';
 
 export const makeStore = () => {
 	return configureStore({
 		reducer: {
 			[authSliceName]: authSliceReducer,
 			[materialSliceName]: materialsSliceReducer,
-			[itemCategoriesSliceName]: itemCategoriesSliceReducer
+			[itemCategoriesSliceName]: itemCategoriesSliceReducer,
+			[productsSliceName]: productsSliceReducer
 		},
 	});
 }
