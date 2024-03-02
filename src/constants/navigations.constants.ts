@@ -49,6 +49,7 @@ export const PATHS: Paths = {
 	CMS_TERMS: "/cms/terms",
 	CMS_PRIVACY_AND_POLICY: "/cms/privacy-and-policy",
 	CMS_FAQ: "/cms/faq",
+	CMS_FAQ_DEEP_VEW: "/cms/faq/" + API_URL_ID_STRING,
 	CMS_ABOUT_US: "/cms/about-us"
 	//#endregion
 };

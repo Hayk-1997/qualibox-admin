@@ -98,7 +98,7 @@ export const reciveMaterial = (id: IMaterial["id"]) => {
 						? data.uploads.map(upload => {
 							return ({
 								uid: upload.id,
-								name: upload.path.split("/").at(-1),
+								name: upload.name,
 								status: 'done',
 								url: STORAGE_URL + upload.path.replace("storage", ""),
 								thumbUrl: STORAGE_URL + upload.path.replace("storage", ""),
@@ -180,13 +180,14 @@ export const saveMaterial = (material: IMaterial) => {
 	};
 }
 
-export const uploadMaterialImage = (img) => {
+export const uploadMaterialImage = ({ name, file }) => {
 	return async (dispatch: AppDispatch, getState: AppGetState) => {
 		try {
 			const state = getState();
 			const sliceState = state[sliceName] as TMaterialsInitialState;
 			const formData = new FormData();
-			formData.append("files[]", img);
+			formData.append("name", name);
+			formData.append("file", file);
 			const response = await ApiInstance({
 				url: API_URLS.MATERIALS.UPLOAD_IMG.replace(API_URL_ID_REGEX, sliceState.deepView.main.id),
 				method: Methods.Post,
@@ -196,7 +197,7 @@ export const uploadMaterialImage = (img) => {
 				data: formData
 			});
 
-			const { data: uploads } = response
+			const { uploads } = response.data
 
 			dispatch(
 				setMaterial(
@@ -208,7 +209,7 @@ export const uploadMaterialImage = (img) => {
 									? uploads.map(upload => {
 										return ({
 											uid: upload.id,
-											name: upload.path.split("/").at(-1),
+											name: upload.name,
 											status: 'done',
 											url: STORAGE_URL + upload.path.replace("storage", ""),
 											thumbUrl: STORAGE_URL + upload.path.replace("storage", ""),

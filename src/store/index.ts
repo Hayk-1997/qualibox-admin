@@ -1,9 +1,9 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { ToolkitStore } from '@reduxjs/toolkit/src/configureStore';
+import { configureStore } from '@reduxjs/toolkit';
 import { authSliceReducer, sliceName as authSliceName } from './slices/authSlice';
 import { materialsSliceReducer, sliceName as materialSliceName } from './slices/materialsSlice';
 import { itemCategoriesSliceReducer, sliceName as itemCategoriesSliceName } from './slices/itemCategoriesSlice';
 import { productsSliceReducer, sliceName as productsSliceName } from './slices/productsSlice';
+import { faqsSliceReducer, sliceName as faqsSliceName } from './slices/faqsSlice';
 
 export const makeStore = () => {
 	return configureStore({
@@ -11,7 +11,8 @@ export const makeStore = () => {
 			[authSliceName]: authSliceReducer,
 			[materialSliceName]: materialsSliceReducer,
 			[itemCategoriesSliceName]: itemCategoriesSliceReducer,
-			[productsSliceName]: productsSliceReducer
+			[productsSliceName]: productsSliceReducer,
+			[faqsSliceName]: faqsSliceReducer
 		},
 	});
 }

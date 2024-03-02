@@ -31,5 +31,15 @@ export const API_URLS = {
 		UPDATE: "/product/update/" + API_URL_ID_STRING,
 		DELETE: "/product/" + API_URL_ID_STRING,
 		CREATE: "/product/create"
+	},
+	FAQS: {
+		ALL: "/faq/all",
+		DEEP_VIEW: "/faq/" + API_URL_ID_STRING,
+		DELETE: "/faq/" + API_URL_ID_STRING,
+		CREATE_HEADER: "/faq/header",
+		UPDATE_HEADER: "/faq/header/" + API_URL_ID_STRING,
+		CREATE_CONTENT: "/faq/content",
+		UPDATE_CONTENT: "/faq/content/" + API_URL_ID_STRING,
+		DELETE_CONTENT: "/faq/content/" + API_URL_ID_STRING,
 	}
 }

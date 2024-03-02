@@ -17,6 +17,7 @@ const Question = ({
 	promptValidationRules = [],
 	maxLength = 100,
 	isLoading,
+	rows = 3,
 	...rest
 }) => {
 
@@ -35,6 +36,7 @@ const Question = ({
 			.then(data => popupContent ? data : data.prompt)
 			.then(data => onOk(data))
 			.catch(Function.prototype)
+			.finally(resetFields)
 	}
 
 	/** Fires on Cancel
@@ -67,7 +69,7 @@ const Question = ({
 				name="prompt"
 				rules={rules}
 			>
-				<Input.TextArea rows={3} maxLength={maxLength} placeholder={`Enter ${promptLabel}`} />
+				<Input.TextArea rows={rows} maxLength={maxLength} placeholder={`Enter ${promptLabel}`} />
 			</FormItem>
 		)
 	}

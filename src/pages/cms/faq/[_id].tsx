@@ -2,16 +2,16 @@ import { ReactElement } from 'react';
 import ProtectedServerSideLayout from '@layout/protectedServerSideLayout';
 import AuthorizedLayout from '@layout/authorizedMainClientSideLayout';
 import AuthorizedMainClientSideLayout from '@layout/authorizedMainClientSideLayout';
-import AllFAQs from '@components/cms/faq/allFAQs';
+import DeepView from '@components/cms/faq/deepView';
 
-const Faq = (): JSX.Element => {
+const FAQ = (): JSX.Element => {
 	return (
 		<AuthorizedMainClientSideLayout>
-			<AllFAQs />
+			<DeepView />
 		</AuthorizedMainClientSideLayout>
 	);
 };
 
-Faq.getLayout = ProtectedServerSideLayout;
+FAQ.getLayout = ProtectedServerSideLayout;
 
-export default Faq;
+export default FAQ;

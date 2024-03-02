@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Col, Row, Form, Spin, Input, InputNumber, Button, Modal, Upload } from "antd";
 import { PlusOutlined } from '@ant-design/icons';
 import { useAppSelector } from "@hooks/useAppSelector";
@@ -7,14 +7,13 @@ import { isFormChanged } from "@utils/form.utils";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { IMaterial } from "@types/material";
 import type { RcFile, UploadProps } from 'antd/es/upload';
-import type { UploadFile } from 'antd/es/upload/interface';
-import { API_URLS, BASE_URL } from "@constants/api.constants";
-import { API_URL_ID_REGEX, API_URL_ID_STRING } from "@constants/common.constants";
-import ApiInstance from "@services/axios";
-import Methods from "@enums/api.enums";
+import type { UploadFile, ItemRender } from 'antd/es/upload/interface';
+import Question from "@components/common/question";
+
+const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
 
 interface Props {
-	onTabChange?: () => void
+	onTabChange?: () => void;
 }
 
 const getBase64 = (file: RcFile): Promise<string> =>
@@ -25,31 +24,32 @@ const getBase64 = (file: RcFile): Promise<string> =>
 		reader.onerror = (error) => reject(error);
 	});
 
-const GeneralInfo = ({ onTabChange }: Props) => {
-	const dispatch = useAppDispatch()
-	const material = useAppSelector(getMaterial)
-	const isSaving = useAppSelector(getIsSaving)
+const GeneralInfo: React.FC<Props> = ({ onTabChange }: Props) => {
+	const dispatch = useAppDispatch();
+	const material = useAppSelector(getMaterial);
+	const isSaving = useAppSelector(getIsSaving);
 	const [formInstance] = Form.useForm();
 	const { validateFields, setFieldsValue, getFieldValue } = formInstance;
-	const [isFormTouched, setIsFormTouched] = useState(false);
-	const [previewOpen, setPreviewOpen] = useState(false);
-	const [previewImage, setPreviewImage] = useState('');
-	const [previewTitle, setPreviewTitle] = useState('');
+	const [isFormTouched, setIsFormTouched] = useState<boolean>(false);
+	const [previewOpen, setPreviewOpen] = useState<boolean>(false);
+	const [namePromptVisibilityData, setNamePromptVisibilityData] = useState<RcFile | null>(null);
+	const [previewImage, setPreviewImage] = useState<string>('');
+	const [previewTitle, setPreviewTitle] = useState<string>('');
 	const [fileList, setFileList] = useState<UploadFile[]>([])
 
 	useEffect(() => {
-		if (material === null) { return }
-		setFieldsValue({ ...material })
-		setFileList(material.uploads || [])
-	}, [material])
+		if (material === null) { return; }
+		setFieldsValue({ ...material });
+		setFileList(material.uploads ?? []);
+	}, [material]);
 
 	useEffect(() => {
 		if (typeof onTabChange === "function") {
 			onTabChange(isFormTouched);
 		}
-	}, [isFormTouched])
+	}, [isFormTouched]);
 
-	const onValuesChange = (_, formValues) => {
+	const onValuesChange = (_: any, formValues: IMaterial) => {
 		setIsFormTouched(isFormChanged({ ...formValues }, { ...material }));
 	};
 
@@ -59,7 +59,7 @@ const GeneralInfo = ({ onTabChange }: Props) => {
 				{ ...material, ...formValues }
 			)
 		);
-		setIsFormTouched(false)
+		setIsFormTouched(false);
 	};
 
 	const handleCancel = () => setPreviewOpen(false);
@@ -75,15 +75,33 @@ const GeneralInfo = ({ onTabChange }: Props) => {
 	};
 
 	const handleChange: UploadProps['onChange'] = ({ file, fileList }) => {
-		if (file.status === "removed") {
-			dispatch(removeMaterialImage(file.uid))
-			
-		}
-		setFileList(fileList)
+		if (file.status !== "removed") { return; }
+		dispatch(removeMaterialImage(file.uid));
+		setFileList(fileList);
 	};
 
-	const beforeUpload = async (file) => {
-		dispatch(uploadMaterialImage(file))
+	const beforeUpload = async (file: RcFile): Promise<boolean> => {
+		const isImage = file.type.startsWith('image/');
+		if (!isImage) {
+			message.error('You can only upload image files!');
+			return false;
+		}
+		const isTypeAllowed = allowedTypes.includes(file.type);
+		if (!isTypeAllowed) {
+			message.error('Only JPG/JPEG/PNG file formats are allowed!');
+			return false;
+		}
+		setNamePromptVisibilityData(file)
+		return false
+	}
+
+	const itemRender: ItemRender<RcFile> = (originNode, file, fileList, actions) => {
+		return (
+			<Fragment>
+				{originNode}
+				<div className="flex justify-center">{(material.uploads || []).find(upload => upload.uid === file.uid)?.name}</div>
+			</Fragment>
+		)
 	}
 
 	return (
@@ -140,16 +158,32 @@ const GeneralInfo = ({ onTabChange }: Props) => {
 									</Col>
 								</Row>
 							</Form>
+							<Question
+								type="prompt"
+								isPromptRequired={true}
+								isVisible={Boolean(namePromptVisibilityData)}
+								title={"Name of image"}
+								promptLabel={"Name of image"}
+								rows={1}
+								onOk={(name) => {
+									dispatch(uploadMaterialImage({ name, file: namePromptVisibilityData }))
+									setNamePromptVisibilityData(null)
+								}}
+								onCancel={() => setNamePromptVisibilityData(null)}
+							/>
 						</Spin>
 						{
 							material
 								? (
 									<Upload
 										listType="picture-card"
+										className="upload-list-inline"
 										fileList={fileList}
 										onPreview={handlePreview}
 										onChange={handleChange}
 										beforeUpload={beforeUpload}
+										itemRender={itemRender}
+										rootClassName="sSD"
 									>
 										<div>
 											<PlusOutlined />
