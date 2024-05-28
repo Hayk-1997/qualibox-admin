@@ -1,14 +1,10 @@
-import type { ReactNode } from "react";
+import React, { PropsWithChildren } from "react";
 import { StoreProvider } from "./StoreProvider";
 import Script from "next/script";
-import Header from "@/components/layout/header";
-import Sidebar from "@/components/layout/sidebar";
 
-interface Props {
-  readonly children: ReactNode;
-}
-
-export default function RootLayout({ children }: Props) {
+export default function RootLayout(
+  props: PropsWithChildren,
+): React.JSX.Element {
   return (
     <StoreProvider>
       <html lang="en">
@@ -40,9 +36,7 @@ export default function RootLayout({ children }: Props) {
           <title>Qualibox Admin</title>
         </head>
         <body suppressHydrationWarning={true}>
-          <Header />
-          <Sidebar />
-
+          {props.children}
           <Script
             src="/assets/vendor/apexcharts/apexcharts.min.js"
             defer
