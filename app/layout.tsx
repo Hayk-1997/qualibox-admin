@@ -1,8 +1,8 @@
 import type {ReactNode} from "react";
 import {StoreProvider} from "./StoreProvider";
-import Navbar from "@/components/layout/navbar";
-import Sidebar from "@/components/layout/sidebar";
 import Script from "next/script";
+import Header from "@/components/layout/header";
+import Sidebar from "@/components/layout/sidebar";
 
 interface Props {
     readonly children: ReactNode;
@@ -13,105 +13,43 @@ export default function RootLayout({children}: Props) {
         <StoreProvider>
             <html lang="en">
             <head>
-                <link rel="stylesheet" href="/assets/styles/bootstrap.min.css"/>
-                <link rel="stylesheet" href="/assets/styles/chartist.css"/>
-                <link rel="stylesheet" href="/assets/styles/feather.css"/>
-                <link rel="stylesheet" href="/assets/styles/style.css"/>
-                <link rel="stylesheet" href="/assets/styles/waves.min.css"/>
-                <link rel="stylesheet" href="/assets/styles/widget.css"/>
+                <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+                <link
+                    href="/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+                    rel="stylesheet"
+                />
+                <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet"/>
+                <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet"/>
+                <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet"/>
+                <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet"/>
+                <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet"/>
+                <link href="/assets/css/style.css" rel="stylesheet"/>
+
                 <title>Qualibox Admin</title>
             </head>
             <body suppressHydrationWarning={true}>
-            <div
-                id="pcoded" className="pcoded iscollapsed" nav-type="st2" theme-layout="vertical"
-                vertical-placement="left"
-                vertical-layout="wide" pcoded-device-type="desktop" vertical-nav-type="expanded"
-                vertical-effect="shrink"
-                vnavigation-view="view1" fream-type="theme1" layout-type="light"
-            >
-              <div className="pcoded-overlay-box"></div>
-              <div className="pcoded-container navbar-wrapper">
-                <Navbar/>
-                <div className="pcoded-main-container" style={{marginTop: 78}}>
-                  <div className="pcoded-wrapper">
-                    <Sidebar />
-                  </div>
-                </div>
+            <Header />
+            <Sidebar />
 
-              </div>
-            </div>
+            <Script src="/assets/vendor/apexcharts/apexcharts.min.js" defer
+                    strategy="beforeInteractive"></Script>
+            <Script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer
+                    strategy="beforeInteractive"></Script>
+            <Script src="/assets/vendor/chart.js/chart.umd.js" defer
+                    strategy="beforeInteractive"></Script>
+            <Script src="/assets/vendor/echarts/echarts.min.js" defer
+                    strategy="beforeInteractive"></Script>
+            <Script src="/assets/vendor/quill/quill.js" defer
+                    strategy="beforeInteractive"></Script>
+            <Script src="/assets/vendor/simple-datatables/simple-datatables.js" defer
+                    strategy="beforeInteractive"></Script>
+            <Script src="/assets/vendor/tinymce/tinymce.min.js" defer
+                    strategy="beforeInteractive"></Script>
+            <Script src="/assets/vendor/php-email-form/validate.js" defer
+                    strategy="beforeInteractive"></Script>
 
-
-            <Script
-                defer
-                src="/assets/scripts/jquery.min(1).js"
-                strategy="beforeInteractive"
-            />
-            <Script
-                defer
-                src="/assets/scripts/jquery-ui.min.js"
-                strategy="beforeInteractive"
-            />
-            <Script
-                defer
-                src="/assets/scripts/popper.min(1).js"
-                strategy="beforeInteractive"
-            />
-            <Script
-                defer
-                src="/assets/scripts/bootstrap.min.js"
-                strategy="beforeInteractive"
-            />
-            <Script
-                defer
-                src="/assets/scripts/waves.min.js"
-                strategy="beforeInteractive"
-            />
-            <Script
-                defer
-                src="/assets/scripts/jquery.slimscroll.js"
-                strategy="beforeInteractive"
-            />
-            <Script
-                defer
-                src="/assets/scripts/jquery.flot.js"
-                strategy="beforeInteractive"
-            />
-            <Script
-                defer
-                src="/assets/scripts/jquery.flot.categories.js"
-                strategy="beforeInteractive"
-            />
-            <Script
-                defer
-                src="/assets/scripts/curvedLines.js"
-                strategy="beforeInteractive"
-            />
-            <Script
-                defer
-                src="/assets/scripts/jquery.flot.tooltip.min.js"
-                strategy="beforeInteractive"
-            />
-            <Script
-                defer
-                src="/assets/scripts/pcoded.min.js"
-                strategy="beforeInteractive"
-            />
-            <Script
-                defer
-                src="/assets/scripts/vertical-layout.min.js"
-                strategy="beforeInteractive"
-            />
-            <Script
-                defer
-                src="/assets/scripts/custom-dashboard.min.js"
-                strategy="beforeInteractive"
-            />
-            <Script
-                defer
-                src="/assets/scripts/script.min.js"
-                strategy="beforeInteractive"
-            />
+            <Script src="/assets/js/main.js" defer
+                    strategy="beforeInteractive"></Script>
             </body>
             </html>
         </StoreProvider>
