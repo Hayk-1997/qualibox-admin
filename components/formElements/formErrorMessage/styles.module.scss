@@ -1,0 +1,11 @@
+.errorBox {
+  width: fit-content;
+  padding: 3px 7px;
+  border-radius: 5px;
+  background-color: rgb(223 177 177 / 10%);
+}
+.errorMessage {
+  margin: 0;
+  font-size: 16px;
+  color: var(--bs-form-invalid-border-color);
+}
