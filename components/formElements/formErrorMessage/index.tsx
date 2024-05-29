@@ -5,6 +5,7 @@ import styles from "./styles.module.scss";
 interface IFormErrorMessage {
   message: string;
 }
+
 const FormErrorMessage: React.FC<IFormErrorMessage> = ({
   message,
 }): React.JSX.Element => {
