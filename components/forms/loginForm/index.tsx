@@ -1,21 +1,51 @@
-import React from "react";
+"use client";
+
+import React, { useCallback } from "react";
+import loginSchema from "@/validationSchemas/loginSchema";
+import { TUserLoginForm } from "@/types/user";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import InputWithValidation from "@/components/formElements/inputWithValidation";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useSelectUserLogin } from "@/lib/features/authSlice/selectors";
+import { shallowEqual } from "react-redux";
+import { makeUserLoginRequest } from "@/lib/features/authSlice/service";
 
 const LoginForm: React.FC = (): React.JSX.Element => {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(useSelectUserLogin, shallowEqual);
+
+  console.log("user", user);
+
+  const { handleSubmit, control } = useForm<TUserLoginForm>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: yupResolver(loginSchema),
+    mode: "onChange",
+  });
+
+  const onSubmit = useCallback(
+    (data: TUserLoginForm): void => {
+      dispatch(makeUserLoginRequest(data));
+    },
+    [dispatch],
+  );
+
   return (
-    <form className="row g-3 needs-validation">
+    <form className="row g-3" onSubmit={handleSubmit(onSubmit)}>
       <div className="col-12">
-        <label htmlFor="yourUsername" className="form-label">
-          Username
+        <label htmlFor="email" className="form-label">
+          Email
         </label>
-        <div className="input-group has-validation">
-          <span className="input-group-text" id="inputGroupPrepend">
-            @
-          </span>
-          <input
-            type="text"
-            name="username"
-            className="form-control"
-            id="yourUsername"
+        <div className="input-group">
+          <InputWithValidation
+            name="email"
+            placeholder="Enter you email address here..."
+            id="email"
+            control={control}
+            withError={true}
           />
           <div className="invalid-feedback">Please enter your username.</div>
         </div>
@@ -24,11 +54,12 @@ const LoginForm: React.FC = (): React.JSX.Element => {
         <label htmlFor="yourPassword" className="form-label">
           Password
         </label>
-        <input
+        <InputWithValidation
           type="password"
           name="password"
-          className="form-control"
-          id="yourPassword"
+          id="password"
+          control={control}
+          withError={true}
         />
         <div className="invalid-feedback">Please enter your password!</div>
       </div>
