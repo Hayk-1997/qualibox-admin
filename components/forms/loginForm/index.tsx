@@ -5,11 +5,11 @@ import loginSchema from "@/validationSchemas/loginSchema";
 import { TUserLoginForm } from "@/types/user";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import InputWithValidation from "@/components/formElements/inputWithValidation";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { useSelectUserLogin } from "@/lib/features/authSlice/selectors";
 import { shallowEqual } from "react-redux";
 import { makeUserLoginRequest } from "@/lib/features/authSlice/service";
+import InputWithValidation from "@/components/molecules/inputWithValidation";
 
 const LoginForm: React.FC = (): React.JSX.Element => {
   const dispatch = useAppDispatch();

@@ -2,9 +2,8 @@ import React, { memo } from "react";
 import { useController, UseControllerProps } from "react-hook-form";
 import { Control, UseFormRegister } from "react-hook-form/dist/types/form";
 import { FieldValues } from "react-hook-form/dist/types/fields";
-import FormErrorMessage from "@/components/formElements/formErrorMessage";
 import cn from "classnames";
-
+import FormErrorMessage from "@/components/molecules/formErrorMessage";
 
 import styles from "./styles.module.scss";
 
