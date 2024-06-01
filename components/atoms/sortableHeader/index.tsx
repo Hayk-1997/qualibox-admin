@@ -1,18 +1,21 @@
 import React from "react";
 import SortableButton from "@/components/atoms/buttons/sortableButton";
+import { OrderDirectionEnum } from "@/enums/common";
 
 interface ISortableHeader {
   name: string;
-  orderBy: "asc" | "desc";
+  orderDirection: OrderDirectionEnum;
+  onClick: (name: string, orderBy: OrderDirectionEnum) => void;
 }
 
 const SortableHeader: React.FC<ISortableHeader> = ({
   name,
-  orderBy,
+  orderDirection,
+  onClick,
 }): React.JSX.Element => {
   return (
-    <th scope="col">
-      {name} <SortableButton orderBy={orderBy} />
+    <th scope="col" onClick={() => onClick(name, orderDirection)}>
+      {name} <SortableButton orderDirection={orderDirection} />
     </th>
   );
 };

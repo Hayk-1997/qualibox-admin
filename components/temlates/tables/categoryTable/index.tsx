@@ -1,27 +1,59 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import ButtonWithIcon from "@/components/atoms/buttons/buttonWithIcon";
 import { useGetCategoriesQuery } from "@/lib/apiModules/category/api";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import SortableHeader from "components/atoms/sortableHeader";
 import Spinner from "@/components/atoms/loaders/spinner";
+import { OrderDirectionEnum } from "@/enums/common";
 
 const CategoryTable: React.FC = (): React.JSX.Element => {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const { data: categories, isLoading } = useGetCategoriesQuery(
     new URLSearchParams(searchParams).toString(),
     {},
   );
 
+   const handleSortTable = useCallback(
+    (name, orderDirection): void => {
+      const params = new URLSearchParams(searchParams);
+      params.set("orderBy", name);
+      params.set("orderDirection", orderDirection);
+
+      const data = params.toString();
+
+      router.replace(pathname + "?" + data);
+    },
+    [pathname, router, searchParams],
+  );
+
   return (
     <table className="table">
       <thead>
         <tr>
-          <SortableHeader name="Id" orderBy="asc" />
-          <SortableHeader name="Name" orderBy="asc" />
-          <SortableHeader name="Parent Category" orderBy="asc" />
+          <SortableHeader
+            name="Id"
+            orderDirection={
+              searchParams.get("orderDirection") === OrderDirectionEnum.ASC
+                ? OrderDirectionEnum.DESC
+                : OrderDirectionEnum.ASC
+            }
+            onClick={handleSortTable}
+          />
+          <SortableHeader
+            name="Name"
+            orderDirection={
+              searchParams.get("orderDirection") === OrderDirectionEnum.ASC
+                ? OrderDirectionEnum.DESC
+                : OrderDirectionEnum.ASC
+            }
+            onClick={handleSortTable}
+          />
+          <th scope="col">Parent Category</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>

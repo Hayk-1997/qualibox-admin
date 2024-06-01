@@ -1,19 +1,20 @@
 import React from "react";
+import { OrderDirectionEnum } from "@/enums/common";
 import cn from "classnames";
 
 interface ISortableButton {
-  orderBy: "asc" | "desc";
+  orderDirection: OrderDirectionEnum;
 }
 
 const SortableButton: React.FC<ISortableButton> = ({
-  orderBy,
+  orderDirection,
 }): React.JSX.Element => {
   return (
     <button type="button" className="btn">
       <i
         className={cn("bx", {
-          "bx-sort-up": orderBy === "asc",
-          "bx-sort-down": orderBy === "desc",
+          "bx-sort-up": orderDirection === OrderDirectionEnum.ASC,
+          "bx-sort-down": orderDirection === OrderDirectionEnum.DESC,
         })}
       />
     </button>

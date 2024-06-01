@@ -1,5 +1,5 @@
 import React from "react";
-import CategoryTable from "@/components/tables/categoryTable";
+import CategoryTable from "@/components/temlates/tables/categoryTable";
 
 const CategoriesPage = (): React.JSX.Element => {
   return (
