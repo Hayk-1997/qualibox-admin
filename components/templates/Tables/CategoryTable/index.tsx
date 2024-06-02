@@ -13,7 +13,7 @@ interface ICategoryTable {
   isLoading: boolean;
   categories: TCategoriesData | undefined;
   onEdit: (category: TCategory) => void;
-  onDelete: (categoryId: number) => void;
+  onDelete: (category: TCategory) => void;
 }
 
 const CategoryTable: React.FC<ICategoryTable> = ({
@@ -62,7 +62,7 @@ const CategoryTable: React.FC<ICategoryTable> = ({
                   <ButtonWithIcon
                     icon="ri-delete-bin-4-line"
                     className="btn-danger"
-                    onClick={() => onDelete(category.id)}
+                    onClick={() => onDelete(category)}
                   />
                 </div>
               </td>

@@ -16,6 +16,13 @@ const UpdateCategoryDialog = dynamic(
   },
 );
 
+const DeleteCategoryDialog = dynamic(
+  () => import("@/components/templates/Dialogs/DeleteCategoryDialog"),
+  {
+    ssr: true,
+  },
+);
+
 const CategoriesTemplate: React.FC = (): React.JSX.Element => {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -49,8 +56,9 @@ const CategoriesTemplate: React.FC = (): React.JSX.Element => {
     [pathname, router, searchParams],
   );
 
-  const handleDelete = useCallback((categoryId: number) => {
-    console.log("categoryId", categoryId);
+  const handleDelete = useCallback((category: TCategory) => {
+    setOpenDeleteDialog(true);
+    setCategory(category);
   }, []);
 
   const handleEdit = useCallback((category: TCategory) => {
@@ -67,6 +75,15 @@ const CategoriesTemplate: React.FC = (): React.JSX.Element => {
           onClose={() => setOpenUpdateDialog(false)}
         />
       )}
+      {openDeleteDialog && (
+        <DeleteCategoryDialog
+          onClose={() => setOpenDeleteDialog(false)}
+          categoryId={category.id}
+        />
+      )}
+      <div className="pagetitle">
+        <h1>Categories</h1>
+      </div>
       <section className="section">
         <div className="row">
           <div className="col-lg-12">

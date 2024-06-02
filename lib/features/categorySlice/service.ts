@@ -1,5 +1,8 @@
 import { AppDispatch } from "@/lib/store";
 import {
+  setDeleteCategoryRequest,
+  setDeleteCategoryRequestError,
+  setDeleteCategoryRequestSuccess,
   setUpdateCategoryError,
   setUpdateCategoryRequest,
   setUpdateCategoryRequestSuccess,
@@ -16,6 +19,18 @@ export const makeUpdateCategoryRequest = (data) => {
       dispatch(setUpdateCategoryRequestSuccess());
     } catch (e: unknown) {
       dispatch(setUpdateCategoryError());
+    }
+  };
+};
+
+export const makeDeleteCategoryRequest = (categoryId: number) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setDeleteCategoryRequest());
+      await ApiInstance.delete(`category/${categoryId}`);
+      dispatch(setDeleteCategoryRequestSuccess());
+    } catch (e: unknown) {
+      dispatch(setDeleteCategoryRequestError());
     }
   };
 };
