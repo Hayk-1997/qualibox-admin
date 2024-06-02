@@ -1,10 +1,10 @@
-import React from 'react';
-import Select from 'react-select';
-import { selectDropDownStyles } from '@/constants/utils';
-import { useController, UseControllerProps } from 'react-hook-form';
-import FormErrorMessage from '@/components/formElements/formErrorMessage';
-import { Control } from 'react-hook-form/dist/types/form';
-import { TSelectOptions } from '@/types/common';
+import React from "react";
+import Select from "react-select";
+import { useController, UseControllerProps } from "react-hook-form";
+import { Control } from "react-hook-form/dist/types/form";
+import { TSelectOptions } from "@/types/common";
+import { selectDropDownStyles } from "@/utils/element";
+import FormErrorMessage from "@/components/molecules/FormErrorMessage";
 
 interface ISelectWithValidation extends UseControllerProps<Control> {
   placeholder: string;
@@ -13,7 +13,7 @@ interface ISelectWithValidation extends UseControllerProps<Control> {
   value: TSelectOptions;
   options: string;
   name: string;
-  isDisabled: boolean;
+  isDisabled?: boolean;
 }
 
 const SelectWithValidation: React.FC<ISelectWithValidation> = ({

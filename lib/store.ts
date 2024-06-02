@@ -3,10 +3,20 @@ import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { middleware } from "./middleware";
 
 import { authSlice } from "@/lib/features/authSlice";
+import { categoryApi } from "@/lib/apiModules/category/api";
+import { categorySlice } from "@/lib/features/categorySlice";
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
-const rootReducer = combineSlices(authSlice);
+
+const reducers = {
+  auth: authSlice.reducer,
+  category: categorySlice.reducer,
+  [categoryApi.reducerPath]: categoryApi.reducer,
+};
+
+const rootReducer = combineSlices(reducers);
+
 // Infer the `RootState` type from the root reducer
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -20,7 +30,9 @@ export const makeStore = () => {
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`.
     middleware: (getDefaultMiddleware) => {
-      return getDefaultMiddleware().concat(middleware);
+      return getDefaultMiddleware()
+        .concat(middleware)
+        .concat(categoryApi.middleware);
     },
   });
 };
