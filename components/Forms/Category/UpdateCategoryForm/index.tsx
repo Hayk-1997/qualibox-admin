@@ -22,14 +22,17 @@ const UpdateCategoryForm: React.FC<IUpdateCategoryForm> = ({
 }): React.JSX.Element => {
   const dispatch = useAppDispatch();
 
-  const { handleSubmit, control } = useForm<TUpdateCategoryForm>({
-    defaultValues: {
-      name: category.name,
-      parentId: category.parentId,
-    },
-    resolver: yupResolver(updateCategorySchema),
-    mode: "onChange",
-  });
+  const { handleSubmit, control, setValue, watch, getValues } =
+    useForm<TUpdateCategoryForm>({
+      defaultValues: {
+        name: category.name,
+        parentId: category.parentId,
+      },
+      resolver: yupResolver(updateCategorySchema),
+      mode: "onChange",
+    });
+
+  watch("parentId");
 
   const onSubmit = useCallback(
     (data) => {
@@ -66,7 +69,14 @@ const UpdateCategoryForm: React.FC<IUpdateCategoryForm> = ({
                 id="parentId"
                 name="parentId"
                 placeholder="1"
-                value={parentCategories[0]}
+                value={
+                  parentCategories.find(
+                    (item) => item.value === getValues().parentId,
+                  ) ?? { value: "", label: "" }
+                }
+                onChange={(data) => {
+                  setValue("parentId", data.value);
+                }}
                 control={control}
                 options={parentCategories}
                 withError={true}

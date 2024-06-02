@@ -23,12 +23,22 @@ const DeleteCategoryDialog = dynamic(
   },
 );
 
+const CreateCategoryDialog = dynamic(
+  () => import("@/components/templates/Dialogs/CreateCategoryDialog"),
+  {
+    ssr: true,
+  },
+);
+
 const CategoriesTemplate: React.FC = (): React.JSX.Element => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const [openUpdateDialog, setOpenUpdateDialog] = useState<boolean>(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
+  const [openCreateCategoryDialog, setOpenCreateCategoryDialog] =
+    useState<boolean>(false);
+
   const [category, setCategory] = useState<TCategory | undefined>(undefined);
 
   const { data: categories, isLoading } = useGetCategoriesQuery(
@@ -81,8 +91,20 @@ const CategoriesTemplate: React.FC = (): React.JSX.Element => {
           categoryId={category.id}
         />
       )}
-      <div className="pagetitle">
+      {openCreateCategoryDialog && (
+        <CreateCategoryDialog
+          onClose={() => setOpenCreateCategoryDialog(false)}
+          parentCategories={parentCategories}
+        />
+      )}
+      <div className="pagetitle d-flex justify-content-between">
         <h1>Categories</h1>
+        <button
+          className="btn btn-success"
+          onClick={() => setOpenCreateCategoryDialog(true)}
+        >
+          Create Category
+        </button>
       </div>
       <section className="section">
         <div className="row">

@@ -13,5 +13,7 @@ export type TCategoriesData = {
 
 export type TUpdateCategoryForm = {
   name: string;
-  parentId: number;
+  parentId: number | null;
 };
+
+export type TCreateCategoryForm = TUpdateCategoryForm;

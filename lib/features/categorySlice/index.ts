@@ -7,14 +7,26 @@ type TInitialState = {
 
   deleteCategorySuccess: boolean;
   deleteCategoryError: boolean;
+
+  updateCategorySuccess: boolean;
+  updateCategoryError: boolean;
+
+  createCategorySuccess: boolean;
+  createCategoryError: boolean;
 };
 
 const initialState: TInitialState = {
   categories: null,
   categoriesRequestLoading: false,
 
+  updateCategorySuccess: false,
+  updateCategoryError: false,
+
   deleteCategorySuccess: false,
   deleteCategoryError: false,
+
+  createCategorySuccess: false,
+  createCategoryError: false,
 };
 
 export const categorySlice = createSlice({
@@ -49,6 +61,18 @@ export const categorySlice = createSlice({
       state.deleteCategorySuccess = false;
       state.deleteCategoryError = false;
     },
+    setCreateCategoryRequest: (state) => {
+      state.createCategorySuccess = false;
+      state.createCategoryError = false;
+    },
+    setCreateCategoryRequestSuccess: (state) => {
+      state.createCategorySuccess = true;
+      staet.createCategoryError = false;
+    },
+    setCreateCategoryRequestError: (state) => {
+      state.createCategorySuccess = false;
+      state.createCategoryError = true;
+    },
   },
 });
 
@@ -61,6 +85,10 @@ export const {
   setDeleteCategoryRequestSuccess,
   setDeleteCategoryRequestError,
   setRevalidateDeleteCategoryRequest,
+
+  setCreateCategoryRequest,
+  setCreateCategoryRequestSuccess,
+  setCreateCategoryRequestError,
 } = categorySlice.actions;
 
 export default categorySlice.reducer;
