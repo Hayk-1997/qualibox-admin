@@ -45,6 +45,10 @@ export const categorySlice = createSlice({
       state.deleteCategorySuccess = false;
       state.deleteCategoryError = true;
     },
+    setRevalidateDeleteCategoryRequest: (state) => {
+      state.deleteCategorySuccess = false;
+      state.deleteCategoryError = false;
+    },
   },
 });
 
@@ -56,6 +60,7 @@ export const {
   setDeleteCategoryRequest,
   setDeleteCategoryRequestSuccess,
   setDeleteCategoryRequestError,
+  setRevalidateDeleteCategoryRequest,
 } = categorySlice.actions;
 
 export default categorySlice.reducer;

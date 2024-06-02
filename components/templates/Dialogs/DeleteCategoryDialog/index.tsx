@@ -1,6 +1,9 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useAppDispatch } from "@/lib/hooks";
 import { makeDeleteCategoryRequest } from "@/lib/features/categorySlice/service";
+import { shallowEqual, useSelector } from "react-redux";
+import { useSelectDeleteCategoryRequest } from "@/lib/features/categorySlice/selectors";
+import { setRevalidateDeleteCategoryRequest } from "@/lib/features/categorySlice";
 
 import { Modal as ResponsiveModal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
@@ -15,11 +18,21 @@ const DeleteCategoryDialog: React.FC<IDeleteCategoryDialog> = ({
   categoryId,
 }) => {
   const dispatch = useAppDispatch();
+  const { success } = useSelector(useSelectDeleteCategoryRequest, shallowEqual);
+
+  useEffect(() => {
+    return () => dispatch(setRevalidateDeleteCategoryRequest());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (success) {
+      onClose();
+    }
+  }, [onClose, success]);
 
   const onDelete = useCallback(() => {
     dispatch(makeDeleteCategoryRequest(categoryId));
-    onClose();
-  }, [categoryId, dispatch, onClose]);
+  }, [categoryId, dispatch]);
 
   return (
     <ResponsiveModal open center onClose={onClose}>
