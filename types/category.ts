@@ -1,7 +1,7 @@
 export type TCategory = {
   id: number;
   name: string;
-  parent_id: number | null;
+  parentId: number | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -9,4 +9,9 @@ export type TCategory = {
 export type TCategoriesData = {
   data: TCategory[];
   total: number;
+};
+
+export type TUpdateCategoryForm = {
+  name: string;
+  parentId: number;
 };

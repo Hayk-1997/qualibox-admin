@@ -14,7 +14,26 @@ const initialState: TInitialState = {
 export const categorySlice = createSlice({
   name: "category",
   initialState,
-  reducers: {},
+  reducers: {
+    setUpdateCategoryRequest: (state) => {
+      state.updateCategorySuccess = false;
+      state.updateCategoryError = false;
+    },
+    setUpdateCategoryRequestSuccess: (state) => {
+      state.updateCategorySuccess = true;
+      state.updateCategoryError = false;
+    },
+    setUpdateCategoryError: (state) => {
+      state.updateCategorySuccess = false;
+      state.updateCategoryError = true;
+    },
+  },
 });
+
+export const {
+  setUpdateCategoryRequest,
+  setUpdateCategoryRequestSuccess,
+  setUpdateCategoryError,
+} = categorySlice.actions;
 
 export default categorySlice.reducer;
