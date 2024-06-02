@@ -4,13 +4,13 @@ import UpdateCategoryForm from "@/components/Forms/Category/UpdateCategoryForm";
 import { TSelectOptions } from "@/types/common";
 import Dialog from "@/components/templates/Dialogs";
 
-interface IModal {
+interface IUpdateCategoryDialog {
   onClose: () => void;
   category: TCategory;
   parentCategories: TSelectOptions[];
 }
 
-const UpdateCategoryDialog: React.FC<IModal> = ({
+const UpdateCategoryDialog: React.FC<IUpdateCategoryDialog> = ({
   onClose,
   parentCategories,
   category,

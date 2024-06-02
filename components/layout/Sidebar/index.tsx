@@ -1,5 +1,5 @@
 import React from "react";
-import CategoriesItems from "@/components/molecules/sidebarNavigations/categoriesItems";
+import CategoryLink from "@/components/molecules/sidebarNavigations/CategoryLink";
 import { PAGES_ROUTER_PATH_NAMES } from "@/constants/router";
 
 const Sidebar = () => {
@@ -13,7 +13,7 @@ const Sidebar = () => {
               <span>Dashboard</span>
             </a>
           </li>
-          <CategoriesItems />
+          <CategoryLink />
         </ul>
       </aside>
     </>

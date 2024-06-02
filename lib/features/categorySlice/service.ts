@@ -11,9 +11,9 @@ import {
   setCreateCategoryRequestError,
 } from "@/lib/features/categorySlice/index";
 import ApiInstance from "@/lib/axios";
-import { TCreateCategoryForm } from "@/types/category";
+import { TCreateCategoryForm, TUpdateCategoryForm } from "@/types/category";
 
-export const makeUpdateCategoryRequest = (data) => {
+export const makeUpdateCategoryRequest = (data: TUpdateCategoryForm) => {
   return async (dispatch: AppDispatch) => {
     try {
       dispatch(setUpdateCategoryRequest());

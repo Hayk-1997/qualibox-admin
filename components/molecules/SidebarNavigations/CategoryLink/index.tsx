@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { PAGES_ROUTER_PATH_NAMES } from "@/constants/router";
 
-const CategoriesItems = (): React.JSX.Element => {
+const CategoryLink = (): React.JSX.Element => {
   return (
     <li className="nav-item">
       <Link
@@ -16,4 +16,4 @@ const CategoriesItems = (): React.JSX.Element => {
   );
 };
 
-export default CategoriesItems;
+export default CategoryLink;

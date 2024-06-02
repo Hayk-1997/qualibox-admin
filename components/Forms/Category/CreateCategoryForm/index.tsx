@@ -12,6 +12,7 @@ import createCategorySchema from "@/validationSchemas/createCategorySchema";
 interface ICreateCategoryForm {
   onClose: () => void;
   parentCategories: TSelectOptions[];
+  onSubmit: (data: TCreateCategoryForm) => void;
 }
 
 const CreateCategoryForm: React.FC<ICreateCategoryForm> = ({
