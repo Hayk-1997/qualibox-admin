@@ -1,11 +1,10 @@
 import React, { useCallback } from "react";
-import { Modal as ResponsiveModal } from "react-responsive-modal";
-import "react-responsive-modal/styles.css";
 import CreateCategoryForm from "@/components/Forms/Category/CreateCategoryForm";
 import { makeCreateCategoryRequest } from "@/lib/features/categorySlice/service";
 import { TSelectOptions } from "@/types/common";
 import { useAppDispatch } from "@/lib/hooks";
 import { TCreateCategoryForm } from "@/types/category";
+import Dialog from "@/components/templates/Dialogs";
 
 interface ICreateCategoryDialog {
   onClose: () => void;
@@ -27,7 +26,7 @@ const CreateCategoryDialog: React.FC<ICreateCategoryDialog> = ({
   );
 
   return (
-    <ResponsiveModal open center onClose={onClose}>
+    <Dialog onClose={onClose}>
       <div className="mt-5 w-100">
         <div className="d-flex justify-content-center mb-3">
           <div className="ml-10 text-center">
@@ -40,7 +39,7 @@ const CreateCategoryDialog: React.FC<ICreateCategoryDialog> = ({
           onClose={onClose}
         />
       </div>
-    </ResponsiveModal>
+    </Dialog>
   );
 };
 

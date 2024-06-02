@@ -79,6 +79,9 @@ const CategoriesTemplate: React.FC = (): React.JSX.Element => {
   return (
     <>
       {openUpdateDialog && (
+        // <Dialog>
+        //   Hwllo Rodls
+        // </Dialog>
         <UpdateCategoryDialog
           category={category!}
           parentCategories={parentCategories}

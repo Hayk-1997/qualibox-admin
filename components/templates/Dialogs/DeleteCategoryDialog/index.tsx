@@ -4,9 +4,7 @@ import { makeDeleteCategoryRequest } from "@/lib/features/categorySlice/service"
 import { shallowEqual, useSelector } from "react-redux";
 import { useSelectDeleteCategoryRequest } from "@/lib/features/categorySlice/selectors";
 import { setRevalidateDeleteCategoryRequest } from "@/lib/features/categorySlice";
-
-import { Modal as ResponsiveModal } from "react-responsive-modal";
-import "react-responsive-modal/styles.css";
+import Dialog from "@/components/templates/Dialogs";
 
 interface IDeleteCategoryDialog {
   onClose: () => void;
@@ -35,7 +33,7 @@ const DeleteCategoryDialog: React.FC<IDeleteCategoryDialog> = ({
   }, [categoryId, dispatch]);
 
   return (
-    <ResponsiveModal open center onClose={onClose}>
+    <Dialog onClose={onClose}>
       <div className="mt-5 w-100">
         <div className="d-flex justify-content-center mb-3">
           <div className="ml-10 text-center">
@@ -70,7 +68,7 @@ const DeleteCategoryDialog: React.FC<IDeleteCategoryDialog> = ({
           </div>
         </div>
       </div>
-    </ResponsiveModal>
+    </Dialog>
   );
 };
 
