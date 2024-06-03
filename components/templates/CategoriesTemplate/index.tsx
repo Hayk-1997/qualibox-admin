@@ -8,6 +8,7 @@ import { useGetCategoriesQuery } from "@/lib/apiModules/category/api";
 import { OrderDirectionEnum } from "@/enums/common";
 import { TCategory } from "@/types/category";
 import { bindParentCategoriesSelectOption } from "@/utils/category";
+import { sortTable } from "@/utils/element";
 
 const UpdateCategoryDialog = dynamic(
   () => import("@/components/templates/Dialogs/UpdateCategoryDialog"),
@@ -36,8 +37,7 @@ const CategoriesTemplate: React.FC = (): React.JSX.Element => {
   const pathname = usePathname();
   const [openUpdateDialog, setOpenUpdateDialog] = useState<boolean>(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
-  const [openCreateCategoryDialog, setOpenCreateCategoryDialog] =
-    useState<boolean>(false);
+  const [openCreateDialog, setOpenCreateDialog] = useState<boolean>(false);
 
   const [category, setCategory] = useState<TCategory | undefined>(undefined);
 
@@ -55,13 +55,7 @@ const CategoriesTemplate: React.FC = (): React.JSX.Element => {
 
   const handleSortTable = useCallback(
     (name: string, orderDirection: OrderDirectionEnum): void => {
-      const params = new URLSearchParams(searchParams);
-      params.set("orderBy", name);
-      params.set("orderDirection", orderDirection);
-
-      const data = params.toString();
-
-      router.replace(pathname + "?" + data);
+      sortTable(searchParams, pathname, name, orderDirection, router);
     },
     [pathname, router, searchParams],
   );
@@ -88,20 +82,20 @@ const CategoriesTemplate: React.FC = (): React.JSX.Element => {
       {openDeleteDialog && (
         <DeleteCategoryDialog
           onClose={() => setOpenDeleteDialog(false)}
-          categoryId={category.id}
+          categoryId={category!.id}
         />
       )}
-      {openCreateCategoryDialog && (
+      {openCreateDialog && (
         <CreateCategoryDialog
-          onClose={() => setOpenCreateCategoryDialog(false)}
-          parentCategories={parentCategories}
+          onClose={() => setOpenCreateDialog(false)}
+          parentCategories={parentCategories!}
         />
       )}
       <div className="pagetitle d-flex justify-content-between">
         <h1>Categories</h1>
         <button
           className="btn btn-success"
-          onClick={() => setOpenCreateCategoryDialog(true)}
+          onClick={() => setOpenCreateDialog(true)}
         >
           Create Category
         </button>

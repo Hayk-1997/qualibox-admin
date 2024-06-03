@@ -7,7 +7,7 @@ import Dialog from "@/components/templates/Dialogs";
 interface IUpdateCategoryDialog {
   onClose: () => void;
   category: TCategory;
-  parentCategories: TSelectOptions[];
+  parentCategories: TSelectOptions[] | null;
 }
 
 const UpdateCategoryDialog: React.FC<IUpdateCategoryDialog> = ({

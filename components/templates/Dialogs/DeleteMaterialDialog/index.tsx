@@ -1,29 +1,22 @@
 import React, { useCallback, useEffect } from "react";
-import { useAppDispatch } from "@/lib/hooks";
-import { makeDeleteCategoryRequest } from "@/lib/features/categorySlice/service";
-import { shallowEqual, useSelector } from "react-redux";
-import { useSelectDeleteCategoryRequest } from "@/lib/features/categorySlice/selectors";
-import { setRevalidateDeleteCategoryRequest } from "@/lib/features/categorySlice";
 import Dialog from "@/components/templates/Dialogs";
+import { useAppDispatch } from "@/lib/hooks";
+import { makeDeleteMaterialRequest } from "@/lib/features/materialSlice/service";
+import { shallowEqual, useSelector } from "react-redux";
+import { useSelectDeleteMaterialRequest } from "@/lib/features/materialSlice/selectors";
 
-interface IDeleteCategoryDialog {
+interface IDeleteMaterialDialog {
   onClose: () => void;
-  categoryId: number;
+  materialId: number;
 }
 
-const DeleteCategoryDialog: React.FC<IDeleteCategoryDialog> = ({
+const DeleteMaterialDialog: React.FC<IDeleteMaterialDialog> = ({
   onClose,
-  categoryId,
-}) => {
+  materialId,
+}): React.JSX.Element => {
   const dispatch = useAppDispatch();
-  const { success } = useSelector(useSelectDeleteCategoryRequest, shallowEqual);
 
-  useEffect(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    () => () => dispatch(setRevalidateDeleteCategoryRequest()),
-    [dispatch],
-  );
+  const { success } = useSelector(useSelectDeleteMaterialRequest, shallowEqual);
 
   useEffect(() => {
     if (success) {
@@ -32,8 +25,8 @@ const DeleteCategoryDialog: React.FC<IDeleteCategoryDialog> = ({
   }, [onClose, success]);
 
   const onDelete = useCallback(() => {
-    dispatch(makeDeleteCategoryRequest(categoryId));
-  }, [categoryId, dispatch]);
+    dispatch(makeDeleteMaterialRequest(materialId));
+  }, [dispatch, materialId]);
 
   return (
     <Dialog onClose={onClose}>
@@ -42,7 +35,7 @@ const DeleteCategoryDialog: React.FC<IDeleteCategoryDialog> = ({
           <div className="ml-10 text-center">
             <h4>
               <i className="ri-error-warning-line text-danger px-2"></i>
-              Are you sure to delete category
+              Are you sure to delete material
             </h4>
           </div>
         </div>
@@ -75,4 +68,4 @@ const DeleteCategoryDialog: React.FC<IDeleteCategoryDialog> = ({
   );
 };
 
-export default DeleteCategoryDialog;
+export default DeleteMaterialDialog;

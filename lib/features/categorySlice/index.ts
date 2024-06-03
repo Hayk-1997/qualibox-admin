@@ -67,7 +67,7 @@ export const categorySlice = createSlice({
     },
     setCreateCategoryRequestSuccess: (state) => {
       state.createCategorySuccess = true;
-      staet.createCategoryError = false;
+      state.createCategoryError = false;
     },
     setCreateCategoryRequestError: (state) => {
       state.createCategorySuccess = false;

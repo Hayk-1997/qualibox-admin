@@ -10,7 +10,7 @@ import { makeUpdateCategoryRequest } from "@/lib/features/categorySlice/service"
 import InputWithValidation from "@/components/molecules/inputWithValidation";
 
 interface IUpdateCategoryForm {
-  parentCategories: TSelectOptions[];
+  parentCategories: TSelectOptions[] | null;
   category: TCategory;
   onClose: () => void;
 }
@@ -35,7 +35,7 @@ const UpdateCategoryForm: React.FC<IUpdateCategoryForm> = ({
   watch("parentId");
 
   const onSubmit = useCallback(
-    (data) => {
+    (data: TUpdateCategoryForm): void => {
       dispatch(makeUpdateCategoryRequest({ ...data, id: category.id }));
       onClose();
     },
