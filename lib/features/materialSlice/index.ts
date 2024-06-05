@@ -50,10 +50,6 @@ export const materialSlice = createSlice({
       state.deleteMaterialSuccess = false;
       state.deleteMaterialError = true;
     },
-    setRevalidateDeleteMaterialRequest: (state) => {
-      state.deleteMaterialSuccess = false;
-      state.deleteMaterialError = false;
-    },
     setCreateMaterialRequest: (state) => {
       state.createMaterialSuccess = false;
       state.createMaterialError = false;
@@ -66,6 +62,15 @@ export const materialSlice = createSlice({
       state.createMaterialSuccess = false;
       state.createMaterialError = true;
     },
+
+    setRevalidateMaterialSlice: (state) => {
+      state.deleteMaterialSuccess = false;
+      state.deleteMaterialError = false;
+      state.updateMaterialSuccess = false;
+      state.updateMaterialError = false;
+      state.createMaterialSuccess = false;
+      state.createMaterialError = false;
+    },
   },
 });
 
@@ -77,11 +82,12 @@ export const {
   setDeleteMaterialRequest,
   setDeleteMaterialRequestSuccess,
   setDeleteMaterialRequestError,
-  setRevalidateDeleteMaterialRequest,
 
   setCreateMaterialRequest,
   setCreateMaterialRequestSuccess,
   setCreateMaterialRequestError,
+
+  setRevalidateMaterialSlice,
 } = materialSlice.actions;
 
 export default materialSlice.reducer;

@@ -1,10 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TCategoriesData } from "@/types/category";
 
 type TInitialState = {
-  categories: TCategoriesData | null;
-  categoriesRequestLoading: boolean;
-
   deleteCategorySuccess: boolean;
   deleteCategoryError: boolean;
 
@@ -16,9 +12,6 @@ type TInitialState = {
 };
 
 const initialState: TInitialState = {
-  categories: null,
-  categoriesRequestLoading: false,
-
   updateCategorySuccess: false,
   updateCategoryError: false,
 
@@ -57,10 +50,6 @@ export const categorySlice = createSlice({
       state.deleteCategorySuccess = false;
       state.deleteCategoryError = true;
     },
-    setRevalidateDeleteCategoryRequest: (state) => {
-      state.deleteCategorySuccess = false;
-      state.deleteCategoryError = false;
-    },
     setCreateCategoryRequest: (state) => {
       state.createCategorySuccess = false;
       state.createCategoryError = false;
@@ -73,6 +62,14 @@ export const categorySlice = createSlice({
       state.createCategorySuccess = false;
       state.createCategoryError = true;
     },
+    setRevalidateCategorySlice: (state) => {
+      state.deleteCategorySuccess = false;
+      state.deleteCategoryError = false;
+      state.updateCategorySuccess = false;
+      state.updateCategoryError = false;
+      state.createCategorySuccess = false;
+      state.createCategoryError = false;
+    },
   },
 });
 
@@ -84,7 +81,7 @@ export const {
   setDeleteCategoryRequest,
   setDeleteCategoryRequestSuccess,
   setDeleteCategoryRequestError,
-  setRevalidateDeleteCategoryRequest,
+  setRevalidateCategorySlice,
 
   setCreateCategoryRequest,
   setCreateCategoryRequestSuccess,

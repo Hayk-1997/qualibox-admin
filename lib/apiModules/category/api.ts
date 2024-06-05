@@ -35,4 +35,5 @@ export const categoryApi = createBaseApi((options) =>
   }),
 );
 
-export const { useGetCategoriesQuery } = categoryApi;
+export const { useGetCategoriesQuery, useGetParentCategoriesQuery } =
+  categoryApi;

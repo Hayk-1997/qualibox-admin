@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { TCategory, TUpdateCategoryForm } from "@/types/category";
 import { TSelectOptions } from "@/types/common";
 import SelectWithValidation from "@/components/molecules/SelectWithValidation";
-import updateCategorySchema from "@/validationSchemas/updateCategorySchema";
+import updateCategorySchema from "@/validationSchemas/category/updateCategorySchema";
 import { useAppDispatch } from "@/lib/hooks";
 import { makeUpdateCategoryRequest } from "@/lib/features/categorySlice/service";
 import InputWithValidation from "@/components/molecules/inputWithValidation";
@@ -37,9 +37,8 @@ const UpdateCategoryForm: React.FC<IUpdateCategoryForm> = ({
   const onSubmit = useCallback(
     (data: TUpdateCategoryForm): void => {
       dispatch(makeUpdateCategoryRequest({ ...data, id: category.id }));
-      onClose();
     },
-    [category.id, dispatch, onClose],
+    [category.id, dispatch],
   );
 
   return (

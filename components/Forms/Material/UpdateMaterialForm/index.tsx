@@ -58,6 +58,7 @@ const UpdateMaterialForm: React.FC<IUpdateMaterialForm> = ({
           </label>
           <div className="col-sm-12">
             <InputWithValidation
+              type="number"
               name="price"
               id="price"
               control={control}
@@ -71,6 +72,7 @@ const UpdateMaterialForm: React.FC<IUpdateMaterialForm> = ({
           </label>
           <div className="col-sm-12">
             <InputWithValidation
+              type="number"
               name="cost"
               id="cost"
               control={control}

@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import InputWithValidation from "@/components/molecules/inputWithValidation";
 import SelectWithValidation from "@/components/molecules/SelectWithValidation";
 import { TSelectOptions } from "@/types/common";
-import createCategorySchema from "@/validationSchemas/createCategorySchema";
+import createCategorySchema from "@/validationSchemas/category/createCategorySchema";
 
 interface ICreateCategoryForm {
   onClose: () => void;

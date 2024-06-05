@@ -5,7 +5,7 @@ import { OrderDirectionEnum } from "@/enums/common";
 import SortableHeader from "@/components/atoms/SortableHeader";
 import ButtonWithIcon from "@/components/atoms/Buttons/ButtonWithIcon";
 import Spinner from "@/components/atoms/Loaders/Spinner";
-import { TCategoriesData, TCategory } from "@/types/category";
+import { TCategoriesData, TCategory, TParentCategory } from "@/types/category";
 
 interface ICategoryTable {
   orderDirection: OrderDirectionEnum;
@@ -14,6 +14,7 @@ interface ICategoryTable {
   categories: TCategoriesData | undefined;
   onEdit: (category: TCategory) => void;
   onDelete: (category: TCategory) => void;
+  parentCategories: TParentCategory[];
 }
 
 const CategoryTable: React.FC<ICategoryTable> = ({
@@ -23,6 +24,7 @@ const CategoryTable: React.FC<ICategoryTable> = ({
   categories,
   onEdit,
   onDelete,
+  parentCategories,
 }): React.JSX.Element => {
   return (
     <table className="table">
@@ -49,8 +51,9 @@ const CategoryTable: React.FC<ICategoryTable> = ({
               <th scope="row">{category.id}</th>
               <td>{category.name}</td>
               <td>
-                {categories.data.find((item) => item.id === category.parentId)
-                  ?.name ?? "Doesnt have parent"}
+                {parentCategories?.find(
+                  (item) => item.value === category.parentId,
+                )?.label ?? "Doesnt have parent"}
               </td>
               <td>
                 <div className="d-flex gap-1">

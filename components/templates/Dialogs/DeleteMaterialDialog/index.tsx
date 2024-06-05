@@ -4,6 +4,8 @@ import { useAppDispatch } from "@/lib/hooks";
 import { makeDeleteMaterialRequest } from "@/lib/features/materialSlice/service";
 import { shallowEqual, useSelector } from "react-redux";
 import { useSelectDeleteMaterialRequest } from "@/lib/features/materialSlice/selectors";
+import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
+import { setRevalidateMaterialSlice } from "@/lib/features/materialSlice";
 
 interface IDeleteMaterialDialog {
   onClose: () => void;
@@ -16,20 +18,22 @@ const DeleteMaterialDialog: React.FC<IDeleteMaterialDialog> = ({
 }): React.JSX.Element => {
   const dispatch = useAppDispatch();
 
-  const { success } = useSelector(useSelectDeleteMaterialRequest, shallowEqual);
-
   useEffect(() => {
-    if (success) {
-      onClose();
-    }
-  }, [onClose, success]);
+    return () => dispatch(setRevalidateMaterialSlice());
+  }, [dispatch]);
+
+  const { success } = useSelector(useSelectDeleteMaterialRequest, shallowEqual);
+  useCloseDialogHandler(success, onClose);
 
   const onDelete = useCallback(() => {
     dispatch(makeDeleteMaterialRequest(materialId));
   }, [dispatch, materialId]);
 
   return (
-    <Dialog onClose={onClose}>
+    <Dialog
+      onClose={onClose}
+      unMountHandler={() => dispatch(setRevalidateMaterialSlice())}
+    >
       <div className="mt-5 w-100">
         <div className="d-flex justify-content-center mb-3">
           <div className="ml-10 text-center">

@@ -5,6 +5,10 @@ import { TSelectOptions } from "@/types/common";
 import { useAppDispatch } from "@/lib/hooks";
 import { TCreateCategoryForm } from "@/types/category";
 import Dialog from "@/components/templates/Dialogs";
+import { setRevalidateCategorySlice } from "@/lib/features/categorySlice";
+import { shallowEqual, useSelector } from "react-redux";
+import { useSelectCreateCategoryRequest } from "@/lib/features/categorySlice/selectors";
+import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
 
 interface ICreateCategoryDialog {
   onClose: () => void;
@@ -17,16 +21,21 @@ const CreateCategoryDialog: React.FC<ICreateCategoryDialog> = ({
 }): React.JSX.Element => {
   const dispatch = useAppDispatch();
 
+  const { success } = useSelector(useSelectCreateCategoryRequest, shallowEqual);
+  useCloseDialogHandler(success, onClose);
+
   const onSubmit = useCallback(
     (data: TCreateCategoryForm) => {
       dispatch(makeCreateCategoryRequest(data));
-      onClose();
     },
-    [dispatch, onClose],
+    [dispatch],
   );
 
   return (
-    <Dialog onClose={onClose}>
+    <Dialog
+      onClose={onClose}
+      unMountHandler={() => dispatch(setRevalidateCategorySlice())}
+    >
       <div className="mt-5 w-100">
         <div className="d-flex justify-content-center mb-3">
           <div className="ml-10 text-center">
