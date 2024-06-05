@@ -10,7 +10,7 @@ import {
 import { createBaseApi } from "@/lib/apiModules/baseApi";
 import { UnknownAction } from "redux";
 
-export type CategoryEndpointBuilder = EndpointBuilder<
+export type MaterialEndpointBuilder = EndpointBuilder<
   BaseQueryFn<
     string | FetchArgs,
     unknown,
@@ -22,7 +22,7 @@ export type CategoryEndpointBuilder = EndpointBuilder<
   "api"
 >;
 
-export const categoryApi = createBaseApi((options) =>
+export const materialApi = createBaseApi((options) =>
   createApi({
     ...options,
     extractRehydrationInfo(action: UnknownAction, { reducerPath }) {
@@ -35,5 +35,4 @@ export const categoryApi = createBaseApi((options) =>
   }),
 );
 
-export const { useGetCategoriesQuery, useGetParentCategoriesQuery } =
-  categoryApi;
+export const { useGetMaterialsQuery } = materialApi;

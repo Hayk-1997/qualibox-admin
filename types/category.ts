@@ -6,6 +6,11 @@ export type TCategory = {
   updatedAt: string;
 };
 
+export type TParentCategory = {
+  id: number;
+  parentId: number | null;
+};
+
 export type TCategoriesData = {
   data: TCategory[];
   total: number;

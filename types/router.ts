@@ -1,4 +1,5 @@
 export type TPAgesRouterPAthNames = {
-  categories: string;
   dashboard: string;
+  categories: string;
+  materials: string;
 };

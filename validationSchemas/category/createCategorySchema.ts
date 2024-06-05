@@ -1,4 +1,4 @@
-import updateCategorySchema from "@/validationSchemas/updateCategorySchema";
+import updateCategorySchema from "@/validationSchemas/category/updateCategorySchema";
 
 const createCategorySchema = updateCategorySchema.clone();
 

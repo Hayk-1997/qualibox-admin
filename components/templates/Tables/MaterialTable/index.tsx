@@ -1,30 +1,26 @@
-"use client";
-
 import React from "react";
-import { OrderDirectionEnum } from "@/enums/common";
 import SortableHeader from "@/components/atoms/SortableHeader";
 import ButtonWithIcon from "@/components/atoms/Buttons/ButtonWithIcon";
 import Spinner from "@/components/atoms/Loaders/Spinner";
-import { TCategoriesData, TCategory, TParentCategory } from "@/types/category";
+import { TMaterial, TMaterialsData } from "@/types/material";
+import { OrderDirectionEnum } from "@/enums/common";
 
-interface ICategoryTable {
+interface IMaterialTableProps {
+  materials: TMaterialsData | undefined;
+  isLoading: boolean;
+  onEdit: (category: TMaterial) => void;
+  onDelete: (category: TMaterial) => void;
   orderDirection: OrderDirectionEnum;
   handleSortTable: (name: string, orderDirection: OrderDirectionEnum) => void;
-  isLoading: boolean;
-  categories: TCategoriesData | undefined;
-  onEdit: (category: TCategory) => void;
-  onDelete: (category: TCategory) => void;
-  parentCategories: TParentCategory[];
 }
 
-const CategoryTable: React.FC<ICategoryTable> = ({
-  orderDirection,
-  handleSortTable,
+const MaterialTable: React.FC<IMaterialTableProps> = ({
+  materials,
   isLoading,
-  categories,
   onEdit,
   onDelete,
-  parentCategories,
+  handleSortTable,
+  orderDirection,
 }): React.JSX.Element => {
   return (
     <table className="table">
@@ -35,37 +31,35 @@ const CategoryTable: React.FC<ICategoryTable> = ({
             orderDirection={orderDirection}
             onClick={handleSortTable}
           />
+          <th scope="col">Name</th>
           <SortableHeader
-            name="Name"
+            name="Price"
             orderDirection={orderDirection}
             onClick={handleSortTable}
           />
-          <th scope="col">Parent Category</th>
+          <th scope="col">Cost</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
         {!isLoading ? (
-          categories?.data.map((category) => (
-            <tr key={category.id}>
-              <th scope="row">{category.id}</th>
-              <td>{category.name}</td>
-              <td>
-                {parentCategories?.find(
-                  (item) => item.value === category.parentId,
-                )?.label ?? "Doesnt have parent"}
-              </td>
+          materials?.data.map((material) => (
+            <tr key={material.id}>
+              <th scope="row">{material.id}</th>
+              <td>{material.name}</td>
+              <td>${material.price}</td>
+              <td>${material.cost}</td>
               <td>
                 <div className="d-flex gap-1">
                   <ButtonWithIcon
                     icon="ri-edit-2-fill"
                     className="btn-primary"
-                    onClick={() => onEdit(category)}
+                    onClick={() => onEdit(material)}
                   />
                   <ButtonWithIcon
                     icon="ri-delete-bin-4-line"
                     className="btn-danger"
-                    onClick={() => onDelete(category)}
+                    onClick={() => onDelete(material)}
                   />
                 </div>
               </td>
@@ -85,4 +79,4 @@ const CategoryTable: React.FC<ICategoryTable> = ({
   );
 };
 
-export default CategoryTable;
+export default MaterialTable;

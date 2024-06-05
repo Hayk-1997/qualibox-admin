@@ -1,13 +1,25 @@
 "use client";
 
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import CategoryTable from "@/components/templates/Tables/CategoryTable";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useGetCategoriesQuery } from "@/lib/apiModules/category/api";
+import {
+  useGetCategoriesQuery,
+  useGetParentCategoriesQuery,
+} from "@/lib/apiModules/category/api";
 import { OrderDirectionEnum } from "@/enums/common";
 import { TCategory } from "@/types/category";
 import { bindParentCategoriesSelectOption } from "@/utils/category";
+import { sortTable } from "@/utils/element";
+import { shallowEqual, useSelector } from "react-redux";
+import {
+  useSelectCreateCategoryRequest,
+  useSelectDeleteCategoryRequest,
+  useSelectUpdateCategoryRequest,
+} from "@/lib/features/categorySlice/selectors";
+import Pagination from "@/components/atoms/Pagination";
+import { handlePaginationChange } from "@/utils/url";
 
 const UpdateCategoryDialog = dynamic(
   () => import("@/components/templates/Dialogs/UpdateCategoryDialog"),
@@ -34,34 +46,51 @@ const CategoriesTemplate: React.FC = (): React.JSX.Element => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const { success: isDeleted } = useSelector(
+    useSelectDeleteCategoryRequest,
+    shallowEqual,
+  );
+
+  const { success: isCreated } = useSelector(
+    useSelectCreateCategoryRequest,
+    shallowEqual,
+  );
+
+  const { success: isUpdated } = useSelector(
+    useSelectUpdateCategoryRequest,
+    shallowEqual,
+  );
+
   const [openUpdateDialog, setOpenUpdateDialog] = useState<boolean>(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
-  const [openCreateCategoryDialog, setOpenCreateCategoryDialog] =
-    useState<boolean>(false);
+  const [openCreateDialog, setOpenCreateDialog] = useState<boolean>(false);
 
   const [category, setCategory] = useState<TCategory | undefined>(undefined);
 
-  const { data: categories, isLoading } = useGetCategoriesQuery(
-    new URLSearchParams(searchParams).toString(),
-    {},
-  );
+  const {
+    data: categories,
+    isLoading,
+    refetch,
+  } = useGetCategoriesQuery(new URLSearchParams(searchParams).toString(), {});
+
+  const { data: parentCategoriesData } = useGetParentCategoriesQuery();
+
+  useEffect(() => {
+    if (isDeleted || isCreated || isUpdated) {
+      refetch();
+    }
+  }, [isDeleted, isCreated, isUpdated, refetch]);
 
   const parentCategories = useMemo(() => {
-    if (categories) {
-      return bindParentCategoriesSelectOption(categories.data);
+    if (parentCategoriesData) {
+      return bindParentCategoriesSelectOption(parentCategoriesData);
     }
     return null;
-  }, [categories]);
+  }, [parentCategoriesData]);
 
   const handleSortTable = useCallback(
     (name: string, orderDirection: OrderDirectionEnum): void => {
-      const params = new URLSearchParams(searchParams);
-      params.set("orderBy", name);
-      params.set("orderDirection", orderDirection);
-
-      const data = params.toString();
-
-      router.replace(pathname + "?" + data);
+      sortTable(searchParams, pathname, name, orderDirection, router);
     },
     [pathname, router, searchParams],
   );
@@ -88,20 +117,20 @@ const CategoriesTemplate: React.FC = (): React.JSX.Element => {
       {openDeleteDialog && (
         <DeleteCategoryDialog
           onClose={() => setOpenDeleteDialog(false)}
-          categoryId={category.id}
+          categoryId={category!.id}
         />
       )}
-      {openCreateCategoryDialog && (
+      {openCreateDialog && (
         <CreateCategoryDialog
-          onClose={() => setOpenCreateCategoryDialog(false)}
-          parentCategories={parentCategories}
+          onClose={() => setOpenCreateDialog(false)}
+          parentCategories={parentCategories!}
         />
       )}
       <div className="pagetitle d-flex justify-content-between">
         <h1>Categories</h1>
         <button
           className="btn btn-success"
-          onClick={() => setOpenCreateCategoryDialog(true)}
+          onClick={() => setOpenCreateDialog(true)}
         >
           Create Category
         </button>
@@ -124,8 +153,23 @@ const CategoriesTemplate: React.FC = (): React.JSX.Element => {
                   isLoading={isLoading}
                   onDelete={handleDelete}
                   onEdit={handleEdit}
+                  parentCategories={parentCategories}
                 />
               </div>
+              {categories?.total && (
+                <Pagination
+                  count={categories.total}
+                  currentPage={Number(searchParams.get("page")) || 1}
+                  onPageChange={(page) => {
+                    handlePaginationChange(
+                      page,
+                      searchParams,
+                      router,
+                      pathname,
+                    );
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>

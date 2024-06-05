@@ -1,6 +1,7 @@
 import React from "react";
 import CategoryLink from "@/components/molecules/sidebarNavigations/CategoryLink";
 import { PAGES_ROUTER_PATH_NAMES } from "@/constants/router";
+import MaterialLink from "@/components/molecules/SidebarNavigations/MaterialLink";
 
 const Sidebar = () => {
   return (
@@ -14,6 +15,7 @@ const Sidebar = () => {
             </a>
           </li>
           <CategoryLink />
+          <MaterialLink />
         </ul>
       </aside>
     </>

@@ -32,6 +32,7 @@ export default function RootLayout(
             rel="stylesheet"
           />
           <link href="/assets/css/style.css" rel="stylesheet" />
+          <link href="/assets/css/pagination.css" rel="stylesheet" />
 
           <title>Qualibox Admin</title>
         </head>
