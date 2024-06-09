@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import updateMaterialSchema from "@/validationSchemas/material/updateMaterialSchema";
 import { useAppDispatch } from "@/lib/hooks";
 import { makeUpdateMaterialRequest } from "@/lib/features/materialSlice/service";
+import FileUpload from "@/components/molecules/FileUpload";
 
 interface IUpdateMaterialForm {
   material: TMaterial;
@@ -98,6 +99,9 @@ const UpdateMaterialForm: React.FC<IUpdateMaterialForm> = ({
               </button>
             </div>
           </div>
+        </div>
+        <div className="col-12">
+          <FileUpload files={material.uploads} />
         </div>
       </div>
     </form>
