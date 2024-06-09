@@ -8,7 +8,7 @@ const Sidebar = (): React.JSX.Element => {
       <aside id="sidebar" className="sidebar">
         <ul className="sidebar-nav" id="sidebar-nav">
           {ADMIN_ROUTES.map((route) => (
-            <li className="nav-item" key={route}>
+            <li className="nav-item" key={route.name}>
               <Link className="nav-link" href={route.path}>
                 <i className="bi bi-menu-button-wide" />
                 <span>{route.name}</span>
