@@ -16,7 +16,7 @@ const FilePreview: React.FC<IFilePreview> = ({ file }) => {
             alt={file.name}
             width={100}
             height={100}
-            sizes="30vw"
+            sizes="15vw"
             style={{
               width: "100%",
               height: "auto",
