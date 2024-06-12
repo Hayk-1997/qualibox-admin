@@ -30,10 +30,12 @@ const rejectStyle = {
 
 interface IFileUpload {
   handleChange: (files: File[]) => void;
+  multiple: boolean;
 }
 
 const FileUpload: React.FC<IFileUpload> = ({
   handleChange,
+  multiple = true,
 }): React.JSX.Element => {
   const {
     getRootProps,
@@ -41,9 +43,9 @@ const FileUpload: React.FC<IFileUpload> = ({
     isDragActive,
     isDragAccept,
     isDragReject,
-    isDragEntered,
   } = useDropzone({
     onDrop: handleChange,
+    multiple,
     accept: {
       "image/*": [".jpeg", ".png", ".jpg"],
     },
@@ -54,9 +56,9 @@ const FileUpload: React.FC<IFileUpload> = ({
       ...baseStyle,
       ...(isDragAccept ? acceptStyle : {}),
       ...(isDragReject ? rejectStyle : {}),
-      ...(isDragActive || isDragEntered ? acceptStyle : {}),
+      ...(isDragActive ? acceptStyle : {}),
     }),
-    [isDragAccept, isDragReject, isDragActive, isDragEntered],
+    [isDragAccept, isDragReject, isDragActive],
   );
 
   return (
