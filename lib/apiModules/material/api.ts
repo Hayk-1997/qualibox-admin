@@ -18,7 +18,7 @@ export type MaterialEndpointBuilder = EndpointBuilder<
     object,
     FetchBaseQueryMeta
   >,
-  never,
+  "Material",
   "api"
 >;
 
@@ -35,4 +35,11 @@ export const materialApi = createBaseApi((options) =>
   }),
 );
 
-export const { useGetMaterialsQuery } = materialApi;
+export const {
+  useGetMaterialsQuery,
+  useRemoveMaterialMutation,
+  useCreateMaterialMutation,
+  useUpdateMaterialMutation,
+  useRemoveMaterialUploadMutation,
+  useCreateMaterialUploadMutation,
+} = materialApi;

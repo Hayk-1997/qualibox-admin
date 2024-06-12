@@ -26,8 +26,15 @@ export type TUpdateMaterialForm = {
   cost: string;
 };
 
-export type TCreateMaterialForm = TUpdateMaterialForm;
+export type TCreateMaterialFormRequest = TUpdateMaterialForm;
 
 export type TUpdateMaterialFormRequest = {
   id: number;
-} & TUpdateMaterialForm;
+} & TCreateMaterialFormRequest;
+
+export type TCreateMaterialUploadFormRequest = {
+  name: string;
+  description: string;
+  file: File;
+  materialId: number;
+};

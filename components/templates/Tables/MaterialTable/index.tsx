@@ -6,7 +6,7 @@ import { TMaterial, TMaterialsData } from "@/types/material";
 import { OrderDirectionEnum } from "@/enums/common";
 
 interface IMaterialTableProps {
-  materials: TMaterialsData | undefined;
+  materials: TMaterialsData | null | undefined;
   isLoading: boolean;
   onEdit: (category: TMaterial) => void;
   onDelete: (category: TMaterial) => void;

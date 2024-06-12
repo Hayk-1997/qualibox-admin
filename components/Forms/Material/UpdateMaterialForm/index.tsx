@@ -4,9 +4,7 @@ import InputWithValidation from "@/components/molecules/inputWithValidation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import updateMaterialSchema from "@/validationSchemas/material/updateMaterialSchema";
-import { useAppDispatch } from "@/lib/hooks";
-import { makeUpdateMaterialRequest } from "@/lib/features/materialSlice/service";
-import FileUpload from "@/components/molecules/FileUpload";
+import { useUpdateMaterialMutation } from "@/lib/apiModules/material/api";
 
 interface IUpdateMaterialForm {
   material: TMaterial;
@@ -17,8 +15,9 @@ const UpdateMaterialForm: React.FC<IUpdateMaterialForm> = ({
   material,
   onClose,
 }): React.JSX.Element => {
-  const dispatch = useAppDispatch();
-
+  const [updateMaterial] = useUpdateMaterialMutation({
+    fixedCacheKey: "shared-update-material",
+  });
   const { handleSubmit, control } = useForm<TUpdateMaterialForm>({
     defaultValues: {
       name: material.name,
@@ -31,9 +30,9 @@ const UpdateMaterialForm: React.FC<IUpdateMaterialForm> = ({
 
   const onSubmit = useCallback(
     (data: TUpdateMaterialForm): void => {
-      dispatch(makeUpdateMaterialRequest({ ...data, id: material.id }));
+      updateMaterial({ ...data, id: material.id });
     },
-    [dispatch, material.id],
+    [material.id, updateMaterial],
   );
 
   return (
@@ -99,9 +98,6 @@ const UpdateMaterialForm: React.FC<IUpdateMaterialForm> = ({
               </button>
             </div>
           </div>
-        </div>
-        <div className="col-12">
-          <FileUpload files={material.uploads} />
         </div>
       </div>
     </form>

@@ -1,5 +1,5 @@
 import React from "react";
-import MaterialsTemplate from "@/components/templates/MaterialsTemplate";
+import MaterialsTemplate from "@/components/templates/Material/MaterialsTemplate";
 
 const MaterialsPage = () => {
   return <MaterialsTemplate />;

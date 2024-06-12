@@ -1,11 +1,10 @@
 import React, { useCallback } from "react";
-import { TCreateMaterialForm } from "@/types/material";
+import { TCreateMaterialFormRequest } from "@/types/material";
 import InputWithValidation from "@/components/molecules/inputWithValidation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAppDispatch } from "@/lib/hooks";
-import { makeCreateMaterialRequest } from "@/lib/features/materialSlice/service";
 import createMaterialSchema from "@/validationSchemas/material/createMaterialSchema";
+import { useCreateMaterialMutation } from "@/lib/apiModules/material/api";
 
 interface ICreateMaterialForm {
   onClose: () => void;
@@ -14,9 +13,10 @@ interface ICreateMaterialForm {
 const CreateMaterialForm: React.FC<ICreateMaterialForm> = ({
   onClose,
 }): React.JSX.Element => {
-  const dispatch = useAppDispatch();
-
-  const { handleSubmit, control } = useForm<TCreateMaterialForm>({
+  const [createMaterial] = useCreateMaterialMutation({
+    fixedCacheKey: "shared-create-material",
+  });
+  const { handleSubmit, control } = useForm<TCreateMaterialFormRequest>({
     defaultValues: {
       name: "",
       price: "",
@@ -27,10 +27,10 @@ const CreateMaterialForm: React.FC<ICreateMaterialForm> = ({
   });
 
   const onSubmit = useCallback(
-    (data: TCreateMaterialForm): void => {
-      dispatch(makeCreateMaterialRequest(data));
+    (data: TCreateMaterialFormRequest): void => {
+      createMaterial(data);
     },
-    [dispatch],
+    [createMaterial],
   );
 
   return (

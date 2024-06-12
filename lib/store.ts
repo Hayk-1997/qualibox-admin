@@ -5,7 +5,6 @@ import { middleware } from "./middleware";
 import { authSlice } from "@/lib/features/authSlice";
 import { categoryApi } from "@/lib/apiModules/category/api";
 import { categorySlice } from "@/lib/features/categorySlice";
-import { materialSlice } from "@/lib/features/materialSlice";
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
@@ -13,7 +12,6 @@ import { materialSlice } from "@/lib/features/materialSlice";
 const reducers = {
   auth: authSlice.reducer,
   category: categorySlice.reducer,
-  material: materialSlice.reducer,
   [categoryApi.reducerPath]: categoryApi.reducer,
 };
 

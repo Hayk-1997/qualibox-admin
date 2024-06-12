@@ -1,11 +1,7 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import Dialog from "@/components/templates/Dialogs";
-import { useAppDispatch } from "@/lib/hooks";
-import { makeDeleteMaterialRequest } from "@/lib/features/materialSlice/service";
-import { shallowEqual, useSelector } from "react-redux";
-import { useSelectDeleteMaterialRequest } from "@/lib/features/materialSlice/selectors";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
-import { setRevalidateMaterialSlice } from "@/lib/features/materialSlice";
+import { useRemoveMaterialMutation } from "@/lib/apiModules/material/api";
 
 interface IDeleteMaterialDialog {
   onClose: () => void;
@@ -16,24 +12,16 @@ const DeleteMaterialDialog: React.FC<IDeleteMaterialDialog> = ({
   onClose,
   materialId,
 }): React.JSX.Element => {
-  const dispatch = useAppDispatch();
+  const [deleteMaterial, { isSuccess, reset }] = useRemoveMaterialMutation();
 
-  useEffect(() => {
-    return () => dispatch(setRevalidateMaterialSlice());
-  }, [dispatch]);
-
-  const { success } = useSelector(useSelectDeleteMaterialRequest, shallowEqual);
-  useCloseDialogHandler(success, onClose);
+  useCloseDialogHandler(isSuccess, onClose);
 
   const onDelete = useCallback(() => {
-    dispatch(makeDeleteMaterialRequest(materialId));
-  }, [dispatch, materialId]);
+    deleteMaterial(materialId);
+  }, [deleteMaterial, materialId]);
 
   return (
-    <Dialog
-      onClose={onClose}
-      unMountHandler={() => dispatch(setRevalidateMaterialSlice())}
-    >
+    <Dialog onClose={onClose} unMountHandler={reset}>
       <div className="mt-5 w-100">
         <div className="d-flex justify-content-center mb-3">
           <div className="ml-10 text-center">
