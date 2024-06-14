@@ -3,7 +3,7 @@ import { REHYDRATE } from "redux-persist";
 import { createBaseApi } from "@/lib/apiModules/baseApi";
 import { UnknownAction } from "redux";
 
-export const materialApi = createBaseApi((options) =>
+export const authApi = createBaseApi((options) =>
   createApi({
     ...options,
     extractRehydrationInfo(action: UnknownAction, { reducerPath }) {
@@ -16,11 +16,4 @@ export const materialApi = createBaseApi((options) =>
   }),
 );
 
-export const {
-  useGetMaterialsQuery,
-  useRemoveMaterialMutation,
-  useCreateMaterialMutation,
-  useUpdateMaterialMutation,
-  useRemoveMaterialUploadMutation,
-  useCreateMaterialUploadMutation,
-} = materialApi;
+export const { useUserLoginMutation } = authApi;

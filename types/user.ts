@@ -1,4 +1,4 @@
-export type TUserLoginForm = {
+export type TUserLoginFormRequest = {
   email: string;
   password: string;
 };

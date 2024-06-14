@@ -6,8 +6,6 @@ type TInitialState = {
   user: null | TUserData;
   userLoading: boolean;
 
-  loginRequestSuccess: boolean;
-  loginRequestError: boolean;
   errorMessage: string;
 
   userLogOutSuccess: boolean;
@@ -16,8 +14,6 @@ type TInitialState = {
 
 const initialState: TInitialState = {
   user: null,
-  loginRequestSuccess: false,
-  loginRequestError: false,
   errorMessage: "",
 
   userLoading: true,
@@ -40,38 +36,10 @@ export const authSlice = createSlice({
       state.user = null;
       state.userLoading = false;
     },
-    setLoginRequest: (state) => {
-      state.loginRequestSuccess = false;
-      state.loginRequestError = false;
-      state.errorMessage = "";
-    },
-    setLoginRequestSuccess: (
-      state,
-      action: { payload: { user: TUserData; token: string } },
-    ) => {
-      const { token, user } = action.payload;
-      setUserToken(token);
-      state.user = user;
-      state.loginRequestSuccess = true;
-      state.loginRequestError = false;
-    },
-    setLoginRequestError: (state, action: { payload: { message: string } }) => {
-      state.user = null;
-      state.loginRequestSuccess = false;
-      state.loginRequestError = true;
-      state.errorMessage = action.payload.message;
-    },
   },
 });
 
-export const {
-  setLoginRequest,
-  setLoginRequestSuccess,
-  setLoginRequestError,
-
-  setUserRequest,
-  setUserRequestSuccess,
-  setUserRequestError,
-} = authSlice.actions;
+export const { setUserRequest, setUserRequestSuccess, setUserRequestError } =
+  authSlice.actions;
 
 export default authSlice.reducer;

@@ -1,23 +1,22 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import loginSchema from "@/validationSchemas/loginSchema";
-import { TUserLoginForm } from "@/types/user";
+import { TUserLoginFormRequest } from "@/types/user";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { useSelectUserLogin } from "@/lib/features/authSlice/selectors";
-import { shallowEqual } from "react-redux";
-import { makeUserLoginRequest } from "@/lib/features/authSlice/service";
 import InputWithValidation from "@/components/molecules/inputWithValidation";
+import { useUserLoginMutation } from "@/lib/apiModules/auth/api";
+import FormErrorMessage from "@/components/molecules/FormErrorMessage";
+import { useRouter } from "next/navigation";
+import { PAGES_ROUTER_PATH_NAMES } from "@/constants/router";
 
 const LoginForm: React.FC = (): React.JSX.Element => {
-  const dispatch = useAppDispatch();
-  const user = useAppSelector(useSelectUserLogin, shallowEqual);
+  const router = useRouter();
 
-  console.log("user", user);
+  const [userLogin, result] = useUserLoginMutation();
 
-  const { handleSubmit, control } = useForm<TUserLoginForm>({
+  const { handleSubmit, control } = useForm<TUserLoginFormRequest>({
     defaultValues: {
       email: "",
       password: "",
@@ -26,11 +25,17 @@ const LoginForm: React.FC = (): React.JSX.Element => {
     mode: "onChange",
   });
 
+  useEffect(() => {
+    if (result.isSuccess) {
+      router.replace(PAGES_ROUTER_PATH_NAMES.dashboard);
+    }
+  }, [result, router]);
+
   const onSubmit = useCallback(
-    (data: TUserLoginForm): void => {
-      dispatch(makeUserLoginRequest(data));
+    (data: TUserLoginFormRequest): void => {
+      userLogin(data);
     },
-    [dispatch],
+    [userLogin],
   );
 
   return (
@@ -47,7 +52,6 @@ const LoginForm: React.FC = (): React.JSX.Element => {
             control={control}
             withError={true}
           />
-          <div className="invalid-feedback">Please enter your username.</div>
         </div>
       </div>
       <div className="col-12">
@@ -61,8 +65,12 @@ const LoginForm: React.FC = (): React.JSX.Element => {
           control={control}
           withError={true}
         />
-        <div className="invalid-feedback">Please enter your password!</div>
       </div>
+      {result.isError && (
+        <div className="mt-1">
+          <FormErrorMessage message={result.error.data.message} />
+        </div>
+      )}
       <div className="col-12">
         <div className="form-check">
           <input
