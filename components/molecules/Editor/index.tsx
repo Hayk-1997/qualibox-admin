@@ -21,7 +21,10 @@ interface IEditor {
   onEditorStateChange: (state: string) => void;
 }
 
-const Editor: React.FC<IEditor> = ({ onEditorStateChange, editorState }) => {
+const Editor: React.FC<IEditor> = ({
+  onEditorStateChange,
+  editorState,
+}): React.JSX.Element => {
   const ref = useRef({ editor: null });
 
   const [isFroalaInitialized, setIsFroalaInitialized] = useState(false);
