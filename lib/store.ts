@@ -1,6 +1,6 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
-import { middleware } from "./middleware";
+import { loggerMiddleware, rtkQueryErrorLogger } from "./middleware";
 
 import { authSlice } from "@/lib/features/authSlice";
 import { categoryApi } from "@/lib/apiModules/category/api";
@@ -31,7 +31,8 @@ export const makeStore = () => {
     // and other useful features of `rtk-query`.
     middleware: (getDefaultMiddleware) => {
       return getDefaultMiddleware()
-        .concat(middleware)
+        .concat(loggerMiddleware)
+        .concat(rtkQueryErrorLogger)
         .concat(categoryApi.middleware);
     },
   });

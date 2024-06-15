@@ -9,9 +9,9 @@ export const authEndpoint = (builder: ApiEndpointBuilder) => ({
       method: "POST",
       body: payload,
     }),
-    transformResponse: (response: { data: unknown }) => {
+    transformResponse: (response: { token: string }) => {
       setUserToken(response.token);
-      return response.data;
+      return response;
     },
 
     invalidatesTags: ["User"],

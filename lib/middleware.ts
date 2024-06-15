@@ -1,7 +1,9 @@
 /* Core */
 import { createLogger } from "redux-logger";
+import { isRejectedWithValue } from "@reduxjs/toolkit";
+import type { Middleware } from "@reduxjs/toolkit";
 
-const middleware = [
+export const loggerMiddleware = [
   createLogger({
     duration: true,
     timestamp: false,
@@ -17,4 +19,16 @@ const middleware = [
   }),
 ];
 
-export { middleware };
+export const rtkQueryErrorLogger: Middleware =
+  () => (next) => (action: unknown) => {
+    // RTK Query uses `createAsyncThunk` from redux-toolkit under the hood, so we're able to utilize these matchers!
+    if (
+      isRejectedWithValue(action) &&
+      ((action?.payload as { status: number }).status === 401 ||
+        (action?.payload as { responseStatus: number }).responseStatus === 401)
+    ) {
+      window.location.href = "/login";
+    }
+
+    return next(action);
+  };

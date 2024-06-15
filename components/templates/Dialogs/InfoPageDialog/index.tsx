@@ -3,6 +3,7 @@ import Dialog from "@/components/templates/Dialogs";
 import { TInfoPage } from "@/types/infoPage";
 import Editor from "@/components/molecules/Editor";
 import { useUpdateInfoPageMutation } from "@/lib/apiModules/infoPage/api";
+import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
 
 interface IUpdateInfoPageDialog {
   onClose: () => void;
@@ -13,8 +14,10 @@ const UpdateInfoPageDialog: React.FC<IUpdateInfoPageDialog> = ({
   onClose,
   infoPage,
 }): React.JSX.Element => {
-  const [updateInfoPage] = useUpdateInfoPageMutation();
+  const [updateInfoPage, { isSuccess, reset }] = useUpdateInfoPageMutation();
   const [content, setContent] = useState(infoPage.content);
+
+  useCloseDialogHandler(isSuccess, onClose);
 
   const onSubmit = useCallback(() => {
     updateInfoPage({
@@ -24,7 +27,7 @@ const UpdateInfoPageDialog: React.FC<IUpdateInfoPageDialog> = ({
   }, [content, infoPage.type, updateInfoPage]);
 
   return (
-    <Dialog onClose={onClose}>
+    <Dialog onClose={onClose} unMountHandler={reset}>
       <div className="mt-5 w-100">
         <div className="d-flex justify-content-center mb-3">
           <div className="ml-10 text-center">

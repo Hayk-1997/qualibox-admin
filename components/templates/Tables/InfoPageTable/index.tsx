@@ -24,7 +24,7 @@ const InfoPageTable: React.FC<InfoPageTableProps> = ({
       </thead>
       <tbody>
         {!isLoading ? (
-          infoPages?.data.map((infoPage) => (
+          infoPages?.data?.map((infoPage) => (
             <tr key={infoPage.id}>
               <td>{infoPage.name}</td>
               <td>
