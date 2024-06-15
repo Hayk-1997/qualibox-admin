@@ -8,6 +8,8 @@ import { OrderDirectionEnum } from "@/enums/common";
 import { sortTable } from "@/utils/element";
 import dynamic from "next/dynamic";
 import { TMaterial } from "@/types/material";
+import Pagination from "@/components/atoms/Pagination";
+import { handlePaginationChange } from "@/utils/url";
 
 const DeleteMaterialDialog = dynamic(
   () => import("@/components/templates/Dialogs/Material/DeleteMaterialDialog"),
@@ -30,7 +32,7 @@ const CreateMaterialDialog = dynamic(
   },
 );
 
-const MaterialsTemplate = (): React.JSX.Element => {
+const MaterialsPageTemplate = (): React.JSX.Element => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -88,21 +90,46 @@ const MaterialsTemplate = (): React.JSX.Element => {
           Create Material
         </button>
       </div>
-
-      <MaterialTable
-        materials={materials}
-        isLoading={isLoading}
-        orderDirection={
-          searchParams.get("orderDirection") === OrderDirectionEnum.ASC
-            ? OrderDirectionEnum.DESC
-            : OrderDirectionEnum.ASC
-        }
-        handleSortTable={handleSortTable}
-        onEdit={onEdit}
-        onDelete={onDelete}
-      />
+      <section className="section">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">Materials Table</h5>
+                <MaterialTable
+                  materials={materials}
+                  isLoading={isLoading}
+                  orderDirection={
+                    searchParams.get("orderDirection") ===
+                    OrderDirectionEnum.ASC
+                      ? OrderDirectionEnum.DESC
+                      : OrderDirectionEnum.ASC
+                  }
+                  handleSortTable={handleSortTable}
+                  onEdit={onEdit}
+                  onDelete={onDelete}
+                />
+              </div>
+              {materials?.total && (
+                <Pagination
+                  count={materials?.total || 0}
+                  currentPage={Number(searchParams.get("page")) || 1}
+                  onPageChange={(page) => {
+                    handlePaginationChange(
+                      page,
+                      searchParams,
+                      router,
+                      pathname,
+                    );
+                  }}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
 
-export default MaterialsTemplate;
+export default MaterialsPageTemplate;

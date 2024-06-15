@@ -1,8 +1,8 @@
 import React from "react";
-import MaterialsTemplate from "@/components/templates/Material/MaterialsTemplate";
+import MaterialsPageTemplate from "@/components/templates/Material/MaterialsPageTemplate";
 
 const MaterialsPage = () => {
-  return <MaterialsTemplate />;
+  return <MaterialsPageTemplate />;
 };
 
 export default MaterialsPage;
