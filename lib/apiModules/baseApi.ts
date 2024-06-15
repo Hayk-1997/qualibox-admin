@@ -7,10 +7,12 @@ import {
   FetchBaseQueryError,
   FetchBaseQueryMeta,
 } from "@reduxjs/toolkit/query";
+import { EndpointBuilder } from "@reduxjs/toolkit/dist/query/endpointDefinitions";
+
 import { categoryEndpoint } from "@/lib/apiModules/category/endpoints";
 import { materialEndpoint } from "@/lib/apiModules/material/endpoints";
 import { getUserToken } from "@/helpers/auth";
-import { EndpointBuilder } from "@reduxjs/toolkit/dist/query/endpointDefinitions";
+import { infoPageEndpoint } from "@/lib/apiModules/infoPage/endpoints";
 import { authEndpoint } from "@/lib/apiModules/auth/endpoints";
 
 type ModuleName = keyof ApiModules<never, never, never, never>;
@@ -23,7 +25,7 @@ export type ApiEndpointBuilder = EndpointBuilder<
     object,
     FetchBaseQueryMeta
   >,
-  "Category" | "Material" | "User",
+  "Category" | "Material" | "User" | "InfoPage",
   "api"
 >;
 
@@ -42,10 +44,11 @@ export const createBaseApi = <T extends ModuleName>(createApi: CreateApi<T>) =>
         return headers;
       },
     }),
-    tagTypes: ["Material", "Category", "User"],
+    tagTypes: ["Material", "Category", "User", "InfoPage"],
     endpoints: (builder) => ({
       ...categoryEndpoint(builder),
       ...materialEndpoint(builder),
+      ...infoPageEndpoint(builder),
       ...authEndpoint(builder),
     }),
   });
