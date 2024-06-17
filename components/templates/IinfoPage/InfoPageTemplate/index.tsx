@@ -13,7 +13,7 @@ const UpdateInfoPageDialog = dynamic(
   },
 );
 
-const InfoPagesTemplate = (): React.JSX.Element => {
+const InfoPageTemplate = (): React.JSX.Element => {
   const { data: infoPages, isLoading } = useGetInfoPagesQuery("");
   const [openUpdateDialog, setOpenUpdateDialog] = useState<boolean>(false);
   const [infoPage, setInfoPage] = useState<TInfoPage | undefined>();
@@ -54,4 +54,4 @@ const InfoPagesTemplate = (): React.JSX.Element => {
   );
 };
 
-export default InfoPagesTemplate;
+export default InfoPageTemplate;

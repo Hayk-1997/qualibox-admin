@@ -7,13 +7,14 @@ import { selectDropDownStyles } from "@/utils/element";
 import FormErrorMessage from "@/components/molecules/FormErrorMessage";
 
 interface ISelectWithValidation extends UseControllerProps<Control> {
-  placeholder: string;
+  placeholder?: string;
   withError: boolean;
   id: string;
   value: TSelectOptions;
   options: string;
   name: string;
   isDisabled?: boolean;
+  onChange?: (data: TSelectOptions) => void;
 }
 
 const SelectWithValidation: React.FC<ISelectWithValidation> = ({
@@ -31,7 +32,7 @@ const SelectWithValidation: React.FC<ISelectWithValidation> = ({
         id={props.id}
         placeholder={props.placeholder}
         value={props.value}
-        onChange={props.onChange}
+        onChange={props.onChange ? props.onChange : () => {}}
         options={props.options}
       />
       {props.withError && fieldState.error && (

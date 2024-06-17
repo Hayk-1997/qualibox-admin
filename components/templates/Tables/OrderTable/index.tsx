@@ -1,65 +1,72 @@
 import React from "react";
+import { TOrder, TOrderData, TOrderPaidKey } from "@/types/order";
 import SortableHeader from "@/components/atoms/SortableHeader";
 import ButtonWithIcon from "@/components/atoms/Buttons/ButtonWithIcon";
 import Spinner from "@/components/atoms/Loaders/Spinner";
-import { TMaterial, TMaterialsData } from "@/types/material";
 import { OrderDirectionEnum } from "@/enums/common";
+import { ORDER_PAID, ORDER_STATUS } from "@/constants/order";
 
-interface IMaterialTableProps {
-  materials: TMaterialsData | null | undefined;
+interface IOrderTable {
+  orders: TOrderData;
   isLoading: boolean;
-  onEdit: (material: TMaterial) => void;
-  onDelete: (material: TMaterial) => void;
+  onEdit: (order: TOrder) => void;
+  onDelete: (order: TOrder) => void;
   orderDirection: OrderDirectionEnum;
   handleSortTable: (name: string, orderDirection: OrderDirectionEnum) => void;
 }
 
-const MaterialTable: React.FC<IMaterialTableProps> = ({
-  materials,
+const OrderTable: React.FC<IOrderTable> = ({
+  orders,
   isLoading,
+  orderDirection,
+  handleSortTable,
   onEdit,
   onDelete,
-  handleSortTable,
-  orderDirection,
 }): React.JSX.Element => {
   return (
     <table className="table">
       <thead>
         <tr>
           <SortableHeader
-            name="Id"
+            name="Total"
             orderDirection={orderDirection}
             onClick={handleSortTable}
           />
-          <th scope="col">Name</th>
           <SortableHeader
-            name="Price"
+            name="Tax"
             orderDirection={orderDirection}
             onClick={handleSortTable}
           />
-          <th scope="col">Cost</th>
+          <SortableHeader
+            name="Discount"
+            orderDirection={orderDirection}
+            onClick={handleSortTable}
+          />
+          <th scope="col">Paid</th>
+          <th scope="col">Status</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
         {!isLoading ? (
-          materials?.data.map((material) => (
-            <tr key={material.id}>
-              <th scope="row">{material.id}</th>
-              <td>{material.name}</td>
-              <td>${material.price}</td>
-              <td>${material.cost}</td>
+          orders?.data.map((order) => (
+            <tr key={order.id}>
+              <th scope="row">${order.total}</th>
+              <th scope="row">${order.tax}</th>
+              <th scope="row">${order.discount}</th>
+              <th scope="row">{ORDER_PAID[+order.paid as TOrderPaidKey]}</th>
+              <th scope="row">{ORDER_STATUS[order.status]}</th>
               <td>
                 <div className="d-flex gap-1">
                   <ButtonWithIcon
                     icon="ri-edit-2-fill"
                     className="btn-primary"
-                    onClick={() => onEdit(material)}
+                    onClick={() => onEdit(order)}
                   />
                   <ButtonWithIcon
                     icon="ri-delete-bin-4-line"
                     className="btn-danger"
-                    onClick={() => onDelete(material)}
+                    onClick={() => onDelete(order)}
                   />
                 </div>
               </td>
@@ -79,4 +86,4 @@ const MaterialTable: React.FC<IMaterialTableProps> = ({
   );
 };
 
-export default MaterialTable;
+export default OrderTable;

@@ -1,8 +1,8 @@
 import React from "react";
-import InfoPagesTemplate from "@/components/templates/IinfoPage/InfoPagesTemplate";
+import InfoPageTemplate from "@/components/templates/IinfoPage/InfoPageTemplate";
 
 const InfoPages = (): React.JSX.Element => {
-  return <InfoPagesTemplate />;
+  return <InfoPageTemplate />;
 };
 
 export default InfoPages;
