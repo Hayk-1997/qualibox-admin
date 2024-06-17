@@ -5,6 +5,7 @@ export const PAGES_ROUTER_PATH_NAMES: TPAgesRouterPAthNames = {
   categories: "/categories?orderDirection=asc&orderBy=Id",
   materials: "/materials?orderDirection=asc&orderBy=Id",
   infoPages: "/info-pages?orderDirection=asc&orderBy=Id",
+  orders: "/orders?orderDirection=asc&orderBy=Id",
 };
 
 export const ADMIN_ROUTES = [
@@ -23,5 +24,9 @@ export const ADMIN_ROUTES = [
   {
     name: "Info Pages",
     path: PAGES_ROUTER_PATH_NAMES.infoPages,
+  },
+  {
+    name: "Orders",
+    path: PAGES_ROUTER_PATH_NAMES.orders,
   },
 ];
