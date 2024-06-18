@@ -7,7 +7,7 @@ import { TInfoPage } from "@/types/infoPage";
 import dynamic from "next/dynamic";
 
 const UpdateInfoPageDialog = dynamic(
-  () => import("@/components/templates/Dialogs/InfoPageDialog"),
+  () => import("@/components/Dialogs/InfoPageDialog"),
   {
     ssr: true,
   },

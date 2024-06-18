@@ -22,21 +22,21 @@ import Pagination from "@/components/atoms/Pagination";
 import { handlePaginationChange } from "@/utils/url";
 
 const UpdateCategoryDialog = dynamic(
-  () => import("@/components/templates/Dialogs/UpdateCategoryDialog"),
+  () => import("@/components/Dialogs/UpdateCategoryDialog"),
   {
     ssr: true,
   },
 );
 
 const DeleteCategoryDialog = dynamic(
-  () => import("@/components/templates/Dialogs/DeleteCategoryDialog"),
+  () => import("@/components/Dialogs/DeleteCategoryDialog"),
   {
     ssr: true,
   },
 );
 
 const CreateCategoryDialog = dynamic(
-  () => import("@/components/templates/Dialogs/CreateCategoryDialog"),
+  () => import("@/components/Dialogs/CreateCategoryDialog"),
   {
     ssr: true,
   },

@@ -1,5 +1,5 @@
 import React from "react";
-import Dialog from "@/components/templates/Dialogs";
+import Dialog from "@/components/Dialogs";
 import CreateMaterialUploadForm from "@/components/Forms/Material/CreateMaterialUploadForm";
 
 interface ICreateMaterialUploadDialog {

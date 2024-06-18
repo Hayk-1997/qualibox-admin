@@ -2,7 +2,7 @@ import React from "react";
 import { TCategory } from "@/types/category";
 import UpdateCategoryForm from "@/components/Forms/Category/UpdateCategoryForm";
 import { TSelectOptions } from "@/types/common";
-import Dialog from "@/components/templates/Dialogs";
+import Dialog from "@/components/Dialogs";
 import { setRevalidateCategorySlice } from "@/lib/features/categorySlice";
 import { shallowEqual, useSelector } from "react-redux";
 import { useSelectUpdateCategoryRequest } from "@/lib/features/categorySlice/selectors";

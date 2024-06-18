@@ -1,33 +1,40 @@
 import React, { useCallback } from "react";
-import Dialog from "@/components/templates/Dialogs";
+import { useAppDispatch } from "@/lib/hooks";
+import { makeDeleteCategoryRequest } from "@/lib/features/categorySlice/service";
+import { shallowEqual, useSelector } from "react-redux";
+import { useSelectDeleteCategoryRequest } from "@/lib/features/categorySlice/selectors";
+import Dialog from "@/components/Dialogs";
+import { setRevalidateCategorySlice } from "@/lib/features/categorySlice";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
-import { useRemoveMaterialMutation } from "@/lib/apiModules/material/api";
 
-interface IDeleteMaterialDialog {
+interface IDeleteCategoryDialog {
   onClose: () => void;
-  materialId: number;
+  categoryId: number;
 }
 
-const DeleteMaterialDialog: React.FC<IDeleteMaterialDialog> = ({
+const DeleteCategoryDialog: React.FC<IDeleteCategoryDialog> = ({
   onClose,
-  materialId,
-}): React.JSX.Element => {
-  const [deleteMaterial, { isSuccess, reset }] = useRemoveMaterialMutation();
-
-  useCloseDialogHandler(isSuccess, onClose);
+  categoryId,
+}) => {
+  const dispatch = useAppDispatch();
+  const { success } = useSelector(useSelectDeleteCategoryRequest, shallowEqual);
+  useCloseDialogHandler(success, onClose);
 
   const onDelete = useCallback(() => {
-    deleteMaterial(materialId);
-  }, [deleteMaterial, materialId]);
+    dispatch(makeDeleteCategoryRequest(categoryId));
+  }, [categoryId, dispatch]);
 
   return (
-    <Dialog onClose={onClose} unMountHandler={reset}>
+    <Dialog
+      onClose={onClose}
+      unMountHandler={() => dispatch(setRevalidateCategorySlice())}
+    >
       <div className="mt-5 w-100">
         <div className="d-flex justify-content-center mb-3">
           <div className="ml-10 text-center">
             <h4>
               <i className="ri-error-warning-line text-danger px-2"></i>
-              Are you sure to delete material
+              Are you sure to delete category
             </h4>
           </div>
         </div>
@@ -60,4 +67,4 @@ const DeleteMaterialDialog: React.FC<IDeleteMaterialDialog> = ({
   );
 };
 
-export default DeleteMaterialDialog;
+export default DeleteCategoryDialog;

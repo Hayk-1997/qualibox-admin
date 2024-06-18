@@ -16,4 +16,4 @@ export const orderApi = createBaseApi((options) =>
   }),
 );
 
-export const { useGetOrdersQuery } = orderApi;
+export const { useGetOrdersQuery, useUpdateOrderMutation } = orderApi;

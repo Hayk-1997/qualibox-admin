@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import Dialog from "@/components/templates/Dialogs";
+import Dialog from "@/components/Dialogs";
 import { TInfoPage } from "@/types/infoPage";
 import Editor from "@/components/molecules/Editor";
 import { useUpdateInfoPageMutation } from "@/lib/apiModules/infoPage/api";
