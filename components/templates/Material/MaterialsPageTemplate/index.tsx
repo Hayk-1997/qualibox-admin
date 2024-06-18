@@ -12,21 +12,21 @@ import Pagination from "@/components/atoms/Pagination";
 import { handlePaginationChange } from "@/utils/url";
 
 const DeleteMaterialDialog = dynamic(
-  () => import("@/components/templates/Dialogs/Material/DeleteMaterialDialog"),
+  () => import("@/components/Dialogs/Material/DeleteMaterialDialog"),
   {
     ssr: true,
   },
 );
 
 const UpdateMaterialDialog = dynamic(
-  () => import("@/components/templates/Dialogs/Material/UpdateMaterialDialog"),
+  () => import("@/components/Dialogs/Material/UpdateMaterialDialog"),
   {
     ssr: true,
   },
 );
 
 const CreateMaterialDialog = dynamic(
-  () => import("@/components/templates/Dialogs/Material/CreateMaterialDialog"),
+  () => import("@/components/Dialogs/Material/CreateMaterialDialog"),
   {
     ssr: true,
   },

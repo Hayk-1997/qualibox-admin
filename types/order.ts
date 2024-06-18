@@ -57,3 +57,7 @@ export type TCustomer = {
   city: string;
   streetAddress: string;
 };
+
+export type TUpdateOrderFormRequest = {
+  status: TOrderStatus;
+};

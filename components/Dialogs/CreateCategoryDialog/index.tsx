@@ -4,7 +4,7 @@ import { makeCreateCategoryRequest } from "@/lib/features/categorySlice/service"
 import { TSelectOptions } from "@/types/common";
 import { useAppDispatch } from "@/lib/hooks";
 import { TCreateCategoryForm } from "@/types/category";
-import Dialog from "@/components/templates/Dialogs";
+import Dialog from "@/components/Dialogs";
 import { setRevalidateCategorySlice } from "@/lib/features/categorySlice";
 import { shallowEqual, useSelector } from "react-redux";
 import { useSelectCreateCategoryRequest } from "@/lib/features/categorySlice/selectors";

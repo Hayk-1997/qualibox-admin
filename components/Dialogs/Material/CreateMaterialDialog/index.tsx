@@ -1,5 +1,5 @@
 import React from "react";
-import Dialog from "@/components/templates/Dialogs";
+import Dialog from "@/components/Dialogs";
 import CreateMaterialForm from "@/components/Forms/Material/CreateMaterialForm";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
 import { useCreateMaterialMutation } from "@/lib/apiModules/material/api";

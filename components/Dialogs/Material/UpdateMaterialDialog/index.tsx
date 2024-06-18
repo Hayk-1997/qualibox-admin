@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Dialog from "@/components/templates/Dialogs";
+import Dialog from "@/components/Dialogs";
 import { TMaterial } from "@/types/material";
 import UpdateMaterialForm from "@/components/Forms/Material/UpdateMaterialForm";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
 import MaterialUploadTemplate from "@/components/templates/Material/MaterialUploadTemplate";
-import CreateMaterialUploadDialog from "@/components/templates/Dialogs/Material/CreateMaterialUploadDialog";
+import CreateMaterialUploadDialog from "@/components/Dialogs/Material/CreateMaterialUploadDialog";
 import { useUpdateMaterialMutation } from "@/lib/apiModules/material/api";
 
 interface IUpdateMaterialDialog {

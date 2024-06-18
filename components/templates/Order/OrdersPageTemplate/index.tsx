@@ -12,7 +12,7 @@ import { sortTable } from "@/utils/element";
 import { TOrder } from "@/types/order";
 
 const UpdateOrderDialog = dynamic(
-  () => import("@/components/templates/Dialogs/Order/UpdateOrderDialog"),
+  () => import("@/components/Dialogs/Order/UpdateOrderDialog"),
   {
     ssr: true,
   },
@@ -43,8 +43,6 @@ const OrdersPageTemplate = (): React.JSX.Element => {
     setOpenUpdateDialog(true);
   }, []);
 
-  const onDelete = useCallback((order: TOrder) => {}, []);
-
   return (
     <>
       {openUpdateDialog && (
@@ -73,7 +71,7 @@ const OrdersPageTemplate = (): React.JSX.Element => {
                   }
                   handleSortTable={handleSortTable}
                   onEdit={onEdit}
-                  onDelete={onDelete}
+                  onDelete={() => {}}
                 />
               </div>
               {!!orders?.total && (
