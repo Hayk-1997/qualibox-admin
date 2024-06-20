@@ -6,9 +6,10 @@ export const PAGES_ROUTER_PATH_NAMES: TPAgesRouterPAthNames = {
   materials: "/materials?orderDirection=asc&orderBy=Id",
   infoPages: "/info-pages?orderDirection=asc&orderBy=Id",
   orders: "/orders?orderDirection=asc&orderBy=Id",
+  login: "/login",
 };
 
-export const ADMIN_ROUTES = [
+export const ADMIN_SIDEBAR_ROUTES = [
   {
     name: "Dashboard",
     path: PAGES_ROUTER_PATH_NAMES.dashboard,

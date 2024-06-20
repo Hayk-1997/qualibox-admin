@@ -13,7 +13,13 @@ export const authEndpoint = (builder: ApiEndpointBuilder) => ({
       setUserToken(response.token);
       return response;
     },
-
+    invalidatesTags: ["User"],
+  }),
+  userLogOut: builder.mutation({
+    query: () => ({
+      url: `logout`,
+      method: "POST",
+    }),
     invalidatesTags: ["User"],
   }),
 });

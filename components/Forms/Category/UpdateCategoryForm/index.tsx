@@ -1,13 +1,12 @@
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TCategory, TUpdateCategoryForm } from "@/types/category";
+import { TCategory, TUpdateCategoryFormRequest } from "@/types/category";
 import { TSelectOptions } from "@/types/common";
 import SelectWithValidation from "@/components/molecules/SelectWithValidation";
 import updateCategorySchema from "@/validationSchemas/category/updateCategorySchema";
-import { useAppDispatch } from "@/lib/hooks";
-import { makeUpdateCategoryRequest } from "@/lib/features/categorySlice/service";
 import InputWithValidation from "@/components/molecules/inputWithValidation";
+import { useUpdateCategoryMutation } from "@/lib/apiModules/category/api";
 
 interface IUpdateCategoryForm {
   parentCategories: TSelectOptions[] | null;
@@ -20,10 +19,12 @@ const UpdateCategoryForm: React.FC<IUpdateCategoryForm> = ({
   parentCategories,
   onClose,
 }): React.JSX.Element => {
-  const dispatch = useAppDispatch();
+  const [updateCategory] = useUpdateCategoryMutation({
+    fixedCacheKey: "shared-update-category",
+  });
 
   const { handleSubmit, control, setValue, watch, getValues } =
-    useForm<TUpdateCategoryForm>({
+    useForm<TUpdateCategoryFormRequest>({
       defaultValues: {
         name: category.name,
         parentId: category.parentId,
@@ -35,10 +36,10 @@ const UpdateCategoryForm: React.FC<IUpdateCategoryForm> = ({
   watch("parentId");
 
   const onSubmit = useCallback(
-    (data: TUpdateCategoryForm): void => {
-      dispatch(makeUpdateCategoryRequest({ ...data, id: category.id }));
+    (data: TUpdateCategoryFormRequest): void => {
+      updateCategory({ ...data, id: category.id });
     },
-    [category.id, dispatch],
+    [category.id, updateCategory],
   );
 
   return (

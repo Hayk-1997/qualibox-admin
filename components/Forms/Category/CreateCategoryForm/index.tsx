@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useForm } from "react-hook-form";
-import { TCreateCategoryForm } from "@/types/category";
+import { TCreateCategoryFormRequest } from "@/types/category";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputWithValidation from "@/components/molecules/inputWithValidation";
 import SelectWithValidation from "@/components/molecules/SelectWithValidation";
@@ -12,7 +12,7 @@ import createCategorySchema from "@/validationSchemas/category/createCategorySch
 interface ICreateCategoryForm {
   onClose: () => void;
   parentCategories: TSelectOptions[];
-  onSubmit: (data: TCreateCategoryForm) => void;
+  onSubmit: (data: TCreateCategoryFormRequest) => void;
 }
 
 const CreateCategoryForm: React.FC<ICreateCategoryForm> = ({
@@ -21,7 +21,7 @@ const CreateCategoryForm: React.FC<ICreateCategoryForm> = ({
   onClose,
 }): React.JSX.Element => {
   const { handleSubmit, control, setValue, getValues, watch } =
-    useForm<TCreateCategoryForm>({
+    useForm<TCreateCategoryFormRequest>({
       defaultValues: {
         name: "",
         parentId: null,

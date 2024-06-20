@@ -16,4 +16,4 @@ export const authApi = createBaseApi((options) =>
   }),
 );
 
-export const { useUserLoginMutation } = authApi;
+export const { useUserLoginMutation, useUserLogOutMutation } = authApi;

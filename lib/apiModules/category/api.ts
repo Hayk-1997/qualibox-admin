@@ -16,5 +16,10 @@ export const categoryApi = createBaseApi((options) =>
   }),
 );
 
-export const { useGetCategoriesQuery, useGetParentCategoriesQuery } =
-  categoryApi;
+export const {
+  useGetCategoriesQuery,
+  useGetParentCategoriesQuery,
+  useDeleteCategoryMutation,
+  useUpdateCategoryMutation,
+  useCreateCategoryMutation,
+} = categoryApi;

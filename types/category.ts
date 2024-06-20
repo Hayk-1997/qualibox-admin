@@ -16,9 +16,9 @@ export type TCategoriesData = {
   total: number;
 };
 
-export type TUpdateCategoryForm = {
+export type TUpdateCategoryFormRequest = {
   name: string;
   parentId: number | null;
 };
 
-export type TCreateCategoryForm = TUpdateCategoryForm;
+export type TCreateCategoryFormRequest = TUpdateCategoryFormRequest;

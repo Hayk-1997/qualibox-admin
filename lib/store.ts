@@ -2,16 +2,12 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { loggerMiddleware, rtkQueryErrorLogger } from "./middleware";
 
-import { authSlice } from "@/lib/features/authSlice";
 import { categoryApi } from "@/lib/apiModules/category/api";
-import { categorySlice } from "@/lib/features/categorySlice";
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
 
 const reducers = {
-  auth: authSlice.reducer,
-  category: categorySlice.reducer,
   [categoryApi.reducerPath]: categoryApi.reducer,
 };
 

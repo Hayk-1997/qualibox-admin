@@ -26,7 +26,7 @@ export type ApiEndpointBuilder = EndpointBuilder<
     object,
     FetchBaseQueryMeta
   >,
-  "Category" | "Material" | "User" | "InfoPage" | "Order",
+  "Category" | "Material" | "User" | "InfoPage" | "Order" | "ParentCategory",
   "api"
 >;
 
@@ -45,7 +45,7 @@ export const createBaseApi = <T extends ModuleName>(createApi: CreateApi<T>) =>
         return headers;
       },
     }),
-    tagTypes: ["Material", "Category", "User", "InfoPage", "Order"],
+    tagTypes: ["Material", "Category", "ParentCategory", "User", "InfoPage", "Order"],
     endpoints: (builder) => ({
       ...categoryEndpoint(builder),
       ...materialEndpoint(builder),

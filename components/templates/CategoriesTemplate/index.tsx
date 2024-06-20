@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import CategoryTable from "@/components/templates/Tables/CategoryTable";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -12,12 +12,6 @@ import { OrderDirectionEnum } from "@/enums/common";
 import { TCategory } from "@/types/category";
 import { bindParentCategoriesSelectOption } from "@/utils/category";
 import { sortTable } from "@/utils/element";
-import { shallowEqual, useSelector } from "react-redux";
-import {
-  useSelectCreateCategoryRequest,
-  useSelectDeleteCategoryRequest,
-  useSelectUpdateCategoryRequest,
-} from "@/lib/features/categorySlice/selectors";
 import Pagination from "@/components/atoms/Pagination";
 import { handlePaginationChange } from "@/utils/url";
 
@@ -46,20 +40,6 @@ const CategoriesTemplate: React.FC = (): React.JSX.Element => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const { success: isDeleted } = useSelector(
-    useSelectDeleteCategoryRequest,
-    shallowEqual,
-  );
-
-  const { success: isCreated } = useSelector(
-    useSelectCreateCategoryRequest,
-    shallowEqual,
-  );
-
-  const { success: isUpdated } = useSelector(
-    useSelectUpdateCategoryRequest,
-    shallowEqual,
-  );
 
   const [openUpdateDialog, setOpenUpdateDialog] = useState<boolean>(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
@@ -67,19 +47,12 @@ const CategoriesTemplate: React.FC = (): React.JSX.Element => {
 
   const [category, setCategory] = useState<TCategory | undefined>(undefined);
 
-  const {
-    data: categories,
-    isLoading,
-    refetch,
-  } = useGetCategoriesQuery(new URLSearchParams(searchParams).toString(), {});
+  const { data: categories, isLoading } = useGetCategoriesQuery(
+    new URLSearchParams(searchParams).toString(),
+    {},
+  );
 
   const { data: parentCategoriesData } = useGetParentCategoriesQuery();
-
-  useEffect(() => {
-    if (isDeleted || isCreated || isUpdated) {
-      refetch();
-    }
-  }, [isDeleted, isCreated, isUpdated, refetch]);
 
   const parentCategories = useMemo(() => {
     if (parentCategoriesData) {

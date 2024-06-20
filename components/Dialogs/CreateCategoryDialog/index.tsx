@@ -1,14 +1,10 @@
 import React, { useCallback } from "react";
 import CreateCategoryForm from "@/components/Forms/Category/CreateCategoryForm";
-import { makeCreateCategoryRequest } from "@/lib/features/categorySlice/service";
 import { TSelectOptions } from "@/types/common";
-import { useAppDispatch } from "@/lib/hooks";
-import { TCreateCategoryForm } from "@/types/category";
+import { TCreateCategoryFormRequest } from "@/types/category";
 import Dialog from "@/components/Dialogs";
-import { setRevalidateCategorySlice } from "@/lib/features/categorySlice";
-import { shallowEqual, useSelector } from "react-redux";
-import { useSelectCreateCategoryRequest } from "@/lib/features/categorySlice/selectors";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
+import { useCreateCategoryMutation } from "@/lib/apiModules/category/api";
 
 interface ICreateCategoryDialog {
   onClose: () => void;
@@ -19,23 +15,19 @@ const CreateCategoryDialog: React.FC<ICreateCategoryDialog> = ({
   onClose,
   parentCategories,
 }): React.JSX.Element => {
-  const dispatch = useAppDispatch();
+  const [createCategory, { isSuccess, reset }] = useCreateCategoryMutation();
 
-  const { success } = useSelector(useSelectCreateCategoryRequest, shallowEqual);
-  useCloseDialogHandler(success, onClose);
+  useCloseDialogHandler(isSuccess, onClose);
 
   const onSubmit = useCallback(
-    (data: TCreateCategoryForm) => {
-      dispatch(makeCreateCategoryRequest(data));
+    (data: TCreateCategoryFormRequest) => {
+      createCategory(data);
     },
-    [dispatch],
+    [createCategory],
   );
 
   return (
-    <Dialog
-      onClose={onClose}
-      unMountHandler={() => dispatch(setRevalidateCategorySlice())}
-    >
+    <Dialog onClose={onClose} unMountHandler={reset}>
       <div className="mt-5 w-100">
         <div className="d-flex justify-content-center mb-3">
           <div className="ml-10 text-center">
