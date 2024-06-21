@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useUserLogOutMutation } from "@/lib/apiModules/auth/api";
 import { useRouter } from "next/navigation";
 import { PAGES_ROUTER_PATH_NAMES } from "@/constants/router";
@@ -38,4 +38,4 @@ const AdminAccountDropDown = (): React.JSX.Element => {
   );
 };
 
-export default memo(AdminAccountDropDown);
+export default AdminAccountDropDown;

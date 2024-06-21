@@ -8,7 +8,7 @@ export type TCategory = {
 
 export type TParentCategory = {
   id: number;
-  parentId: number | null;
+  name: string;
 };
 
 export type TCategoriesData = {
