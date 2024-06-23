@@ -52,7 +52,7 @@ const CategoriesTemplate: React.FC = (): React.JSX.Element => {
     {},
   );
 
-  const { data: parentCategoriesData } = useGetParentCategoriesQuery();
+  const { data: parentCategoriesData } = useGetParentCategoriesQuery("");
 
   const parentCategories = useMemo(() => {
     if (parentCategoriesData) {

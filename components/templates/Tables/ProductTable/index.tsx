@@ -1,31 +1,15 @@
-"use client";
-
 import React from "react";
-import { OrderDirectionEnum } from "@/enums/common";
 import SortableHeader from "@/components/atoms/SortableHeader";
 import ButtonWithIcon from "@/components/atoms/Buttons/ButtonWithIcon";
 import Spinner from "@/components/atoms/Loaders/Spinner";
-import { TCategoriesData, TCategory } from "@/types/category";
-import { TSelectOptions } from "@/types/common";
 
-interface ICategoryTable {
-  orderDirection: OrderDirectionEnum;
-  handleSortTable: (name: string, orderDirection: OrderDirectionEnum) => void;
-  isLoading: boolean;
-  categories: TCategoriesData | undefined;
-  onEdit: (category: TCategory) => void;
-  onDelete: (category: TCategory) => void;
-  parentCategories: TSelectOptions[] | null;
-}
-
-const CategoryTable: React.FC<ICategoryTable> = ({
+const ProductTable = ({
   orderDirection,
   handleSortTable,
-  isLoading,
-  categories,
+  products,
   onEdit,
   onDelete,
-  parentCategories,
+  isLoading,
 }): React.JSX.Element => {
   return (
     <table className="table">
@@ -41,32 +25,26 @@ const CategoryTable: React.FC<ICategoryTable> = ({
             orderDirection={orderDirection}
             onClick={handleSortTable}
           />
-          <th scope="col">Parent Category</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
         {!isLoading ? (
-          categories?.data.map((category) => (
-            <tr key={category.id}>
-              <th scope="row">{category.id}</th>
-              <td>{category.name}</td>
-              <td>
-                {parentCategories?.find(
-                  (item) => item.value === category.parentId,
-                )?.label ?? "Doesnt have parent"}
-              </td>
+          products?.data.map((product) => (
+            <tr key={product.id}>
+              <th scope="row">{product.id}</th>
+              <td>{product.name}</td>
               <td>
                 <div className="d-flex gap-1">
                   <ButtonWithIcon
                     icon="ri-edit-2-fill"
                     className="btn-primary"
-                    onClick={() => onEdit(category)}
+                    onClick={() => onEdit(product)}
                   />
                   <ButtonWithIcon
                     icon="ri-delete-bin-4-line"
                     className="btn-danger"
-                    onClick={() => onDelete(category)}
+                    onClick={() => onDelete(product)}
                   />
                 </div>
               </td>
@@ -86,4 +64,4 @@ const CategoryTable: React.FC<ICategoryTable> = ({
   );
 };
 
-export default CategoryTable;
+export default ProductTable;

@@ -3,7 +3,7 @@ import { REHYDRATE } from "redux-persist";
 import { createBaseApi } from "@/lib/apiModules/baseApi";
 import { UnknownAction } from "redux";
 
-export const categoryApi = createBaseApi((options) =>
+export const productApi = createBaseApi((options) =>
   createApi({
     ...options,
     extractRehydrationInfo(action: UnknownAction, { reducerPath }) {
@@ -16,11 +16,4 @@ export const categoryApi = createBaseApi((options) =>
   }),
 );
 
-export const {
-  useGetCategoriesQuery,
-  useGetParentCategoriesQuery,
-  useDeleteCategoryMutation,
-  useUpdateCategoryMutation,
-  useCreateCategoryMutation,
-  useGetNonParentCategoriesQuery,
-} = categoryApi;
+export const { useGetProductsQuery } = productApi;

@@ -15,6 +15,7 @@ import { getUserToken } from "@/helpers/auth";
 import { infoPageEndpoint } from "@/lib/apiModules/infoPage/endpoints";
 import { authEndpoint } from "@/lib/apiModules/auth/endpoints";
 import { orderEndpoint } from "@/lib/apiModules/order/endpoints";
+import { productEndpoint } from "@/lib/apiModules/product/endpoints";
 
 type ModuleName = keyof ApiModules<never, never, never, never>;
 
@@ -26,7 +27,13 @@ export type ApiEndpointBuilder = EndpointBuilder<
     object,
     FetchBaseQueryMeta
   >,
-  "Category" | "Material" | "User" | "InfoPage" | "Order" | "ParentCategory",
+  | "Category"
+  | "Material"
+  | "User"
+  | "InfoPage"
+  | "Order"
+  | "ParentCategory"
+  | "Product",
   "api"
 >;
 
@@ -45,12 +52,21 @@ export const createBaseApi = <T extends ModuleName>(createApi: CreateApi<T>) =>
         return headers;
       },
     }),
-    tagTypes: ["Material", "Category", "ParentCategory", "User", "InfoPage", "Order"],
+    tagTypes: [
+      "Material",
+      "Category",
+      "ParentCategory",
+      "User",
+      "InfoPage",
+      "Order",
+      "Product",
+    ],
     endpoints: (builder) => ({
       ...categoryEndpoint(builder),
       ...materialEndpoint(builder),
       ...infoPageEndpoint(builder),
       ...authEndpoint(builder),
       ...orderEndpoint(builder),
+      ...productEndpoint(builder),
     }),
   });

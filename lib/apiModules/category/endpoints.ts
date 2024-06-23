@@ -1,6 +1,7 @@
 import {
   TCategoriesData,
   TCreateCategoryFormRequest,
+  TNonParentCategory,
   TParentCategory,
   TUpdateCategoryFormRequest,
 } from "@/types/category";
@@ -41,5 +42,11 @@ export const categoryEndpoint = (builder: ApiEndpointBuilder) => ({
       body: payload,
     }),
     invalidatesTags: ["Category", "ParentCategory"],
+  }),
+  getNonParentCategories: builder.query<TNonParentCategory[], string>({
+    query: () => {
+      return `category/non-parents`;
+    },
+    providesTags: ["Category"],
   }),
 });
