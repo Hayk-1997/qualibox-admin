@@ -1,9 +1,13 @@
 import React, { useCallback, useState } from "react";
 import Dialog from "@/components/Dialogs";
 import { TInfoPage } from "@/types/infoPage";
-import Editor from "@/components/molecules/Editor";
 import { useUpdateInfoPageMutation } from "@/lib/apiModules/infoPage/api";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
+import dynamic from "next/dynamic";
+
+const Editor = dynamic(() => import("@/components/molecules/Editor"), {
+  ssr: true,
+});
 
 interface IUpdateInfoPageDialog {
   onClose: () => void;
