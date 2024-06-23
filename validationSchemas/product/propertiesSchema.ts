@@ -10,6 +10,8 @@ const propertiesSchema = yup.object().shape({
         depth: string().required("Depth is required"),
         price: string().required("Price is required"),
         cost: string().required("Cost is required"),
+        referenceId: string().required("Reference Id is required"),
+        materialId: string().required("Material is required"),
       }),
     )
     .min(1, "You need to on properties"),

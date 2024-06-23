@@ -12,7 +12,7 @@ export const bindParentCategoriesSelectOption = (
 
 export const bindNonParentCategoriesSelectOption = (
   categories: TNonParentCategory[],
-) => {
+): TSelectOptions[] => {
   return categories.map((category) => ({
     value: category.id,
     label: category.name,
