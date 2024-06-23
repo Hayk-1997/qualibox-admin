@@ -42,7 +42,6 @@ const Header = (): React.JSX.Element => {
               <i className="bi bi-search" />
             </a>
           </li>
-          {/* End Search Icon*/}
           <li className="nav-item dropdown">
             <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
               <i className="bi bi-bell" />
@@ -111,7 +110,6 @@ const Header = (): React.JSX.Element => {
             </ul>
             {/* End Notification Dropdown Items */}
           </li>
-          {/* End Notification Nav */}
           <li className="nav-item dropdown">
             <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
               <i className="bi bi-chat-left-text" />
@@ -196,22 +194,7 @@ const Header = (): React.JSX.Element => {
             </ul>
             {/* End Messages Dropdown Items */}
           </li>
-          {/* End Messages Nav */}
           <li className="nav-item dropdown pe-3">
-            <a
-              className="nav-link nav-profile d-flex align-items-center pe-0"
-              href="#"
-              data-bs-toggle="dropdown"
-            >
-              <img
-                src="assets/img/profile-img.jpg"
-                alt="Profile"
-                className="rounded-circle"
-              />
-              <span className="d-none d-md-block dropdown-toggle ps-2">
-                K. Anderson
-              </span>
-            </a>
             <AdminAccountDropDown />
           </li>
         </ul>

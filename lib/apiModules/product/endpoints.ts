@@ -1,19 +1,8 @@
 import { ApiEndpointBuilder } from "@/lib/apiModules/baseApi";
-import { TOrderData, TUpdateOrderFormRequest } from "@/types/order";
 
 export const productEndpoint = (builder: ApiEndpointBuilder) => ({
-  getProducts: builder.query<TOrderData | null, string>({
-    query: (query) => `product/all?${query}`,
-    providesTags: ["Order"],
-  }),
-  updateOrder: builder.mutation<number>({
-    query: (payload: TUpdateOrderFormRequest) => {
-      return {
-        url: `order/${payload.id}/update`,
-        method: "POST",
-        body: payload,
-      };
-    },
-    invalidatesTags: ["Order"],
+  getProducts: builder.query<never | null, string>({
+    query: (query: string) => `product/all?${query}`,
+    providesTags: ["Product"],
   }),
 });

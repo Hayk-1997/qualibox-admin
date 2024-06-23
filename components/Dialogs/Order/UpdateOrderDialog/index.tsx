@@ -24,6 +24,7 @@ const UpdateOrderDialog: React.FC<IUpdateOrderDialog> = ({
     useForm<TUpdateOrderFormRequest>({
       defaultValues: {
         status: order.status,
+        id: order.id,
       },
       resolver: yupResolver(updateOrderSchema),
       mode: "onChange",
