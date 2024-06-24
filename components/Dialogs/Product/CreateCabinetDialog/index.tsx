@@ -12,6 +12,7 @@ import { useCreateCabinetMutation } from "@/lib/apiModules/product/api";
 import { useGetMaterialsQuery } from "@/lib/apiModules/material/api";
 import { bindMaterialSelectOption } from "@/utils/material";
 import { TCreateCabinetFormSchema } from "@/types/product";
+import { PRODUCT_DEFAULT_STATIC_PROPERTIES } from "@/constants/product";
 
 const CreateCabinetDialog = ({ onClose }): React.JSX.Element => {
   const { data: categories } = useGetNonParentCategoriesQuery();
@@ -25,20 +26,14 @@ const CreateCabinetDialog = ({ onClose }): React.JSX.Element => {
         categoryIds: "",
         properties: [
           {
-            width: "",
-            height: "",
-            depth: "",
-            price: "",
-            cost: "",
-            referenceId: "",
-            materialId: "",
+            ...PRODUCT_DEFAULT_STATIC_PROPERTIES,
           },
         ],
       },
       resolver: yupResolver(createProductSchema),
       mode: "onChange",
     });
-  watch("categoryIds");
+  watch(["categoryIds", "properties"]);
 
   const materialSelectOptions = useMemo(() => {
     if (materials?.data) {
@@ -53,6 +48,21 @@ const CreateCabinetDialog = ({ onClose }): React.JSX.Element => {
     }
     return [];
   }, [categories]);
+
+  const handleAddNewProperties = () => {
+    const previousData = getValues().properties;
+
+    setValue(
+      "properties",
+      [
+        ...previousData,
+        {
+          ...PRODUCT_DEFAULT_STATIC_PROPERTIES,
+        },
+      ],
+      { shouldValidate: true },
+    );
+  };
 
   const onSubmit = useCallback(
     (data: TCreateCabinetFormSchema) => {
@@ -105,7 +115,9 @@ const CreateCabinetDialog = ({ onClose }): React.JSX.Element => {
             withError={true}
           />
         </div>
+        <hr />
         <div className="col-12 mb-3">
+          <h5 className="card-title">Properties</h5>
           <ProductStaticPropertiesForm
             control={control}
             fields={getValues().properties}
@@ -113,6 +125,17 @@ const CreateCabinetDialog = ({ onClose }): React.JSX.Element => {
             setValue={setValue}
             watch={watch}
           />
+          <hr />
+          <div>
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={handleAddNewProperties}
+            >
+              <i className="ri-add-circle-fill" />
+              <span>Add New Properties</span>
+            </button>
+          </div>
         </div>
         <div className="col-12 mb-3">
           <div className="d-flex justify-content-end gap-5">

@@ -1,18 +1,18 @@
 import React from "react";
 import Dialog from "@/components/Dialogs";
+import { useRemoveProductMutation } from "@/lib/apiModules/product/api";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
-import { useDeleteCategoryMutation } from "@/lib/apiModules/category/api";
 
-interface IDeleteCategoryDialog {
+interface IDeleteProductDialog {
   onClose: () => void;
-  categoryId: number;
+  productId: numbder;
 }
 
-const DeleteCategoryDialog: React.FC<IDeleteCategoryDialog> = ({
+const DeleteProductDialog: React.JSX.Element<IDeleteProductDialog> = ({
   onClose,
-  categoryId,
-}) => {
-  const [deleteCategory, { isSuccess }] = useDeleteCategoryMutation();
+  productId,
+}): React.JSX.Element => {
+  const [deleteProduct, { isSuccess }] = useRemoveProductMutation();
   useCloseDialogHandler(isSuccess, onClose);
 
   return (
@@ -22,7 +22,7 @@ const DeleteCategoryDialog: React.FC<IDeleteCategoryDialog> = ({
           <div className="ml-10 text-center">
             <h4>
               <i className="ri-error-warning-line text-danger px-2"></i>
-              Are you sure to delete category
+              Are you sure to delete product
             </h4>
           </div>
         </div>
@@ -42,7 +42,7 @@ const DeleteCategoryDialog: React.FC<IDeleteCategoryDialog> = ({
                 <button
                   type="submit"
                   className="btn btn-success"
-                  onClick={() => deleteCategory(categoryId)}
+                  onClick={() => deleteProduct(productId)}
                 >
                   Delete
                 </button>
@@ -55,4 +55,4 @@ const DeleteCategoryDialog: React.FC<IDeleteCategoryDialog> = ({
   );
 };
 
-export default DeleteCategoryDialog;
+export default DeleteProductDialog;

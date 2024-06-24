@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useState } from "react";
+import dynamic from "next/dynamic";
 import { useGetProductsQuery } from "@/lib/apiModules/product/api";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { OrderDirectionEnum } from "@/enums/common";
@@ -9,8 +10,15 @@ import { handlePaginationChange } from "@/utils/url";
 import ProductTable from "@/components/templates/Tables/ProductTable";
 import { sortTable } from "@/utils/element";
 import CreateProductDropdown from "@/components/molecules/DropDowns/CreateProductDropdown";
-import CreateCabinetDialog from "@/components/Dialogs/Product/CreateCabinetDialog";
 import { CreateProductEnum } from "@/enums/product";
+import DeleteProductDialog from "@/components/Dialogs/Product/DeleteProductDialog";
+
+const CreateCabinetDialog = dynamic(
+  () => import("@/components/Dialogs/Product/CreateCabinetDialog"),
+  {
+    ssr: true,
+  },
+);
 
 const ProductTemplate = (): React.JSX.Element => {
   const searchParams = useSearchParams();
@@ -20,21 +28,21 @@ const ProductTemplate = (): React.JSX.Element => {
   const [openUpdateDialog, setOpenUpdateDialog] = useState<boolean>(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
   const [openCreateDialog, setOpenCreateDialog] = useState("");
+  const [product, setProduct] = useState();
 
   const { data: products, isLoading } = useGetProductsQuery(
     new URLSearchParams(searchParams).toString(),
     {},
   );
-  console.log("products", products);
 
   const handleDelete = useCallback((product) => {
     setOpenDeleteDialog(true);
-    console.log("product", product);
+    setProduct(product);
   }, []);
 
   const handleEdit = useCallback((product) => {
     setOpenUpdateDialog(true);
-    console.log("product", product);
+    setProduct(product);
   }, []);
 
   const handleSortTable = useCallback(
@@ -48,12 +56,17 @@ const ProductTemplate = (): React.JSX.Element => {
     switch (openCreateDialog) {
       case CreateProductEnum.CABINET:
         return <CreateCabinetDialog onClose={() => setOpenCreateDialog("")} />;
-        break;
     }
   }, [openCreateDialog]);
 
   return (
     <>
+      {openDeleteDialog && (
+        <DeleteProductDialog
+          onClose={() => setOpenDeleteDialog(false)}
+          productId={product.id}
+        />
+      )}
       <div className="pagetitle d-flex justify-content-between">
         <h1>Products</h1>
         <CreateProductDropdown

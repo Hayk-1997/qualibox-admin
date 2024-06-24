@@ -16,4 +16,8 @@ export const productApi = createBaseApi((options) =>
   }),
 );
 
-export const { useGetProductsQuery, useCreateCabinetMutation } = productApi;
+export const {
+  useGetProductsQuery,
+  useCreateCabinetMutation,
+  useRemoveProductMutation,
+} = productApi;

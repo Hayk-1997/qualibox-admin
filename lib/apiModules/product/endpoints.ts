@@ -16,4 +16,11 @@ export const productEndpoint = (builder: ApiEndpointBuilder) => ({
     },
     invalidatesTags: ["Product"],
   }),
+  removeProduct: builder.mutation({
+    query: (id: number) => ({
+      url: `product/${id}`,
+      method: "DELETE",
+    }),
+    invalidatesTags: ["Product"],
+  }),
 });
