@@ -1,18 +1,12 @@
 import * as yup from "yup";
+import { fileSchema } from "@/validationSchemas/file";
 
-const uploadMaterialSchema = yup.object().shape({
-  name: yup.string().required("Name is a required field"),
-  description: yup.string().nullable(true),
-  file: yup
-    .mixed()
-    .required("File is required field")
-    .test("fileFormat", "Only image files are allowed", (value) => {
-      if (value) {
-        const supportedFormats = [".jpeg", ".png", ".jpg"];
-        return supportedFormats.includes(value.name.split(".").pop());
-      }
-      return true;
-    }),
-});
+const uploadMaterialSchema = yup
+  .object()
+  .shape({
+    name: yup.string().required("Name is a required field"),
+    description: yup.string().nullable(true),
+  })
+  .concat(fileSchema);
 
 export default uploadMaterialSchema;

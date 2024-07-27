@@ -20,6 +20,22 @@ export type TMaterialsData = {
   total: number;
 };
 
+export type TMaterialUploads = {
+  id: number;
+  name: string;
+  description: string | null;
+  materialId: number;
+  uploadId: number;
+  deletedAt: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TMaterialUploadsData = {
+  data: TMaterialUploads[];
+  total: number;
+};
+
 export type TUpdateMaterialForm = {
   name: string;
   price: string;

@@ -2,6 +2,7 @@ import React from "react";
 import SortableHeader from "@/components/atoms/SortableHeader";
 import ButtonWithIcon from "@/components/atoms/Buttons/ButtonWithIcon";
 import Spinner from "@/components/atoms/Loaders/Spinner";
+import { CreateProductEnum } from "@/enums/product";
 
 const ProductTable = ({
   orderDirection,
@@ -39,7 +40,7 @@ const ProductTable = ({
                   <ButtonWithIcon
                     icon="ri-edit-2-fill"
                     className="btn-primary"
-                    onClick={() => onEdit(product)}
+                    onClick={() => onEdit(product, CreateProductEnum.CABINET)}
                   />
                   <ButtonWithIcon
                     icon="ri-delete-bin-4-line"

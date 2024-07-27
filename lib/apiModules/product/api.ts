@@ -20,4 +20,8 @@ export const {
   useGetProductsQuery,
   useCreateCabinetMutation,
   useRemoveProductMutation,
+  useUpdateCabinetMutation,
+  useUploadProductFileMutation,
+  useRemoveProductFileMutation,
+  useUpdateProductFileMaterialMutation,
 } = productApi;

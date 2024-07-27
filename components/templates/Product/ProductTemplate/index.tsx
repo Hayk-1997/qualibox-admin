@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useGetProductsQuery } from "@/lib/apiModules/product/api";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -12,6 +12,8 @@ import { sortTable } from "@/utils/element";
 import CreateProductDropdown from "@/components/molecules/DropDowns/CreateProductDropdown";
 import { CreateProductEnum } from "@/enums/product";
 import DeleteProductDialog from "@/components/Dialogs/Product/DeleteProductDialog";
+import UpdateProductDialog from "@/components/Dialogs/Product/UpdateProductDialog";
+import { TCabinet } from "@/types/product";
 
 const CreateCabinetDialog = dynamic(
   () => import("@/components/Dialogs/Product/CreateCabinetDialog"),
@@ -25,23 +27,32 @@ const ProductTemplate = (): React.JSX.Element => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const [openUpdateDialog, setOpenUpdateDialog] = useState<boolean>(false);
+  const [openUpdateDialog, setOpenUpdateDialog] = useState<CreateProductEnum>("");
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
   const [openCreateDialog, setOpenCreateDialog] = useState("");
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState(undefined);
 
   const { data: products, isLoading } = useGetProductsQuery(
     new URLSearchParams(searchParams).toString(),
     {},
   );
 
+  useEffect(() => {
+    if (products && product) {
+      const filteredProduct = products.data.find(
+        (item) => item.id === product.id,
+      );
+      setProduct(filteredProduct);
+    }
+  }, [products, product]);
+
   const handleDelete = useCallback((product) => {
     setOpenDeleteDialog(true);
     setProduct(product);
   }, []);
 
-  const handleEdit = useCallback((product) => {
-    setOpenUpdateDialog(true);
+  const handleEdit = useCallback((product, type: CreateProductEnum) => {
+    setOpenUpdateDialog(type);
     setProduct(product);
   }, []);
 
@@ -59,6 +70,21 @@ const ProductTemplate = (): React.JSX.Element => {
     }
   }, [openCreateDialog]);
 
+  const resolveUpdateProductDialog = useCallback(
+    (product) => {
+      switch (openUpdateDialog) {
+        case CreateProductEnum.CABINET:
+          return (
+            <UpdateProductDialog
+              onClose={() => setOpenUpdateDialog("")}
+              product={product as TCabinet}
+            />
+          );
+      }
+    },
+    [openUpdateDialog],
+  );
+
   return (
     <>
       {openDeleteDialog && (
@@ -73,6 +99,7 @@ const ProductTemplate = (): React.JSX.Element => {
           handleClick={(type) => setOpenCreateDialog(type)}
         />
         {resolveCreateProductDialog()}
+        {resolveUpdateProductDialog(product)}
       </div>
       <section className="section">
         <div className="row">

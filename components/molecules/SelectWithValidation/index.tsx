@@ -34,6 +34,11 @@ const SelectWithValidation: React.FC<ISelectWithValidation> = ({
         value={props.value}
         onChange={props.onChange ? props.onChange : () => {}}
         options={props.options}
+        formatOptionLabel={function(data) {
+          return (
+            <span dangerouslySetInnerHTML={{ __html: data.label }} />
+          );
+        }}
       />
       {props.withError && fieldState.error && (
         <div className="mt-1">

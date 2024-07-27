@@ -23,4 +23,5 @@ export const {
   useUpdateMaterialMutation,
   useRemoveMaterialUploadMutation,
   useCreateMaterialUploadMutation,
+  useGetMaterialUploadsQuery,
 } = materialApi;
