@@ -8,40 +8,104 @@ export type TProductUploads = {
   }[];
 };
 
-export type TCabinet = {
+export type TStaticProduct = {
   categoryIds: number[];
   materialIds: number[];
   id: number;
   name: string;
   price: number;
   cost: number | null;
-  isDynamicSize: boolean;
   description: string | null;
-  hasMaterials: boolean;
+  isDynamicSize: boolean;
   hasDepth: boolean;
   uploads: TProductUploads[];
   createdAt: string;
   updatedAt: string;
 };
 
-export type TUpdateCabinetFormRequest = {
-  categoryIds: string;
-  properties: TCabinetProperties[];
-} & TCabinet;
-
-export type TCreateCabinetFormSchema = {
+export type TDynamicProduct = {
+  id: number;
   name: string;
-  categoryIds: string;
-  properties: TCabinetProperties[];
+  categoryIds: number[];
+  materialIds: number[];
+  isDynamicSize: boolean;
+  hasDepth: boolean;
+  description: string | null;
+  price: number;
+  cost: number | null;
+  createdAt: string;
+  updatedAt: string;
+  properties: TDynamicProductProperties[];
 };
 
-export type TCreateCabinetFormRequest = {
+export type TCreateStaticProductForm = {
   name: string;
-  categoryIds: Array<number>;
-  properties: TCabinetProperties[];
+  categoryIds: number;
+  properties: TStaticProductProperties[];
 };
 
-export type TCabinetProperties = {
+export type TCreateStaticProductRequest = {
+  name: string;
+  categoryIds: number[];
+  properties: TStaticProductProperties[];
+};
+
+export type TUpdateStaticProductForm = {
+  id: number;
+} & TUpdateStaticProductRequest;
+
+export type TUpdateStaticProductRequest = {
+  id: number;
+  name: string;
+  categoryIds: number;
+  hasDepth: boolean;
+  isDynamicSize: boolean;
+  properties: TStaticProductProperties[];
+};
+
+export type TCreateDynamicProductForm = {
+  name: string;
+  categoryIds: string;
+  hasDepth: boolean;
+  isDynamicSize: boolean;
+  materialIds: string[];
+  properties: TDynamicProductProperties[];
+};
+
+export type TCreateDynamicProductRequest = {
+  name: string;
+  categoryIds: number[];
+  materialIds: number[];
+  hasDepth: boolean;
+  isDynamicSize: boolean;
+  properties: TDynamicProductProperties[];
+};
+
+export type TUpdateDynamicProductRequest = {
+  id: number;
+} & TCreateDynamicProductForm;
+
+export type TUpdateDynamicProductForm = {
+  id: number;
+  name: string;
+  categoryIds: number[];
+  materialIds: number[];
+  properties: TDynamicProductProperties[];
+  hasDepth: boolean;
+  isDynamicSize: boolean;
+};
+
+export type TDynamicProductProperties = {
+  minWidth: string;
+  maxWidth: string;
+  minHeight: string;
+  maxHeight: string;
+  minDepth: string;
+  maxDepth: string;
+  referenceId: string;
+};
+
+export type TStaticProductProperties = {
   width: string;
   height: string;
   depth: string;

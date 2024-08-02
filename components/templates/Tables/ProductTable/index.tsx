@@ -2,7 +2,7 @@ import React from "react";
 import SortableHeader from "@/components/atoms/SortableHeader";
 import ButtonWithIcon from "@/components/atoms/Buttons/ButtonWithIcon";
 import Spinner from "@/components/atoms/Loaders/Spinner";
-import { CreateProductEnum } from "@/enums/product";
+import { ProductEnum } from "@/enums/product";
 
 const ProductTable = ({
   orderDirection,
@@ -40,7 +40,14 @@ const ProductTable = ({
                   <ButtonWithIcon
                     icon="ri-edit-2-fill"
                     className="btn-primary"
-                    onClick={() => onEdit(product, CreateProductEnum.CABINET)}
+                    onClick={() =>
+                      onEdit(
+                        product,
+                        product.isDynamicSize
+                          ? ProductEnum.DYNAMIC_PRODUCT
+                          : ProductEnum.STATIC_PRODUCT,
+                      )
+                    }
                   />
                   <ButtonWithIcon
                     icon="ri-delete-bin-4-line"

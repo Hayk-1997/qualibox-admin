@@ -59,7 +59,6 @@ const buttons = [
     icon: "ri-file-copy-2-fill",
     // iconURL: "images/copy.png",
     exec: function (editor: { value: string }) {
-      console.log("editor", editor);
       const html = editor.value;
       copyStringToClipboard(html);
     },

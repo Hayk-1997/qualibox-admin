@@ -13,23 +13,14 @@ import { handlePaginationChange } from "@/utils/url";
 
 const DeleteMaterialDialog = dynamic(
   () => import("@/components/Dialogs/Material/DeleteMaterialDialog"),
-  {
-    ssr: true,
-  },
 );
 
 const UpdateMaterialDialog = dynamic(
   () => import("@/components/Dialogs/Material/UpdateMaterialDialog"),
-  {
-    ssr: true,
-  },
 );
 
 const CreateMaterialDialog = dynamic(
   () => import("@/components/Dialogs/Material/CreateMaterialDialog"),
-  {
-    ssr: true,
-  },
 );
 
 const MaterialsPageTemplate = (): React.JSX.Element => {

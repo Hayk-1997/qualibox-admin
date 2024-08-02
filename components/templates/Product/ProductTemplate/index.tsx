@@ -9,17 +9,31 @@ import Pagination from "@/components/atoms/Pagination";
 import { handlePaginationChange } from "@/utils/url";
 import ProductTable from "@/components/templates/Tables/ProductTable";
 import { sortTable } from "@/utils/element";
-import CreateProductDropdown from "@/components/molecules/DropDowns/CreateProductDropdown";
-import { CreateProductEnum } from "@/enums/product";
-import DeleteProductDialog from "@/components/Dialogs/Product/DeleteProductDialog";
-import UpdateProductDialog from "@/components/Dialogs/Product/UpdateProductDialog";
-import { TCabinet } from "@/types/product";
+import { ProductEnum } from "@/enums/product";
+import { TDynamicProduct, TStaticProduct } from "@/types/product";
 
-const CreateCabinetDialog = dynamic(
-  () => import("@/components/Dialogs/Product/CreateCabinetDialog"),
-  {
-    ssr: true,
-  },
+const CreateProductDropdown = dynamic(
+  () => import("@/components/molecules/DropDowns/CreateProductDropdown"),
+);
+
+const CreateStaticProductDialog = dynamic(
+  () => import("@/components/Dialogs/Product/CreateStaticProductDialog"),
+);
+
+const DeleteProductDialog = dynamic(
+  () => import("@/components/Dialogs/Product/DeleteProductDialog"),
+);
+
+const UpdateDynamicProductDialog = dynamic(
+  () => import("@/components/Dialogs/Product/UpdateDynamicProductDialog"),
+);
+
+const CreateDynamicProductDialog = dynamic(
+  () => import("@/components/Dialogs/Product/CreateDynamicProductDialog"),
+);
+
+const UpdateStaticProductDialog = dynamic(
+  () => import("@/components/Dialogs/Product/UpdateStaticProductDialog"),
 );
 
 const ProductTemplate = (): React.JSX.Element => {
@@ -27,7 +41,7 @@ const ProductTemplate = (): React.JSX.Element => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const [openUpdateDialog, setOpenUpdateDialog] = useState<CreateProductEnum>("");
+  const [openUpdateDialog, setOpenUpdateDialog] = useState<ProductEnum>("");
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
   const [openCreateDialog, setOpenCreateDialog] = useState("");
   const [product, setProduct] = useState(undefined);
@@ -51,7 +65,7 @@ const ProductTemplate = (): React.JSX.Element => {
     setProduct(product);
   }, []);
 
-  const handleEdit = useCallback((product, type: CreateProductEnum) => {
+  const handleEdit = useCallback((product, type: ProductEnum) => {
     setOpenUpdateDialog(type);
     setProduct(product);
   }, []);
@@ -65,19 +79,32 @@ const ProductTemplate = (): React.JSX.Element => {
 
   const resolveCreateProductDialog = useCallback(() => {
     switch (openCreateDialog) {
-      case CreateProductEnum.CABINET:
-        return <CreateCabinetDialog onClose={() => setOpenCreateDialog("")} />;
+      case ProductEnum.STATIC_PRODUCT:
+        return (
+          <CreateStaticProductDialog onClose={() => setOpenCreateDialog("")} />
+        );
+      case ProductEnum.DYNAMIC_PRODUCT:
+        return (
+          <CreateDynamicProductDialog onClose={() => setOpenCreateDialog("")} />
+        );
     }
   }, [openCreateDialog]);
 
   const resolveUpdateProductDialog = useCallback(
     (product) => {
       switch (openUpdateDialog) {
-        case CreateProductEnum.CABINET:
+        case ProductEnum.STATIC_PRODUCT:
           return (
-            <UpdateProductDialog
+            <UpdateStaticProductDialog
               onClose={() => setOpenUpdateDialog("")}
-              product={product as TCabinet}
+              product={product as TStaticProduct}
+            />
+          );
+        case ProductEnum.DYNAMIC_PRODUCT:
+          return (
+            <UpdateDynamicProductDialog
+              onClose={() => setOpenUpdateDialog("")}
+              product={product as TDynamicProduct}
             />
           );
       }

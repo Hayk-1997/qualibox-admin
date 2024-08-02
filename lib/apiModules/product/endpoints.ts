@@ -1,7 +1,9 @@
 import { ApiEndpointBuilder } from "@/lib/apiModules/baseApi";
 import {
-  TCreateCabinetFormRequest,
-  TUpdateCabinetFormRequest,
+  TUpdateStaticProductRequest,
+  TUpdateDynamicProductRequest,
+  TCreateStaticProductRequest,
+  TCreateDynamicProductRequest,
 } from "@/types/product";
 
 export const productEndpoint = (builder: ApiEndpointBuilder) => ({
@@ -9,24 +11,36 @@ export const productEndpoint = (builder: ApiEndpointBuilder) => ({
     query: (query: string) => `product/all?${query}`,
     providesTags: ["Product"],
   }),
-  createCabinet: builder.mutation({
-    query: (payload: TCreateCabinetFormRequest) => {
-      return {
-        url: `product/create-cabinet`,
-        method: "POST",
-        body: payload,
-      };
-    },
+  createStaticProduct: builder.mutation({
+    query: (payload: TCreateStaticProductRequest) => ({
+      url: "product/create-static-product",
+      method: "POST",
+      body: payload,
+    }),
     invalidatesTags: ["Product"],
   }),
-  updateCabinet: builder.mutation({
-    query: (payload: TUpdateCabinetFormRequest) => {
-      return {
-        url: `product/update-cabinet/${payload.id}`,
-        method: "POST",
-        body: payload,
-      };
-    },
+  updateStaticProduct: builder.mutation({
+    query: (payload: TUpdateStaticProductRequest) => ({
+      url: `product/update-static-product/${payload.id}`,
+      method: "POST",
+      body: payload,
+    }),
+    invalidatesTags: ["Product"],
+  }),
+  createDynamicProduct: builder.mutation({
+    query: (payload: TCreateDynamicProductRequest) => ({
+      url: "product/create-dynamic-product",
+      method: "POST",
+      body: payload,
+    }),
+    invalidatesTags: ["Product"],
+  }),
+  updateDynamicProduct: builder.mutation({
+    query: (payload: TUpdateDynamicProductRequest) => ({
+      url: `product/update-dynamic-product/${payload.id}`,
+      method: "POST",
+      body: payload,
+    }),
     invalidatesTags: ["Product"],
   }),
   removeProduct: builder.mutation({
@@ -37,7 +51,7 @@ export const productEndpoint = (builder: ApiEndpointBuilder) => ({
     invalidatesTags: ["Product"],
   }),
   uploadProductFile: builder.mutation({
-    query: (payload: number) => {
+    query: (payload: { file: File; materialId: number; productId: number }) => {
       const formData = new FormData();
       formData.append("file", payload.file);
       formData.append("materialId", payload.materialId);

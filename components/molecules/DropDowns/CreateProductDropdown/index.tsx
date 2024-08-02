@@ -1,8 +1,8 @@
 import React from "react";
-import { CreateProductEnum } from "@/enums/product";
+import { ProductEnum } from "@/enums/product";
 
 interface ICreateProductDropdown {
-  handleClick: (value: CreateProductEnum) => void;
+  handleClick: (value: ProductEnum) => void;
 }
 
 const CreateProductDropdown: React.FC<ICreateProductDropdown> = ({
@@ -24,16 +24,16 @@ const CreateProductDropdown: React.FC<ICreateProductDropdown> = ({
           <a
             className="dropdown-item"
             href="#"
-            onClick={() => handleClick(CreateProductEnum.CABINET)}
+            onClick={() => handleClick(ProductEnum.STATIC_PRODUCT)}
           >
-            Create Cabinet
+            Create Product
           </a>
         </li>
         <li>
           <a
             className="dropdown-item"
             href="#"
-            onClick={() => handleClick(CreateProductEnum.DOOR)}
+            onClick={() => handleClick(ProductEnum.DYNAMIC_PRODUCT)}
           >
             Create Door
           </a>
@@ -42,7 +42,7 @@ const CreateProductDropdown: React.FC<ICreateProductDropdown> = ({
           <a
             className="dropdown-item"
             href="#"
-            onClick={() => handleClick(CreateProductEnum.ACCESSORIES)}
+            onClick={() => handleClick(ProductEnum.ACCESSORIES)}
           >
             Create Accessory
           </a>

@@ -5,9 +5,7 @@ import { useUpdateInfoPageMutation } from "@/lib/apiModules/infoPage/api";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
 import dynamic from "next/dynamic";
 
-const Editor = dynamic(() => import("@/components/molecules/Editor"), {
-  ssr: true,
-});
+const Editor = dynamic(() => import("@/components/molecules/Editor"));
 
 interface IUpdateInfoPageDialog {
   onClose: () => void;

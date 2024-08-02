@@ -1,5 +1,4 @@
-export enum CreateProductEnum {
-  CABINET = "CABINET",
-  DOOR = "DOOR",
-  ACCESSORIES = "ACCESSORIES",
+export enum ProductEnum {
+  STATIC_PRODUCT = "STATIC_PRODUCT",
+  DYNAMIC_PRODUCT = "DYNAMIC_PRODUCT",
 }

@@ -1,44 +1,49 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo, useCallback } from "react";
 import Dialog from "@/components/Dialogs";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
-import SelectWithValidation from "@/components/molecules/SelectWithValidation";
-import ProductStaticPropertiesForm from "@/components/Forms/Product/ProductStaticPropertiesForm";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import createProductSchema from "@/validationSchemas/product/createProductSchema";
-import { bindNonParentCategoriesSelectOption } from "@/utils/category";
-import { bindMaterialSelectOption } from "@/utils/material";
+import createStaticProductSchema from "@/validationSchemas/product/createStaticProductSchema";
+import InputWithValidation from "@/components/molecules/inputWithValidation";
+import SelectWithValidation from "@/components/molecules/SelectWithValidation";
 import { useGetNonParentCategoriesQuery } from "@/lib/apiModules/category/api";
+import { bindNonParentCategoriesSelectOption } from "@/utils/category";
+import ProductStaticPropertiesForm from "@/components/Forms/Product/ProductStaticPropertiesForm";
+import { useCreateStaticProductMutation } from "@/lib/apiModules/product/api";
 import { useGetMaterialsQuery } from "@/lib/apiModules/material/api";
+import { bindMaterialSelectOption } from "@/utils/material";
+import { TCreateStaticProductForm } from "@/types/product";
 import { PRODUCT_DEFAULT_STATIC_PROPERTIES } from "@/constants/product";
-import { useUpdateCabinetMutation } from "@/lib/apiModules/product/api";
-import { TUpdateCabinetFormRequest } from "@/types/product";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
-import UploadProductTemplate from "@/components/templates/Product/UploadProductTemplate";
 
-interface IUpdateProductDialog {
+interface ICreateStaticProductDialog {
   onClose: () => void;
 }
 
-const UpdateProductDialog: React.FC<IUpdateProductDialog> = ({
+const CreateStaticProductDialog: React.FC<ICreateStaticProductDialog> = ({
   onClose,
-  product,
 }): React.JSX.Element => {
   const { data: categories } = useGetNonParentCategoriesQuery();
   const { data: materials } = useGetMaterialsQuery("");
+  const [createProduct, { isSuccess }] = useCreateStaticProductMutation();
 
-  const [updateCabinet, { isSuccess }] = useUpdateCabinetMutation();
-  useCloseDialogHandler(isSuccess, onClose);
-
-  const { handleSubmit, control, setValue, getValues, watch } = useForm({
-    defaultValues: {
-      ...product,
-      categoryIds: product.categoryIds[0],
-    },
-    resolver: yupResolver(createProductSchema),
-    mode: "onChange",
-  });
+  const { handleSubmit, control, setValue, getValues, watch } =
+    useForm<TCreateStaticProductForm>({
+      defaultValues: {
+        name: "",
+        categoryIds: "",
+        idDynamicSize: false,
+        hasDepth: true,
+        properties: [
+          {
+            ...PRODUCT_DEFAULT_STATIC_PROPERTIES,
+          },
+        ],
+      },
+      resolver: yupResolver(createStaticProductSchema),
+      mode: "onChange",
+    });
   watch(["categoryIds", "properties"]);
+  useCloseDialogHandler(isSuccess, onClose);
 
   const materialSelectOptions = useMemo(() => {
     if (materials?.data) {
@@ -56,6 +61,7 @@ const UpdateProductDialog: React.FC<IUpdateProductDialog> = ({
 
   const handleAddNewProperties = () => {
     const previousData = getValues().properties;
+
     setValue(
       "properties",
       [
@@ -69,10 +75,10 @@ const UpdateProductDialog: React.FC<IUpdateProductDialog> = ({
   };
 
   const onSubmit = useCallback(
-    (data: TUpdateCabinetFormRequest) => {
-      updateCabinet(data);
+    (data: TCreateStaticProductForm) => {
+      createProduct({ ...data, categoryIds: [Number(data.categoryIds)] });
     },
-    [updateCabinet],
+    [createProduct],
   );
 
   return (
@@ -80,12 +86,12 @@ const UpdateProductDialog: React.FC<IUpdateProductDialog> = ({
       <div className="mt-5 w-100">
         <div className="d-flex justify-content-center mb-3">
           <div className="ml-10 text-center">
-            <h4>Update Cabinet</h4>
+            <h4>Create Product</h4>
           </div>
         </div>
       </div>
       <form className="row g-3" onSubmit={handleSubmit(onSubmit)}>
-        <div className="col-12 mb-3">
+        <div className="col-12  mb-3">
           <label htmlFor="name" className="form-label">
             Name
           </label>
@@ -106,8 +112,7 @@ const UpdateProductDialog: React.FC<IUpdateProductDialog> = ({
             placeholder="Select Category"
             value={
               nonParentCategories.find(
-                (item) =>
-                  String(item.value) === String(getValues().categoryIds),
+                (item) => String(item.value) === getValues().categoryIds,
               ) ?? null
             }
             onChange={(data) => {
@@ -121,13 +126,6 @@ const UpdateProductDialog: React.FC<IUpdateProductDialog> = ({
           />
         </div>
         <hr />
-        <UploadProductTemplate
-          productId={product.id}
-          parentMaterialIds={product.materialIds}
-          uploadedFiles={product.uploads}
-          parentMaterials={materials?.data || []}
-        />
-        <hr />
         <div className="col-12 mb-3">
           <h5 className="card-title">Properties</h5>
           <ProductStaticPropertiesForm
@@ -135,7 +133,6 @@ const UpdateProductDialog: React.FC<IUpdateProductDialog> = ({
             fields={getValues().properties}
             materials={materialSelectOptions}
             setValue={setValue}
-            watch={watch}
           />
           <hr />
           <div>
@@ -168,4 +165,4 @@ const UpdateProductDialog: React.FC<IUpdateProductDialog> = ({
   );
 };
 
-export default UpdateProductDialog;
+export default CreateStaticProductDialog;

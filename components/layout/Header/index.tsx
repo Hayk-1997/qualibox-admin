@@ -4,9 +4,6 @@ import dynamic from "next/dynamic";
 
 const AdminAccountDropDown = dynamic(
   () => import("@/components/molecules/DropDowns/AdminAccountDropDown"),
-  {
-    ssr: true,
-  },
 );
 
 const Header = (): React.JSX.Element => {

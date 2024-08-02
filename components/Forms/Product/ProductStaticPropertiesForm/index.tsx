@@ -4,14 +4,14 @@ import SelectWithValidation from "@/components/molecules/SelectWithValidation";
 import { Control, UseFormSetValue } from "react-hook-form/dist/types/form";
 import { UseControllerProps } from "react-hook-form";
 import { TSelectOptions } from "@/types/common";
+import { TStaticProductProperties } from "@/types/product";
 import Accordion from "@/components/molecules/Accordion";
-import { TCabinetProperties } from "@/types/product";
 
 interface IProductStaticPropertiesForm {
   control: UseControllerProps<Control>;
   materials: TSelectOptions[];
   setValue: UseFormSetValue<Control>;
-  fields: TCabinetProperties[];
+  fields: TStaticProductProperties[];
 }
 
 const ProductStaticPropertiesForm: React.FC<IProductStaticPropertiesForm> = ({
@@ -19,10 +19,7 @@ const ProductStaticPropertiesForm: React.FC<IProductStaticPropertiesForm> = ({
   fields,
   materials,
   setValue,
-  watch,
 }): React.JSX.Element => {
-  watch(`properties`);
-
   return (
     <>
       {fields.map((field, index) => (
