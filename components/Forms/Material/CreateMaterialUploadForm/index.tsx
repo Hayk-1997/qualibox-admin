@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import uploadMaterialSchema from "@/validationSchemas/material/materialUploadSchema";
 import { useCreateMaterialUploadMutation } from "@/lib/apiModules/material/api";
-import MaterialUploadFilePreview from "@/components/atoms/MaterialUploadFilePreview";
+import ImagePreview from "@/components/atoms/ImagePreview";
 
 const CreateMaterialUploadForm = ({ materialId }) => {
   const [createMaterialUpload] = useCreateMaterialUploadMutation();
@@ -69,7 +69,7 @@ const CreateMaterialUploadForm = ({ materialId }) => {
         />
       </div>
       <FileUpload handleChange={handleFileChange} multiple={true} />
-      <MaterialUploadFilePreview
+      <ImagePreview
         file={getValues().file}
         name="file"
         imagePreview={imagePreview}

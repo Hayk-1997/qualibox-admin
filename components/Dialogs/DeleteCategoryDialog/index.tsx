@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import Dialog from "@/components/Dialogs";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
 import { useDeleteCategoryMutation } from "@/lib/apiModules/category/api";
@@ -14,10 +14,6 @@ const DeleteCategoryDialog: React.FC<IDeleteCategoryDialog> = ({
 }) => {
   const [deleteCategory, { isSuccess }] = useDeleteCategoryMutation();
   useCloseDialogHandler(isSuccess, onClose);
-
-  const onDelete = useCallback(() => {
-    deleteCategory(categoryId);
-  }, [categoryId, deleteCategory]);
 
   return (
     <Dialog onClose={onClose}>
@@ -46,7 +42,7 @@ const DeleteCategoryDialog: React.FC<IDeleteCategoryDialog> = ({
                 <button
                   type="submit"
                   className="btn btn-success"
-                  onClick={onDelete}
+                  onClick={() => deleteCategory(categoryId)}
                 >
                   Delete
                 </button>

@@ -4,5 +4,6 @@ export type TPAgesRouterPAthNames = {
   materials: string;
   infoPages: string;
   orders: string;
+  products: string;
   login: string;
 };

@@ -1,0 +1,4 @@
+export enum ProductEnum {
+  STATIC_PRODUCT = "STATIC_PRODUCT",
+  DYNAMIC_PRODUCT = "DYNAMIC_PRODUCT",
+}

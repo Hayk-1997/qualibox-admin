@@ -22,4 +22,5 @@ export const {
   useDeleteCategoryMutation,
   useUpdateCategoryMutation,
   useCreateCategoryMutation,
+  useGetNonParentCategoriesQuery,
 } = categoryApi;

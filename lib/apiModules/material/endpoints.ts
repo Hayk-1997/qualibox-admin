@@ -2,6 +2,7 @@ import {
   TCreateMaterialFormRequest,
   TCreateMaterialUploadFormRequest,
   TMaterialsData,
+  TMaterialUploadsData,
   TUpdateMaterialFormRequest,
 } from "@/types/material";
 import { ApiEndpointBuilder } from "@/lib/apiModules/baseApi";
@@ -9,6 +10,10 @@ import { ApiEndpointBuilder } from "@/lib/apiModules/baseApi";
 export const materialEndpoint = (builder: ApiEndpointBuilder) => ({
   getMaterials: builder.query<TMaterialsData | null, string>({
     query: (query: string) => `material/all?${query}`,
+    providesTags: ["Material"],
+  }),
+  getMaterialUploads: builder.query<TMaterialUploadsData | null, string>({
+    query: (query: string) => `material/upload-files?${query}`,
     providesTags: ["Material"],
   }),
   removeMaterial: builder.mutation({

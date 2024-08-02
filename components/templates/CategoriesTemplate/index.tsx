@@ -17,23 +17,14 @@ import { handlePaginationChange } from "@/utils/url";
 
 const UpdateCategoryDialog = dynamic(
   () => import("@/components/Dialogs/UpdateCategoryDialog"),
-  {
-    ssr: true,
-  },
 );
 
 const DeleteCategoryDialog = dynamic(
   () => import("@/components/Dialogs/DeleteCategoryDialog"),
-  {
-    ssr: true,
-  },
 );
 
 const CreateCategoryDialog = dynamic(
   () => import("@/components/Dialogs/CreateCategoryDialog"),
-  {
-    ssr: true,
-  },
 );
 
 const CategoriesTemplate: React.FC = (): React.JSX.Element => {
@@ -52,7 +43,7 @@ const CategoriesTemplate: React.FC = (): React.JSX.Element => {
     {},
   );
 
-  const { data: parentCategoriesData } = useGetParentCategoriesQuery();
+  const { data: parentCategoriesData } = useGetParentCategoriesQuery("");
 
   const parentCategories = useMemo(() => {
     if (parentCategoriesData) {

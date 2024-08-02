@@ -73,7 +73,9 @@ const FileUpload: React.FC<IFileUpload> = ({
         {isDragActive ? (
           <p>Drop the files here ...</p>
         ) : (
-          <p>Drag drop some files here, or click to select files</p>
+          <p className="m-0">
+            Drag drop some files here, or click to select files
+          </p>
         )}
       </div>
     </>

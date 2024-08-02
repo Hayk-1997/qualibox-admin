@@ -13,9 +13,6 @@ import { TOrder } from "@/types/order";
 
 const UpdateOrderDialog = dynamic(
   () => import("@/components/Dialogs/Order/UpdateOrderDialog"),
-  {
-    ssr: true,
-  },
 );
 
 const OrdersPageTemplate = (): React.JSX.Element => {

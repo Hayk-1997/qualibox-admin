@@ -12,9 +12,10 @@ interface ISelectWithValidation extends UseControllerProps<Control> {
   id: string;
   value: TSelectOptions;
   options: string;
-  name: string;
   isDisabled?: boolean;
   onChange?: (data: TSelectOptions) => void;
+  isMulti?: boolean;
+  name: string;
 }
 
 const SelectWithValidation: React.FC<ISelectWithValidation> = ({
@@ -34,6 +35,12 @@ const SelectWithValidation: React.FC<ISelectWithValidation> = ({
         value={props.value}
         onChange={props.onChange ? props.onChange : () => {}}
         options={props.options}
+        isMulti={props.isMulti}
+        formatOptionLabel={function(data) {
+          return (
+            <span dangerouslySetInnerHTML={{ __html: data.label }} />
+          );
+        }}
       />
       {props.withError && fieldState.error && (
         <div className="mt-1">

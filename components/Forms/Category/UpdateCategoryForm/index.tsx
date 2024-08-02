@@ -68,7 +68,7 @@ const UpdateCategoryForm: React.FC<IUpdateCategoryForm> = ({
               <SelectWithValidation
                 id="parentId"
                 name="parentId"
-                placeholder="1"
+                placeholder="Parent Category"
                 value={
                   parentCategories.find(
                     (item) => item.value === getValues().parentId,

@@ -8,9 +8,6 @@ import dynamic from "next/dynamic";
 
 const UpdateInfoPageDialog = dynamic(
   () => import("@/components/Dialogs/InfoPageDialog"),
-  {
-    ssr: true,
-  },
 );
 
 const InfoPageTemplate = (): React.JSX.Element => {

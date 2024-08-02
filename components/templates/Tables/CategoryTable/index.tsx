@@ -5,7 +5,8 @@ import { OrderDirectionEnum } from "@/enums/common";
 import SortableHeader from "@/components/atoms/SortableHeader";
 import ButtonWithIcon from "@/components/atoms/Buttons/ButtonWithIcon";
 import Spinner from "@/components/atoms/Loaders/Spinner";
-import { TCategoriesData, TCategory, TParentCategory } from "@/types/category";
+import { TCategoriesData, TCategory } from "@/types/category";
+import { TSelectOptions } from "@/types/common";
 
 interface ICategoryTable {
   orderDirection: OrderDirectionEnum;
@@ -14,7 +15,7 @@ interface ICategoryTable {
   categories: TCategoriesData | undefined;
   onEdit: (category: TCategory) => void;
   onDelete: (category: TCategory) => void;
-  parentCategories: TParentCategory[];
+  parentCategories: TSelectOptions[] | null;
 }
 
 const CategoryTable: React.FC<ICategoryTable> = ({

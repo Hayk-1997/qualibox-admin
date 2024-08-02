@@ -1,3 +1,5 @@
+import { TUserLoginFormRequest } from "@/types/user";
+
 export type TCategory = {
   id: number;
   name: string;
@@ -6,9 +8,16 @@ export type TCategory = {
   updatedAt: string;
 };
 
+export type TNonParentCategory = {
+  id: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type TParentCategory = {
   id: number;
-  parentId: number | null;
+  name: string;
 };
 
 export type TCategoriesData = {
@@ -16,9 +25,13 @@ export type TCategoriesData = {
   total: number;
 };
 
+export type TCreateCategoryFormRequest = Pick<
+  TUserLoginFormRequest,
+  "name" | "parentId"
+>;
+
 export type TUpdateCategoryFormRequest = {
+  id: number;
   name: string;
   parentId: number | null;
 };
-
-export type TCreateCategoryFormRequest = TUpdateCategoryFormRequest;

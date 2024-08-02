@@ -57,7 +57,7 @@ const CreateCategoryForm: React.FC<ICreateCategoryForm> = ({
             <SelectWithValidation
               id="parentId"
               name="parentId"
-              placeholder="1"
+              placeholder="Parent Category"
               value={
                 parentCategories.find(
                   (item) => item.value === getValues().parentId,

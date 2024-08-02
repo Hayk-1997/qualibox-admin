@@ -60,4 +60,5 @@ export type TCustomer = {
 
 export type TUpdateOrderFormRequest = {
   status: TOrderStatus;
+  id: number;
 };
