@@ -6,4 +6,5 @@ export type TPAgesRouterPAthNames = {
   orders: string;
   products: string;
   login: string;
+  backOffice: string;
 };
