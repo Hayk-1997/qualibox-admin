@@ -1,0 +1,17 @@
+{
+  "USA_COUNTRY_STATES": [
+    {
+      "value": 0,
+      "label": "Arizona"
+    },
+    {
+      "value": 1,
+      "label": "California"
+    },
+    {
+      "value": 2,
+      "label": "Nevada"
+    }
+  ],
+  "ALLOWED_STATE_SHORT_NAMES": ["AZ", "CA", "NV"]
+}

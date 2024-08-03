@@ -16,6 +16,7 @@ import { infoPageEndpoint } from "@/lib/apiModules/infoPage/endpoints";
 import { authEndpoint } from "@/lib/apiModules/auth/endpoints";
 import { orderEndpoint } from "@/lib/apiModules/order/endpoints";
 import { productEndpoint } from "@/lib/apiModules/product/endpoints";
+import { backOfficeEndpoint } from "@/lib/apiModules/backOffice/endpoind";
 
 type ModuleName = keyof ApiModules<never, never, never, never>;
 
@@ -33,7 +34,8 @@ export type ApiEndpointBuilder = EndpointBuilder<
   | "InfoPage"
   | "Order"
   | "ParentCategory"
-  | "Product",
+  | "Product"
+  | "BackOffice",
   "api"
 >;
 
@@ -60,6 +62,7 @@ export const createBaseApi = <T extends ModuleName>(createApi: CreateApi<T>) =>
       "InfoPage",
       "Order",
       "Product",
+      "BackOffice",
     ],
     endpoints: (builder) => ({
       ...categoryEndpoint(builder),
@@ -68,5 +71,6 @@ export const createBaseApi = <T extends ModuleName>(createApi: CreateApi<T>) =>
       ...authEndpoint(builder),
       ...orderEndpoint(builder),
       ...productEndpoint(builder),
+      ...backOfficeEndpoint(builder),
     }),
   });

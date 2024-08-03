@@ -7,6 +7,7 @@ export const PAGES_ROUTER_PATH_NAMES: TPAgesRouterPAthNames = {
   infoPages: "/info-pages?orderDirection=asc&orderBy=Id",
   orders: "/orders?orderDirection=asc&orderBy=Id",
   products: "/products?orderDirection=asc&orderBy=Id",
+  backOffice: "/back-office",
   login: "/login",
 };
 
@@ -34,5 +35,9 @@ export const ADMIN_SIDEBAR_ROUTES = [
   {
     name: "Orders",
     path: PAGES_ROUTER_PATH_NAMES.orders,
+  },
+  {
+    name: "Back Office",
+    path: PAGES_ROUTER_PATH_NAMES.backOffice,
   },
 ];
