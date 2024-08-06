@@ -1,6 +1,6 @@
 import React from "react";
-import SortableButton from "@/components/atoms/buttons/sortableButton";
 import { OrderDirectionEnum } from "@/enums/common";
+import SortableButton from "@/components/atoms/Buttons/SortableButton";
 
 interface ISortableHeader {
   name: string;

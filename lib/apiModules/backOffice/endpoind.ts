@@ -2,11 +2,11 @@ import { ApiEndpointBuilder } from "@/lib/apiModules/baseApi";
 import { TBackOfficeData } from "@/types/backOffice";
 
 export const backOfficeEndpoint = (builder: ApiEndpointBuilder) => ({
-  getBackOffice: builder.query<TBackOfficeData | null>({
+  getBackOffice: builder.query<TBackOfficeData | null, unknown>({
     query: () => "back-office",
     providesTags: ["BackOffice"],
   }),
-  updateBackOffice: builder.mutation<TBackOfficeData | null>({
+  updateBackOffice: builder.mutation<TBackOfficeData | null, unknown>({
     query: (payload) => ({
       url: "back-office",
       method: "POST",

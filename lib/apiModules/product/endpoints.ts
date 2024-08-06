@@ -4,10 +4,11 @@ import {
   TUpdateDynamicProductRequest,
   TCreateStaticProductRequest,
   TCreateDynamicProductRequest,
+  TProductData,
 } from "@/types/product";
 
 export const productEndpoint = (builder: ApiEndpointBuilder) => ({
-  getProducts: builder.query<never | null, string>({
+  getProducts: builder.query<TProductData | null, never>({
     query: (query: string) => `product/all?${query}`,
     providesTags: ["Product"],
   }),
@@ -54,7 +55,7 @@ export const productEndpoint = (builder: ApiEndpointBuilder) => ({
     query: (payload: { file: File; materialId: number; productId: number }) => {
       const formData = new FormData();
       formData.append("file", payload.file);
-      formData.append("materialId", payload.materialId);
+      formData.append("materialId", String(payload.materialId));
 
       return {
         url: `product/${payload.productId}/upload-files`,

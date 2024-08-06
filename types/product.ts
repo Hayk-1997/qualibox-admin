@@ -38,6 +38,13 @@ export type TDynamicProduct = {
   properties: TDynamicProductProperties[];
 };
 
+export type TProduct<T = TStaticProduct | TDynamicProduct> = T;
+
+export type TProductData<T = TStaticProduct | TDynamicProduct> = {
+  data: T[];
+  total: number;
+};
+
 export type TCreateStaticProductForm = {
   name: string;
   categoryIds: number;

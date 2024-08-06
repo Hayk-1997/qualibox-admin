@@ -10,7 +10,7 @@ import { handlePaginationChange } from "@/utils/url";
 import ProductTable from "@/components/templates/Tables/ProductTable";
 import { sortTable } from "@/utils/element";
 import { ProductEnum } from "@/enums/product";
-import { TDynamicProduct, TStaticProduct } from "@/types/product";
+import { TDynamicProduct, TProduct, TStaticProduct } from "@/types/product";
 
 const CreateProductDropdown = dynamic(
   () => import("@/components/molecules/DropDowns/CreateProductDropdown"),
@@ -41,10 +41,14 @@ const ProductTemplate = (): React.JSX.Element => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const [openUpdateDialog, setOpenUpdateDialog] = useState<ProductEnum>("");
+  const [openUpdateDialog, setOpenUpdateDialog] = useState<
+    ProductEnum | undefined
+  >(undefined);
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
-  const [openCreateDialog, setOpenCreateDialog] = useState("");
-  const [product, setProduct] = useState(undefined);
+  const [openCreateDialog, setOpenCreateDialog] = useState<
+    ProductEnum | undefined
+  >(undefined);
+  const [product, setProduct] = useState<TProduct | undefined>(undefined);
 
   const { data: products, isLoading } = useGetProductsQuery(
     new URLSearchParams(searchParams).toString(),
@@ -54,18 +58,18 @@ const ProductTemplate = (): React.JSX.Element => {
   useEffect(() => {
     if (products && product) {
       const filteredProduct = products.data.find(
-        (item) => item.id === product.id,
+        (item: { id: number }) => item.id === (product as TProduct).id,
       );
       setProduct(filteredProduct);
     }
   }, [products, product]);
 
-  const handleDelete = useCallback((product) => {
+  const handleDelete = useCallback((product: TProduct) => {
     setOpenDeleteDialog(true);
     setProduct(product);
   }, []);
 
-  const handleEdit = useCallback((product, type: ProductEnum) => {
+  const handleEdit = useCallback((product: TProduct, type: ProductEnum) => {
     setOpenUpdateDialog(type);
     setProduct(product);
   }, []);
@@ -81,29 +85,33 @@ const ProductTemplate = (): React.JSX.Element => {
     switch (openCreateDialog) {
       case ProductEnum.STATIC_PRODUCT:
         return (
-          <CreateStaticProductDialog onClose={() => setOpenCreateDialog("")} />
+          <CreateStaticProductDialog
+            onClose={() => setOpenCreateDialog(undefined)}
+          />
         );
       case ProductEnum.DYNAMIC_PRODUCT:
         return (
-          <CreateDynamicProductDialog onClose={() => setOpenCreateDialog("")} />
+          <CreateDynamicProductDialog
+            onClose={() => setOpenCreateDialog(undefined)}
+          />
         );
     }
   }, [openCreateDialog]);
 
   const resolveUpdateProductDialog = useCallback(
-    (product) => {
+    (product: TProduct) => {
       switch (openUpdateDialog) {
         case ProductEnum.STATIC_PRODUCT:
           return (
             <UpdateStaticProductDialog
-              onClose={() => setOpenUpdateDialog("")}
+              onClose={() => setOpenUpdateDialog(undefined)}
               product={product as TStaticProduct}
             />
           );
         case ProductEnum.DYNAMIC_PRODUCT:
           return (
             <UpdateDynamicProductDialog
-              onClose={() => setOpenUpdateDialog("")}
+              onClose={() => setOpenUpdateDialog(undefined)}
               product={product as TDynamicProduct}
             />
           );
@@ -117,7 +125,7 @@ const ProductTemplate = (): React.JSX.Element => {
       {openDeleteDialog && (
         <DeleteProductDialog
           onClose={() => setOpenDeleteDialog(false)}
-          productId={product.id}
+          productId={product!.id}
         />
       )}
       <div className="pagetitle d-flex justify-content-between">
@@ -126,7 +134,7 @@ const ProductTemplate = (): React.JSX.Element => {
           handleClick={(type) => setOpenCreateDialog(type)}
         />
         {resolveCreateProductDialog()}
-        {resolveUpdateProductDialog(product)}
+        {resolveUpdateProductDialog(product!)}
       </div>
       <section className="section">
         <div className="row">

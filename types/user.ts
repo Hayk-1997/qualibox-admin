@@ -7,7 +7,7 @@ export type TUserData = {
   name: string;
   email: string;
   role: string[];
-  permission: {
+  permissions: {
     id: number;
     name: string;
   }[];

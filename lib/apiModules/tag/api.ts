@@ -3,7 +3,7 @@ import { REHYDRATE } from "redux-persist";
 import { createBaseApi } from "@/lib/apiModules/baseApi";
 import { UnknownAction } from "redux";
 
-export const authApi = createBaseApi((options) =>
+export const tagApi = createBaseApi((options) =>
   createApi({
     ...options,
     extractRehydrationInfo(action: UnknownAction, { reducerPath }) {
@@ -17,7 +17,8 @@ export const authApi = createBaseApi((options) =>
 );
 
 export const {
-  useUserLoginMutation,
-  useUserLogOutMutation,
-  useGetAuthUserQuery,
-} = authApi;
+  useGetTagsQuery,
+  useRemoveTagMutation,
+  useUpdateTagMutation,
+  useCreateTagMutation,
+} = tagApi;
