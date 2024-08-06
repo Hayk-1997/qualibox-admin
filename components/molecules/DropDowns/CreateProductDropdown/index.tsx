@@ -26,7 +26,7 @@ const CreateProductDropdown: React.FC<ICreateProductDropdown> = ({
             href="#"
             onClick={() => handleClick(ProductEnum.STATIC_PRODUCT)}
           >
-            Create Product
+            Create Cabinet
           </a>
         </li>
         <li>
