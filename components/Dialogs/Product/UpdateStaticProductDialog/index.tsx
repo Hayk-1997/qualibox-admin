@@ -15,6 +15,9 @@ import { useUpdateStaticProductMutation } from "@/lib/apiModules/product/api";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
 import UploadProductTemplate from "@/components/templates/Product/UploadProductTemplate";
 import { TStaticProduct, TUpdateStaticProductForm } from "@/types/product";
+import AttachProductTag from "@/components/molecules/AttachProductTag";
+import { useGetTagsSelectionsQuery } from "@/lib/apiModules/tag/api";
+import { bindTagSelectOption } from "@/utils/tag";
 
 interface IUpdateStaticProductDialog {
   onClose: () => void;
@@ -27,7 +30,7 @@ const UpdateStaticProductDialog: React.FC<IUpdateStaticProductDialog> = ({
 }): React.JSX.Element => {
   const { data: categories } = useGetNonParentCategoriesQuery();
   const { data: materials } = useGetMaterialsQuery("");
-
+  const { data: tagsSelections } = useGetTagsSelectionsQuery();
   const [updateProduct, { isSuccess }] = useUpdateStaticProductMutation();
   useCloseDialogHandler(isSuccess, onClose);
 
@@ -59,6 +62,13 @@ const UpdateStaticProductDialog: React.FC<IUpdateStaticProductDialog> = ({
     }
     return [];
   }, [categories]);
+
+  const tagSelectOptions = useMemo(() => {
+    if (tagsSelections) {
+      return bindTagSelectOption(tagsSelections);
+    }
+    return [];
+  }, [tagsSelections]);
 
   const handleAddNewProperties = () => {
     const previousData = getValues().properties;
@@ -127,6 +137,14 @@ const UpdateStaticProductDialog: React.FC<IUpdateStaticProductDialog> = ({
           />
         </div>
         <hr />
+        <div className="col-12 mb-3">
+          <AttachProductTag
+            options={tagSelectOptions}
+            productId={product.id}
+            attachedTag={product.tag}
+          />
+        </div>
+        <hr />
         <UploadProductTemplate
           productId={product.id}
           parentMaterialIds={product.materialIds}
@@ -141,6 +159,7 @@ const UpdateStaticProductDialog: React.FC<IUpdateStaticProductDialog> = ({
             fields={getValues().properties}
             materials={materialSelectOptions}
             setValue={setValue}
+            watch={watch}
           />
           <hr />
           <div>

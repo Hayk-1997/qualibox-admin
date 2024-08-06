@@ -42,7 +42,7 @@ const CreateProductDropdown: React.FC<ICreateProductDropdown> = ({
           <a
             className="dropdown-item"
             href="#"
-            onClick={() => handleClick(ProductEnum.ACCESSORIES)}
+            onClick={() => handleClick(ProductEnum.STATIC_PRODUCT)}
           >
             Create Accessory
           </a>

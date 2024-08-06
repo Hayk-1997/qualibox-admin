@@ -1,14 +1,20 @@
 import React from "react";
 import InputWithValidation from "@/components/molecules/inputWithValidation";
 import SelectWithValidation from "@/components/molecules/SelectWithValidation";
-import { Control, UseFormSetValue } from "react-hook-form/dist/types/form";
+import {
+  Control,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form/dist/types/form";
 import { UseControllerProps } from "react-hook-form";
 import { TSelectOptions } from "@/types/common";
 import { TStaticProductProperties } from "@/types/product";
 import Accordion from "@/components/molecules/Accordion";
+import { FieldValues } from "react-hook-form/dist/types/fields";
 
 interface IProductStaticPropertiesForm {
   control: UseControllerProps<Control>;
+  watch: UseFormWatch<FieldValues>;
   materials: TSelectOptions[];
   setValue: UseFormSetValue<Control>;
   fields: TStaticProductProperties[];
@@ -19,6 +25,7 @@ const ProductStaticPropertiesForm: React.FC<IProductStaticPropertiesForm> = ({
   fields,
   materials,
   setValue,
+  watch,
 }): React.JSX.Element => {
   return (
     <>
@@ -117,6 +124,7 @@ const ProductStaticPropertiesForm: React.FC<IProductStaticPropertiesForm> = ({
                     ) ?? null
                   }
                   onChange={(data) => {
+                    watch(`properties[${index}].materialId`);
                     setValue(
                       `properties[${index}].materialId`,
                       String(data.value),

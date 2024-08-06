@@ -26,4 +26,6 @@ export const {
   useUploadProductFileMutation,
   useRemoveProductFileMutation,
   useUpdateProductFileMaterialMutation,
+  useAttachTagMutation,
+  useUpdateProductTagMutation,
 } = productApi;

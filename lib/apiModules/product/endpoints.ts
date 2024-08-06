@@ -5,6 +5,7 @@ import {
   TCreateStaticProductRequest,
   TCreateDynamicProductRequest,
   TProductData,
+  TAttachProductTagForm,
 } from "@/types/product";
 
 export const productEndpoint = (builder: ApiEndpointBuilder) => ({
@@ -48,6 +49,22 @@ export const productEndpoint = (builder: ApiEndpointBuilder) => ({
     query: (id: number) => ({
       url: `product/${id}`,
       method: "DELETE",
+    }),
+    invalidatesTags: ["Product"],
+  }),
+  attachTag: builder.mutation<TProductData | null, unknown>({
+    query: (payload: TAttachProductTagForm) => ({
+      url: `product/attach-tag/${payload.productId}`,
+      method: "POST",
+      body: payload,
+    }),
+    invalidatesTags: ["Product"],
+  }),
+  updateProductTag: builder.mutation<TProductData | null, unknown>({
+    query: (payload: TAttachProductTagForm) => ({
+      url: `product/update-tag/${payload.productId}`,
+      method: "POST",
+      body: payload,
     }),
     invalidatesTags: ["Product"],
   }),

@@ -133,6 +133,7 @@ const CreateStaticProductDialog: React.FC<ICreateStaticProductDialog> = ({
             fields={getValues().properties}
             materials={materialSelectOptions}
             setValue={setValue}
+            watch={watch}
           />
           <hr />
           <div>
