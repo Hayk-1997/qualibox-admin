@@ -6,7 +6,7 @@ export const orderEndpoint = (builder: ApiEndpointBuilder) => ({
     query: (query: string) => `order/all?${query}`,
     providesTags: ["Order"],
   }),
-  updateOrder: builder.mutation<number>({
+  updateOrder: builder.mutation<number, unknown>({
     query: (payload: TUpdateOrderFormRequest) => {
       return {
         url: `order/${payload.id}/update`,

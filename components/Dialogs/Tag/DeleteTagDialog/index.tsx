@@ -1,28 +1,32 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Dialog from "@/components/Dialogs";
-import { useRemoveProductMutation } from "@/lib/apiModules/product/api";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
+import { useRemoveTagMutation } from "@/lib/apiModules/tag/api";
 
-interface IDeleteProductDialog {
+interface IDeleteTagDialog {
+  tagId: number;
   onClose: () => void;
-  productId: number;
 }
 
-const DeleteProductDialog: React.FC<IDeleteProductDialog> = ({
+const DeleteTagDialog: React.FC<IDeleteTagDialog> = ({
+  tagId,
   onClose,
-  productId,
 }): React.JSX.Element => {
-  const [deleteProduct, { isSuccess }] = useRemoveProductMutation();
+  const [deleteTag, { isSuccess, reset }] = useRemoveTagMutation();
   useCloseDialogHandler(isSuccess, onClose);
 
+  const onDelete = useCallback(() => {
+    deleteTag(tagId);
+  }, [deleteTag, tagId]);
+
   return (
-    <Dialog onClose={onClose}>
+    <Dialog onClose={onClose} unMountHandler={reset}>
       <div className="mt-5 w-100">
         <div className="d-flex justify-content-center mb-3">
           <div className="ml-10 text-center">
             <h4>
               <i className="ri-error-warning-line text-danger px-2"></i>
-              Are you sure to delete product
+              Are you sure to delete tag
             </h4>
           </div>
         </div>
@@ -42,7 +46,7 @@ const DeleteProductDialog: React.FC<IDeleteProductDialog> = ({
                 <button
                   type="submit"
                   className="btn btn-success"
-                  onClick={() => deleteProduct(productId)}
+                  onClick={onDelete}
                 >
                   Delete
                 </button>
@@ -55,4 +59,4 @@ const DeleteProductDialog: React.FC<IDeleteProductDialog> = ({
   );
 };
 
-export default DeleteProductDialog;
+export default DeleteTagDialog;

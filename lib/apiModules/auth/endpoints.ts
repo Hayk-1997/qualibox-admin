@@ -1,8 +1,12 @@
 import { ApiEndpointBuilder } from "@/lib/apiModules/baseApi";
-import { TUserLoginFormRequest } from "@/types/user";
+import { TUserData, TUserLoginFormRequest } from "@/types/user";
 import { setUserToken } from "@/helpers/auth";
 
 export const authEndpoint = (builder: ApiEndpointBuilder) => ({
+  getAuthUser: builder.query<TUserData | null, unknown>({
+    query: () => "me",
+    providesTags: ["User"],
+  }),
   userLogin: builder.mutation({
     query: (payload: TUserLoginFormRequest) => ({
       url: `login`,

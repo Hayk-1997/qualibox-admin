@@ -16,15 +16,15 @@ import Pagination from "@/components/atoms/Pagination";
 import { handlePaginationChange } from "@/utils/url";
 
 const UpdateCategoryDialog = dynamic(
-  () => import("@/components/Dialogs/UpdateCategoryDialog"),
+  () => import("@/components/Dialogs/Category/UpdateCategoryDialog"),
 );
 
 const DeleteCategoryDialog = dynamic(
-  () => import("@/components/Dialogs/DeleteCategoryDialog"),
+  () => import("@/components/Dialogs/Category/DeleteCategoryDialog"),
 );
 
 const CreateCategoryDialog = dynamic(
-  () => import("@/components/Dialogs/CreateCategoryDialog"),
+  () => import("@/components/Dialogs/Category/CreateCategoryDialog"),
 );
 
 const CategoriesTemplate: React.FC = (): React.JSX.Element => {

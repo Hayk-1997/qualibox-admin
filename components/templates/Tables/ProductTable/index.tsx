@@ -3,8 +3,19 @@ import SortableHeader from "@/components/atoms/SortableHeader";
 import ButtonWithIcon from "@/components/atoms/Buttons/ButtonWithIcon";
 import Spinner from "@/components/atoms/Loaders/Spinner";
 import { ProductEnum } from "@/enums/product";
+import { OrderDirectionEnum } from "@/enums/common";
+import { TProduct, TProductData } from "@/types/product";
 
-const ProductTable = ({
+interface IProductTable {
+  orderDirection: OrderDirectionEnum;
+  handleSortTable: (name: string, orderDirection: OrderDirectionEnum) => void;
+  products: TProductData;
+  onEdit: (product: TProduct, type: ProductEnum) => void;
+  onDelete: (product: TProduct) => void;
+  isLoading: boolean;
+}
+
+const ProductTable: React.FC<IProductTable> = ({
   orderDirection,
   handleSortTable,
   products,
