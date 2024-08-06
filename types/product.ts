@@ -121,3 +121,9 @@ export type TStaticProductProperties = {
   referenceId: string;
   materialId: string;
 };
+
+export type TAttachProductTagForm = {
+  productId: number;
+  tagId: number;
+  value: number;
+};

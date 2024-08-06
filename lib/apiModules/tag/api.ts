@@ -18,6 +18,7 @@ export const tagApi = createBaseApi((options) =>
 
 export const {
   useGetTagsQuery,
+  useGetTagsSelectionsQuery,
   useRemoveTagMutation,
   useUpdateTagMutation,
   useCreateTagMutation,
