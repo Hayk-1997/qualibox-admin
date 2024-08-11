@@ -12,7 +12,6 @@ const SoldProductsChart = (): React.JSX.Element => {
     year: date.getFullYear(),
   });
 
-  console.log("chartData", chartData);
   const options = useMemo(() => {
     if (chartData?.length) {
       return chartData.map((data) => ({
