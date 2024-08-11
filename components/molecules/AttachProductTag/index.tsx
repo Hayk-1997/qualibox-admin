@@ -6,6 +6,7 @@ import InputWithValidation from "@/components/molecules/inputWithValidation";
 import attachTagSchema from "@/validationSchemas/product/attachTagSchema";
 import {
   useAttachTagMutation,
+  useRemoveProductTagMutation,
   useUpdateProductTagMutation,
 } from "@/lib/apiModules/product/api";
 import { TAttachProductTagForm } from "@/types/product";
@@ -17,6 +18,7 @@ const AttachProductTag: React.FC = ({
 }): React.JSX.Element => {
   const [attachTag] = useAttachTagMutation();
   const [updateTag] = useUpdateProductTagMutation();
+  const [removeTag] = useRemoveProductTagMutation();
 
   const { control, register, setValue, getValues, watch, trigger, reset } =
     useForm<TAttachProductTagForm>({
@@ -95,6 +97,22 @@ const AttachProductTag: React.FC = ({
         </div>
         <div className="col-12 mb-3">
           <div className="d-flex justify-content-end gap-5">
+            {attachedTag && (
+              <div>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => {
+                    removeTag(productId);
+                    reset({
+                      productId: productId,
+                    });
+                  }}
+                >
+                  Remove
+                </button>
+              </div>
+            )}
             <div>
               <button
                 type="button"

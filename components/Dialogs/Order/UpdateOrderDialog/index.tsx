@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { SingleValue } from "react-select";
 import OrderStaticItems from "@/components/molecules/Order/OrderStaticItems";
 import { useUpdateOrderMutation } from "@/lib/apiModules/order/api";
+import OrderDynamicItems from "@/components/molecules/Order/OrderDynamicItems";
+import { TSelectOptions } from "@/types/common";
 
 interface IUpdateOrderDialog {
   onClose: () => void;
@@ -20,15 +22,14 @@ const UpdateOrderDialog: React.FC<IUpdateOrderDialog> = ({
   order,
 }): React.JSX.Element => {
   const [updateOrder] = useUpdateOrderMutation();
-  const { control, setValue, getValues, watch, handleSubmit } =
-    useForm<TUpdateOrderFormRequest>({
-      defaultValues: {
-        status: order.status,
-        id: order.id,
-      },
-      resolver: yupResolver(updateOrderSchema),
-      mode: "onChange",
-    });
+  const { control, setValue, getValues, watch, handleSubmit } = useForm({
+    defaultValues: {
+      status: order.status,
+      id: order.id,
+    },
+    resolver: yupResolver(updateOrderSchema),
+    mode: "onChange",
+  });
 
   watch("status");
 
@@ -72,11 +73,13 @@ const UpdateOrderDialog: React.FC<IUpdateOrderDialog> = ({
                 <SelectWithValidation
                   id="status"
                   name="status"
-                  value={ORDERS_SELECT_OPTION.find(
-                    (item) => item.value === getValues().status,
-                  )}
-                  onChange={(data: SingleValue) => {
-                    setValue("status", data.value);
+                  value={
+                    ORDERS_SELECT_OPTION.find(
+                      (item) => item.value === getValues().status,
+                    ) ?? null
+                  }
+                  onChange={(data: SingleValue<TSelectOptions>) => {
+                    setValue("status", data!.value);
                   }}
                   control={control}
                   options={ORDERS_SELECT_OPTION}
@@ -130,7 +133,11 @@ const UpdateOrderDialog: React.FC<IUpdateOrderDialog> = ({
           <div className="row">
             {order.items.map((item) => (
               <div className="col-12" key={item.id}>
-                <OrderStaticItems item={item} />
+                {item.isDynamicSize ? (
+                  <OrderDynamicItems item={item} />
+                ) : (
+                  <OrderStaticItems item={item} />
+                )}
               </div>
             ))}
           </div>

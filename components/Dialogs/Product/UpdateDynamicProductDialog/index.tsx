@@ -14,6 +14,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import updateDynamicProductSchema from "@/validationSchemas/product/updateDynamicProductSchema";
 import UploadProductTemplate from "@/components/templates/Product/UploadProductTemplate";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
+import AttachProductTag from "@/components/molecules/AttachProductTag";
+import { bindTagSelectOption } from "@/utils/tag";
+import { useGetTagsSelectionsQuery } from "@/lib/apiModules/tag/api";
 
 interface IUpdateDynamicProductDialog {
   onClose: () => void;
@@ -26,6 +29,8 @@ const UpdateDynamicProductDialog: React.FC<IUpdateDynamicProductDialog> = ({
 }): React.JSX.Element => {
   const { data: materials } = useGetMaterialsQuery("");
   const { data: categories } = useGetNonParentCategoriesQuery();
+  const { data: tagsSelections } = useGetTagsSelectionsQuery();
+
   const [updateProduct, { isSuccess }] = useUpdateDynamicProductMutation();
 
   const materialSelectOptions = useMemo(() => {
@@ -76,6 +81,13 @@ const UpdateDynamicProductDialog: React.FC<IUpdateDynamicProductDialog> = ({
       setValue("materialIds", selectedMaterialSelectOptions);
     }
   }, [setValue, selectedMaterialSelectOptions]);
+
+  const tagSelectOptions = useMemo(() => {
+    if (tagsSelections) {
+      return bindTagSelectOption(tagsSelections);
+    }
+    return [];
+  }, [tagsSelections]);
 
   const onSubmit = useCallback(
     (data: TUpdateDynamicProductForm) => {
@@ -150,6 +162,14 @@ const UpdateDynamicProductDialog: React.FC<IUpdateDynamicProductDialog> = ({
             control={control}
             options={materialSelectOptions}
             withError={true}
+          />
+        </div>
+        <hr />
+        <div className="col-12 mb-3">
+          <AttachProductTag
+            options={tagSelectOptions}
+            productId={product.id}
+            attachedTag={product.tag}
           />
         </div>
         <hr />

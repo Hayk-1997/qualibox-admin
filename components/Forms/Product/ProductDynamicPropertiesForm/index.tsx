@@ -1,12 +1,12 @@
 import React from "react";
 import InputWithValidation from "@/components/molecules/inputWithValidation";
 import { Control } from "react-hook-form/dist/types/form";
-import { UseControllerProps } from "react-hook-form";
 import { TDynamicProductProperties } from "@/types/product";
 import Accordion from "@/components/molecules/Accordion";
+import { FieldValues } from "react-hook-form/dist/types/fields";
 
 interface IProductDynamicPropertiesForm {
-  control: UseControllerProps<Control>;
+  control: Control<FieldValues, never>;
   fields: TDynamicProductProperties[];
 }
 
@@ -18,7 +18,7 @@ const ProductDynamicPropertiesForm: React.FC<IProductDynamicPropertiesForm> = ({
     <>
       {fields.map((field, index) => (
         <React.Fragment key={index}>
-          <Accordion title={field.referenceId} item={index}>
+          <Accordion title={field.referenceId} item={String(index)}>
             <div className="row">
               <div className="col-4 mb-3">
                 <label htmlFor="minWidth" className="form-label">

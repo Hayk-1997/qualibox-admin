@@ -5,7 +5,9 @@ import { useUpdateInfoPageMutation } from "@/lib/apiModules/infoPage/api";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
 import dynamic from "next/dynamic";
 
-const Editor = dynamic(() => import("@/components/molecules/Editor"));
+const Editor = dynamic(() => import("@/components/molecules/Editor"), {
+  loading: () => <div>Loading...</div>,
+});
 
 interface IUpdateInfoPageDialog {
   onClose: () => void;
@@ -58,7 +60,7 @@ const UpdateInfoPageDialog: React.FC<IUpdateInfoPageDialog> = ({
                 onClick={onSubmit}
                 className="btn btn-success"
               >
-                Submit Form
+                Update Form
               </button>
             </div>
           </div>

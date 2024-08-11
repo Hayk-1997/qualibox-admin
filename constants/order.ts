@@ -8,7 +8,7 @@ export const ORDER_STATUS = {
   canceled: "Canceled",
 };
 
-export const ORDERS_SELECT_OPTION: TSelectOptions[] = [
+export const ORDERS_SELECT_OPTION: TSelectOptions<string>[] = [
   {
     value: "accepted",
     label: "Accepted",

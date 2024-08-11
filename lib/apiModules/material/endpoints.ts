@@ -56,7 +56,7 @@ export const materialEndpoint = (builder: ApiEndpointBuilder) => ({
       formData.append("file", payload.file);
       formData.append("name", payload.name);
       formData.append("description", payload.description);
-      formData.append("materialId", payload.materialId);
+      formData.append("materialId", String(payload.materialId));
 
       return {
         url: `material/${payload.materialId}/upload-files`,

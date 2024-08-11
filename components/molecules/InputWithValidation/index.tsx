@@ -1,13 +1,13 @@
 import React, { memo } from "react";
 import { useController, UseControllerProps } from "react-hook-form";
-import { Control, UseFormRegister } from "react-hook-form/dist/types/form";
+import { UseFormRegister } from "react-hook-form/dist/types/form";
 import { FieldValues } from "react-hook-form/dist/types/fields";
 import cn from "classnames";
 import FormErrorMessage from "@/components/molecules/FormErrorMessage";
 
 import styles from "./styles.module.scss";
 
-interface InputProps extends UseControllerProps<Control> {
+interface InputProps extends UseControllerProps {
   type: string;
   placeholder?: string;
   withError?: boolean;
@@ -18,7 +18,7 @@ interface InputProps extends UseControllerProps<Control> {
 }
 
 const InputWitValidation: React.FC<InputProps> = ({
-  type = 'text',
+  type = "text",
   ...props
 }): React.JSX.Element => {
   const { field, fieldState } = useController(props);
@@ -39,7 +39,7 @@ const InputWitValidation: React.FC<InputProps> = ({
             ...props.pattern,
           }),
         })}
-        {...(props.type === "number" && { min: 0 })}
+        {...(type === "number" && { min: 0 })}
       />
       {props.withError && fieldState.error && (
         <div className="mt-1">

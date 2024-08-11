@@ -1,4 +1,4 @@
-import { TStaticProperties } from "@/types/property";
+import { TDynamicProperties, TStaticProperties } from "@/types/property";
 
 export type TOrder = {
   id: string;
@@ -18,12 +18,12 @@ export type TOrder = {
   deletedAt: string;
 };
 
-export type TOrderItems = {
+export type TOrderItems<P = TDynamicProperties | TStaticProperties> = {
   id: number;
   price: number;
   productName: string;
   quantity: string;
-  properties: TStaticProperties;
+  properties: P;
   thumbnail: {
     id: number;
     materialId: number;
@@ -61,4 +61,9 @@ export type TCustomer = {
 export type TUpdateOrderFormRequest = {
   status: TOrderStatus;
   id: number;
+};
+
+export type TSoldProductsChart = {
+  product_name: string;
+  total_quantity: number;
 };

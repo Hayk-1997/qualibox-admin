@@ -1,7 +1,8 @@
 import React from "react";
+import DashboardTemplate from "@/components/templates/DashboardTemplate";
 
-const DashboardPage = () => {
-  return <div>Dashboard Page</div>;
+const DashboardPage = (): React.JSX.Element => {
+  return <DashboardTemplate />;
 };
 
 export default DashboardPage;

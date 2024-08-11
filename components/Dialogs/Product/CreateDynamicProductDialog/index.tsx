@@ -17,7 +17,7 @@ import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
 
 const CreateDynamicProductDialog = ({ onClose }): React.JSX.Element => {
   const { data: materials } = useGetMaterialsQuery("");
-  const { data: categories } = useGetNonParentCategoriesQuery();
+  const { data: categories } = useGetNonParentCategoriesQuery("");
   const [createProduct, { isSuccess }] = useCreateDynamicProductMutation();
 
   const materialSelectOptions = useMemo(() => {
@@ -34,23 +34,22 @@ const CreateDynamicProductDialog = ({ onClose }): React.JSX.Element => {
     return [];
   }, [categories]);
 
-  const { handleSubmit, control, setValue, getValues, watch } =
-    useForm<TCreateDynamicProductForm>({
-      defaultValues: {
-        name: "",
-        categoryIds: "",
-        materialIds: [],
-        hasDepth: true,
-        isDynamicSize: true,
-        properties: [
-          {
-            ...DYNAMIC_PRODUCT_DEFAULT_PROPERTIES,
-          },
-        ],
-      },
-      resolver: yupResolver(createDynamicProductSchema),
-      mode: "onChange",
-    });
+  const { handleSubmit, control, setValue, getValues, watch } = useForm({
+    defaultValues: {
+      name: "",
+      categoryIds: "",
+      materialIds: [],
+      hasDepth: true,
+      isDynamicSize: true,
+      properties: [
+        {
+          ...DYNAMIC_PRODUCT_DEFAULT_PROPERTIES,
+        },
+      ],
+    },
+    resolver: yupResolver(createDynamicProductSchema),
+    mode: "onChange",
+  });
   watch(["materialIds", "properties", "categoryIds"]);
   useCloseDialogHandler(isSuccess, onClose);
 

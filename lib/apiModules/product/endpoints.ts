@@ -68,6 +68,13 @@ export const productEndpoint = (builder: ApiEndpointBuilder) => ({
     }),
     invalidatesTags: ["Product"],
   }),
+  removeProductTag: builder.mutation({
+    query: (productId: number) => ({
+      url: `product/remove-tag/${productId}`,
+      method: "DELETE",
+    }),
+    invalidatesTags: ["Product"],
+  }),
   uploadProductFile: builder.mutation({
     query: (payload: { file: File; materialId: number; productId: number }) => {
       const formData = new FormData();

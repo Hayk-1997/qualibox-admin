@@ -1,5 +1,5 @@
-export type TSelectOptions = {
-  value: number;
+export type TSelectOptions<V = number | string> = {
+  value: V;
   label: string;
 };
 

@@ -1,13 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import { TOrderItems } from "@/types/order";
-import { TStaticProperties } from "@/types/property";
+import { TDynamicProperties } from "@/types/property";
 
-interface IOrderStaticItems {
-  item: TOrderItems<TStaticProperties>;
+interface IOrderDynamicItems {
+  item: TOrderItems<TDynamicProperties>;
 }
 
-const OrderStaticItems: React.FC<IOrderStaticItems> = ({
+const OrderDynamicItems: React.FC<IOrderDynamicItems> = ({
   item,
 }): React.JSX.Element => {
   return (
@@ -34,15 +34,15 @@ const OrderStaticItems: React.FC<IOrderStaticItems> = ({
             </div>
             <div className="row mb-3">
               <div className="label col-3">Width</div>
-              <div className="col-8">{item.properties.width.value}</div>
+              <div className="col-8">{item.properties.width}</div>
             </div>
             <div className="row mb-3">
               <div className="label col-3">Height</div>
-              <div className="col-8">{item.properties.height.value}</div>
+              <div className="col-8">{item.properties.height}</div>
             </div>
             <div className="row mb-3">
               <div className="label col-3">Depth</div>
-              <div className="col-8">{item.properties.depth.value}</div>
+              <div className="col-8">{item.properties.depth}</div>
             </div>
             <div className="row mb-3">
               <div className="label col-3">Material</div>
@@ -59,4 +59,4 @@ const OrderStaticItems: React.FC<IOrderStaticItems> = ({
   );
 };
 
-export default OrderStaticItems;
+export default OrderDynamicItems;

@@ -7,7 +7,7 @@ export const tagEndpoint = (builder: ApiEndpointBuilder) => ({
     providesTags: ["Tag"],
   }),
   getTagsSelections: builder.query<TTag[] | null, unknown>({
-    query: () => `tag/get-all-selections`,
+    query: () => `tag/all-selections`,
     providesTags: ["Tag"],
   }),
   removeTag: builder.mutation<number, null | unknown>({

@@ -1,21 +1,19 @@
 import React from "react";
 import Select from "react-select";
 import { useController, UseControllerProps } from "react-hook-form";
-import { Control } from "react-hook-form/dist/types/form";
 import { TSelectOptions } from "@/types/common";
 import { selectDropDownStyles } from "@/utils/element";
 import FormErrorMessage from "@/components/molecules/FormErrorMessage";
 
-interface ISelectWithValidation extends UseControllerProps<Control> {
+interface ISelectWithValidation extends UseControllerProps {
   placeholder?: string;
   withError: boolean;
   id: string;
-  value: TSelectOptions;
-  options: string;
+  value: TSelectOptions | null;
+  options: TSelectOptions[];
   isDisabled?: boolean;
   onChange?: (data: TSelectOptions) => void;
   isMulti?: boolean;
-  name: string;
 }
 
 const SelectWithValidation: React.FC<ISelectWithValidation> = ({
@@ -36,10 +34,8 @@ const SelectWithValidation: React.FC<ISelectWithValidation> = ({
         onChange={props.onChange ? props.onChange : () => {}}
         options={props.options}
         isMulti={props.isMulti}
-        formatOptionLabel={function(data) {
-          return (
-            <span dangerouslySetInnerHTML={{ __html: data.label }} />
-          );
+        formatOptionLabel={function (data) {
+          return <span dangerouslySetInnerHTML={{ __html: data.label }} />;
         }}
       />
       {props.withError && fieldState.error && (

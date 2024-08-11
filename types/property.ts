@@ -12,4 +12,26 @@ export type TStaticProperties = {
   depth: Property;
   price: Property;
   cost: Property;
+  material: {
+    id: number;
+    name: string;
+    parentMaterialId: number;
+    parentMaterialName: string;
+    path: string;
+    price: number;
+  };
+};
+
+export type TDynamicProperties = {
+  depth: string;
+  height: string;
+  width: string;
+  material: {
+    id: number;
+    name: string;
+    parentMaterialId: number;
+    parentMaterialName: string;
+    path: string;
+    price: number;
+  };
 };
