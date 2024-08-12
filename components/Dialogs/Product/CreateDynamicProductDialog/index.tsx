@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import Dialog from "@/components/Dialogs";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
+import InputWithValidation from "@/components/molecules/InputWithValidation";
 import SelectWithValidation from "@/components/molecules/SelectWithValidation";
 import { useForm } from "react-hook-form";
 import { DYNAMIC_PRODUCT_DEFAULT_PROPERTIES } from "@/constants/product";
@@ -15,7 +15,13 @@ import { useCreateDynamicProductMutation } from "@/lib/apiModules/product/api";
 import { TCreateDynamicProductForm } from "@/types/product";
 import { useCloseDialogHandler } from "@/hooks/useCloseDialogHandler";
 
-const CreateDynamicProductDialog = ({ onClose }): React.JSX.Element => {
+interface ICreateDynamicProductDialog {
+  onClose: () => void;
+}
+
+const CreateDynamicProductDialog: React.FC<ICreateDynamicProductDialog> = ({
+  onClose,
+}): React.JSX.Element => {
   const { data: materials } = useGetMaterialsQuery("");
   const { data: categories } = useGetNonParentCategoriesQuery("");
   const [createProduct, { isSuccess }] = useCreateDynamicProductMutation();

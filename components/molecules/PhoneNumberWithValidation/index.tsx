@@ -5,7 +5,7 @@ import FormErrorMessage from "../FormErrorMessage";
 import { useController, UseControllerProps } from "react-hook-form";
 import { Control } from "react-hook-form/dist/types/form";
 
-import styles from "../inputWithValidation/styles.module.scss";
+import styles from "../InputWithValidation/styles.modules.scss";
 
 const PhoneNumberWithValidation: React.FC<UseControllerProps<Control>> = (
   props,

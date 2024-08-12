@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from "react";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
+import InputWithValidation from "@/components/molecules/InputWithValidation";
 import FileUpload from "@/components/molecules/FileUpload";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,7 +7,7 @@ import uploadMaterialSchema from "@/validationSchemas/material/materialUploadSch
 import { useCreateMaterialUploadMutation } from "@/lib/apiModules/material/api";
 import ImagePreview from "@/components/atoms/ImagePreview";
 
-const CreateMaterialUploadForm = ({ materialId }) => {
+const CreateMaterialUploadForm = ({ materialId }): React.JSX.Element => {
   const [createMaterialUpload] = useCreateMaterialUploadMutation();
   const imagePreview = useRef();
   const { handleSubmit, control, setValue, getValues, watch, clearErrors } =

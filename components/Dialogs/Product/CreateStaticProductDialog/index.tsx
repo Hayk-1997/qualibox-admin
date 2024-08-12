@@ -3,7 +3,7 @@ import Dialog from "@/components/Dialogs";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import createStaticProductSchema from "@/validationSchemas/product/createStaticProductSchema";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
+import InputWithValidation from "@/components/molecules/InputWithValidation";
 import SelectWithValidation from "@/components/molecules/SelectWithValidation";
 import { useGetNonParentCategoriesQuery } from "@/lib/apiModules/category/api";
 import { bindNonParentCategoriesSelectOption } from "@/utils/category";

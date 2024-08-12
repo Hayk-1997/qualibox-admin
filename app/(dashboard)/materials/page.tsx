@@ -1,5 +1,12 @@
 import React from "react";
-import MaterialsPageTemplate from "@/components/templates/Material/MaterialsPageTemplate";
+import dynamic from "next/dynamic";
+
+const MaterialsPageTemplate = dynamic(
+  () => import("@/components/templates/Material/MaterialsPageTemplate"),
+  {
+    ssr: true,
+  },
+);
 
 const MaterialsPage = (): React.JSX.Element => {
   return <MaterialsPageTemplate />;

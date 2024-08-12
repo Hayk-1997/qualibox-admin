@@ -1,5 +1,5 @@
 import React from "react";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
+import InputWithValidation from "@/components/molecules/InputWithValidation";
 import SelectWithValidation from "@/components/molecules/SelectWithValidation";
 import {
   Control,

@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
+import InputWithValidation from "@/components/molecules/InputWithValidation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useCreateTagMutation } from "@/lib/apiModules/tag/api";

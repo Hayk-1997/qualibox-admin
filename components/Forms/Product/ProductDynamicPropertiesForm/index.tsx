@@ -1,5 +1,5 @@
 import React from "react";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
+import InputWithValidation from "@/components/molecules/InputWithValidation";
 import { Control } from "react-hook-form/dist/types/form";
 import { TDynamicProductProperties } from "@/types/product";
 import Accordion from "@/components/molecules/Accordion";

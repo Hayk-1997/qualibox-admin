@@ -1,13 +1,12 @@
 import React, { memo } from "react";
 import Image from "next/image";
 import { useController, UseControllerProps } from "react-hook-form";
-import { Control } from "react-hook-form/dist/types/form";
 import FormErrorMessage from "@/components/molecules/FormErrorMessage";
 
-interface IImagePreview extends UseControllerProps<Control> {
+interface IImagePreview extends UseControllerProps {
   file: File;
   onRemove: () => void;
-  imagePreview: React.RefObject<>;
+  imagePreview: React.RefObject<never>;
   showError: boolean;
   title?: string;
 }
@@ -39,16 +38,18 @@ const ImagePreview: React.FC<IImagePreview> = ({
                 height: "auto",
               }}
             />
-            {
-              showRemoveButton && (
-                <div className="d-flex mt-1">
-                  <button className="btn btn-danger" type="button" onClick={onRemove}>
-                    <i className="ri-close-circle-fill m-1" />
-                    Remove
-                  </button>
-                </div>
-              )
-            }
+            {showRemoveButton && (
+              <div className="d-flex mt-1">
+                <button
+                  className="btn btn-danger"
+                  type="button"
+                  onClick={onRemove}
+                >
+                  <i className="ri-close-circle-fill m-1" />
+                  Remove
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

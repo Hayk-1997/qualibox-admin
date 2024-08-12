@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from "react";
 import Dialog from "@/components/Dialogs";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
+import InputWithValidation from "@/components/molecules/InputWithValidation";
 import SelectWithValidation from "@/components/molecules/SelectWithValidation";
 import ProductDynamicPropertiesForm from "@/components/Forms/Product/ProductDynamicPropertiesForm";
 import { useGetMaterialsQuery } from "@/lib/apiModules/material/api";

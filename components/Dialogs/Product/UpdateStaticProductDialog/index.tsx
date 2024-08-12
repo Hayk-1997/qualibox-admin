@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import Dialog from "@/components/Dialogs";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
+import InputWithValidation from "@/components/molecules/InputWithValidation";
 import SelectWithValidation from "@/components/molecules/SelectWithValidation";
 import ProductStaticPropertiesForm from "@/components/Forms/Product/ProductStaticPropertiesForm";
 import { useForm } from "react-hook-form";

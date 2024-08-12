@@ -5,7 +5,7 @@ import loginSchema from "@/validationSchemas/loginSchema";
 import { TUserLoginFormRequest } from "@/types/user";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
+import InputWithValidation from "@/components/molecules/InputWithValidation";
 import { useUserLoginMutation } from "@/lib/apiModules/auth/api";
 import FormErrorMessage from "@/components/molecules/FormErrorMessage";
 import { useRouter } from "next/navigation";

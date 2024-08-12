@@ -4,7 +4,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { TCreateCategoryFormRequest } from "@/types/category";
 import { yupResolver } from "@hookform/resolvers/yup";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
+import InputWithValidation from "@/components/molecules/InputWithValidation";
 import SelectWithValidation from "@/components/molecules/SelectWithValidation";
 import { TSelectOptions } from "@/types/common";
 import createCategorySchema from "@/validationSchemas/category/createCategorySchema";

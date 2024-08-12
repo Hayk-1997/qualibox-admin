@@ -5,7 +5,7 @@ import { TCategory, TUpdateCategoryFormRequest } from "@/types/category";
 import { TSelectOptions } from "@/types/common";
 import SelectWithValidation from "@/components/molecules/SelectWithValidation";
 import updateCategorySchema from "@/validationSchemas/category/updateCategorySchema";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
+import InputWithValidation from "@/components/molecules/InputWithValidation";
 import { useUpdateCategoryMutation } from "@/lib/apiModules/category/api";
 
 interface IUpdateCategoryForm {

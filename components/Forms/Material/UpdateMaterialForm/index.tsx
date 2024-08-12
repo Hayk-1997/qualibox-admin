@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { TMaterial, TUpdateMaterialForm } from "@/types/material";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
+import InputWithValidation from "@/components/molecules/InputWithValidation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import updateMaterialSchema from "@/validationSchemas/material/updateMaterialSchema";

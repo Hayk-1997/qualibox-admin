@@ -5,9 +5,9 @@ import { FieldValues } from "react-hook-form/dist/types/fields";
 import cn from "classnames";
 import FormErrorMessage from "@/components/molecules/FormErrorMessage";
 
-import styles from "./styles.module.scss";
+import styles from "./styles.modules.scss";
 
-interface InputProps extends UseControllerProps {
+interface IInputWithValidation extends UseControllerProps {
   type: string;
   placeholder?: string;
   withError?: boolean;
@@ -17,7 +17,7 @@ interface InputProps extends UseControllerProps {
   disabled?: boolean;
 }
 
-const InputWitValidation: React.FC<InputProps> = ({
+const InputWithValidation: React.FC<IInputWithValidation> = ({
   type = "text",
   ...props
 }): React.JSX.Element => {
@@ -50,4 +50,4 @@ const InputWitValidation: React.FC<InputProps> = ({
   );
 };
 
-export default memo(InputWitValidation);
+export default memo(InputWithValidation);

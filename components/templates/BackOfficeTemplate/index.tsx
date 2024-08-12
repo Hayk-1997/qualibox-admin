@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
+import InputWithValidation from "@/components/molecules/InputWithValidation";
 import PhoneNumberWithValidation from "@/components/molecules/PhoneNumberWithValidation";
 import PlaceAutoCompleteWithValidation from "@/components/molecules/PlaceAutoCompleteWithValidation";
 import backOfficeSchema from "@/validationSchemas/backOffice";

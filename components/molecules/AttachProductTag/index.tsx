@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import SelectWithValidation from "@/components/molecules/SelectWithValidation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import InputWithValidation from "@/components/molecules/inputWithValidation";
+import InputWithValidation from "@/components/molecules/InputWithValidation";
 import attachTagSchema from "@/validationSchemas/product/attachTagSchema";
 import {
   useAttachTagMutation,
