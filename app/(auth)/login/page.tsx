@@ -1,5 +1,5 @@
 import React from "react";
-import LoginForm from "@/components/forms/LoginForm";
+import LoginForm from "@/components/Forms/LoginForm";
 
 const LoginPage: React.FC = (): React.JSX.Element => {
   return (
