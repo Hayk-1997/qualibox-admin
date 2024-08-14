@@ -1,15 +1,15 @@
 import { TPagesRouterPAthNames } from "@/types/router";
 
 export const PAGES_ROUTER_PATH_NAMES: TPagesRouterPAthNames = {
-  dashboard: "/dashboard",
-  categories: "/categories?orderDirection=asc&orderBy=Id",
-  materials: "/materials?orderDirection=asc&orderBy=Id",
-  infoPages: "/info-pages?orderDirection=asc&orderBy=Id",
-  orders: "/orders?orderDirection=asc&orderBy=Id",
-  products: "/products?orderDirection=asc&orderBy=Id",
-  tags: "/tags?orderDirection=asc&orderBy=Id",
-  backOffice: "/back-office",
-  login: "/login",
+  dashboard: "/admin/dashboard",
+  categories: "/admin/categories?orderDirection=asc&orderBy=Id",
+  materials: "/admin/materials?orderDirection=asc&orderBy=Id",
+  infoPages: "/admin/info-pages?orderDirection=asc&orderBy=Id",
+  orders: "/admin/orders?orderDirection=asc&orderBy=Id",
+  products: "/admin/products?orderDirection=asc&orderBy=Id",
+  tags: "/admin/tags?orderDirection=asc&orderBy=Id",
+  backOffice: "/admin/back-office",
+  login: "/admin/login",
 };
 
 export const ADMIN_SIDEBAR_ROUTES = [

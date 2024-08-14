@@ -34,7 +34,7 @@ export default function RootLayout(
           <link href="/assets/css/style.css" rel="stylesheet" />
           <link href="/assets/css/pagination.css" rel="stylesheet" />
 
-          <title>{process.env.NEXT_APP_NAME} Admin</title>
+          <title>Qualibox Admin</title>
         </head>
         <body suppressHydrationWarning={true}>
           {props.children}

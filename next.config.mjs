@@ -17,7 +17,6 @@ const nextConfig = {
       }
     ],
   },
-
   webpack: (
     config,
     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
@@ -36,7 +35,7 @@ const nextConfig = {
       // Basic redirect
       {
         source: '/',
-        destination: '/dashboard',
+        destination: '/admin/dashboard',
         permanent: false,
       },
     ]

@@ -27,7 +27,7 @@ export const rtkQueryErrorLogger: Middleware =
       ((action?.payload as { status: number }).status === 401 ||
         (action?.payload as { responseStatus: number }).responseStatus === 401)
     ) {
-      window.location.href = "/login";
+      window.location.href = "/admin/login";
     }
 
     return next(action);
