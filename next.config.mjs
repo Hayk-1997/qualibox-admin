@@ -17,7 +17,7 @@ const nextConfig = {
       }
     ],
   },
-
+  basePath: '/admin',
   webpack: (
     config,
     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }

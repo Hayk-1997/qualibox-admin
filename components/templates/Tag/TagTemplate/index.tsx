@@ -84,7 +84,7 @@ const TagTemplate = (): React.JSX.Element => {
                   onDelete={handleDelete}
                 />
               </div>
-              {tags?.total && (
+              {!!tags?.total && (
                 <Pagination
                   count={tags.total}
                   currentPage={Number(searchParams.get("page")) || 1}
