@@ -4,7 +4,7 @@ import { useGetAllCustomersCountQuery } from "@/lib/apiModules/order/api";
 import Spinner from "@/components/atoms/Loaders/Spinner";
 
 const CustomersWidget = (): React.JSX.Element => {
-  const { data: customerCount } = useGetAllCustomersCountQuery("");
+  const { data: customerCount, isLoading } = useGetAllCustomersCountQuery("");
 
   return (
     <div className="card info-card customers-card">
@@ -15,7 +15,7 @@ const CustomersWidget = (): React.JSX.Element => {
             <i className="bi bi-people" />
           </div>
           <div className="ps-3">
-            {customerCount ? <h6>{customerCount}</h6> : <Spinner />}
+            {isLoading ? <Spinner /> : <h6>{customerCount}</h6>}
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ import { PAGES_ROUTER_PATH_NAMES } from "@/constants/router";
 const AdminAccountDropDown = (): React.JSX.Element => {
   const router = useRouter();
 
-  const { data: authUser } = useGetAuthUserQuery();
+  const { data: authUser } = useGetAuthUserQuery("");
   const [userLogOut, { isSuccess }] = useUserLogOutMutation();
 
   useEffect(() => {

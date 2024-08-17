@@ -25,6 +25,7 @@ const SoldProductsChart = (): React.JSX.Element => {
   return (
     <div className="card info-card sales-card">
       <div className="p-4">
+        <h5 className="card-title">Select Date</h5>
         <DatePicker date={date} onChange={setDate} />
       </div>
       <div className="card-body p-0">
@@ -32,7 +33,7 @@ const SoldProductsChart = (): React.JSX.Element => {
           <div className="col-sm-12 col-md-4">
             <Chart options={options} />
           </div>
-          <div className="col-sm-12 col-md-6">
+          <div className="col-sm-12 col-md-6 overflow-y-scroll sold-products-list">
             <ul className="list-group">
               {options.map((item, index) => (
                 <li
