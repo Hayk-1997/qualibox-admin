@@ -66,6 +66,7 @@ const OrderTable: React.FC<IOrderTable> = ({
                   <ButtonWithIcon
                     icon="ri-delete-bin-4-line"
                     className="btn-danger"
+                    disabled={true}
                     onClick={() => onDelete(order)}
                   />
                 </div>

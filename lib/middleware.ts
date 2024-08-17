@@ -2,6 +2,7 @@
 import { createLogger } from "redux-logger";
 import { isRejectedWithValue } from "@reduxjs/toolkit";
 import type { Middleware } from "@reduxjs/toolkit";
+import { PAGES_ROUTER_PATH_NAMES } from "@/constants/router";
 
 export const loggerMiddleware = [
   createLogger({
@@ -27,7 +28,7 @@ export const rtkQueryErrorLogger: Middleware =
       ((action?.payload as { status: number }).status === 401 ||
         (action?.payload as { responseStatus: number }).responseStatus === 401)
     ) {
-      window.location.href = "/login";
+      window.location.href = `/admin${PAGES_ROUTER_PATH_NAMES.login}`;
     }
 
     return next(action);

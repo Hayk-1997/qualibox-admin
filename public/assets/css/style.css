@@ -1234,3 +1234,8 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+.sold-products-list {
+  max-height: 150px;
+  height: 100%;
+}
